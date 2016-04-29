@@ -9,14 +9,15 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 <?php include 'interface/sidebar.php';?>
 
 <div class="col-xs-8 text-left">
+
 	  <div class="panel-body">
     <div class="container">
       <h1>文件管理</small></h1>
 	  <hr>
 	   
 		<div class="container">
-		 <button type="button" class="btn btn-primary">添加文件</button>         
-		<button type="button" class="btn btn-danger">删除文件</button>
+		 <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#AddModal">添加文件</button>         
+		<button type="button" class="btn btn-danger" data-toggle="modal"  data-target="#DELModal">删除文件</button>
 		 <table class="table table-hover">
    <thead>
       <tr>
@@ -80,11 +81,87 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 </div>
 </div>
 </div>
+</div>
+<!-- 添加模态框（Modal） -->
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+             添加资源
+            </h4>
+         </div>
+         <div class="modal-body">
+            <form role="form">
+  <div class="form-group">
+    <label for="name">资源名称</label>
+    <input type="text" class="form-control" placeholder="请输入资源名称" name="zytitle">
+	</div>
+	  <div class="form-group">
+    <label for="name">资源地址</label>
+    <input type="text" class="form-control" placeholder="请输入资源下载时跳转的下载地址" name="zylink">
+	</div>
+	<div class="form-group">
+	 <label for="name">资源下载权限</label>
+      <select class="form-control">
+         <option>游客</option>
+         <option>普通用户</option>
+         <option>高级用户</option>
+         <option>机密</option>
+      </select>
 
+</div>
+ </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary">
+               添加
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+<!-- 删除模态框（Modal） -->
+<div class="modal fade" id="DELModal" tabindex="-2" role="dialog" aria-labelledby="DELModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+             添加资源
+            </h4>
+         </div>
+         <div class="modal-body">
+         你确认要删除'XXXXXX'吗？
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary">
+               删除
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
       <script src="https://code.jquery.com/jquery.js"></script>
       <!-- 包括所有已编译的插件 -->
-      <script src="js/bootstrap.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+	  <Script>
+	  function LoadAddWindows(){
+			$('#ModalAdd').modal('show');
+		}
+	  </script>
 	  <script>
 		$(function(){
 			function initTableCheckbox() {
@@ -129,8 +206,18 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 				});
 			}
 			initTableCheckbox();
+			// dom加载完毕
+   
 		});
+		$("[data-toggle='modal']").click(function(){
+ var _target = $(this).attr('data-target')
+ t=setTimeout(function () {
+ var _modal = $(_target).find(".modal-dialog")
+ _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 )},200)
+ })
 		</script>
+		
+
 </body>
 <?php include 'interface/footer.php';?>
 </html>
