@@ -2,7 +2,21 @@
 <?php 
 $nowpageid=2;
 include 'interface/header.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+empty($tioajian)&&$tiaojian="";
+empty($_GET['findstr'])&&$_GET['findstr']="";
+empty($_GET['pageid'])&&$_GET['pageid']=1;
+empty($page)&&$page=1;
+$tiaojian=test_input($_GET['findstr']);
+$page=$_GET['pageid'];
+$nowpageid=2;
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 ?>
 <body>
 <div class="row">
@@ -16,65 +30,99 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 	  <hr>
 	   
 		<div class="container">
-		 <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#AddModal">添加文件</button>         
-		<button type="button" class="btn btn-danger" data-toggle="modal"  data-target="#DELModal">删除文件</button>
-		 <table class="table table-hover">
+		 <a href="interface/window/add.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary">添加文件</button></a>
+		<a href="interface/window/del.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger">删除文件</button></a>
+		<?php
+ 
+ ////设定每一页显示的记录数
+$pagesize=8;
+ $con=connectdb();
+  mysqli_query($con,"set names 'utf8'");
+ //构建sql
+ if(empty($tiaojian)){
+	  $sql="select %tj% from bw_downtable ";  
+ }else{
+	 $sql="select %tj% from bw_downtable and filename like '%".$tiaojian."%'";  
+ }
+ //计算页数
+$res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
+$myrow = mysqli_fetch_array($res);
+$numrows=$myrow[0];
+//计算总页数
+$pages=intval($numrows/$pagesize);
+if ($numrows%$pagesize)
+$pages++;
+//判断页数设置与否，如无则定义为首页
+if (!isset($page))
+$page=1;
+//判断转到页数
+if (isset($ys))
+if ($ys>$pages)
+$page=$pages;
+else
+$page=$ys;
+//计算记录偏移量
+$offset=$pagesize*($page-1);
+$rs=mysqli_query($con,str_replace("%tj%","id,Filename,Download,adddate,Permisson",$sql." order by id desc limit $offset,$pagesize"));
+//echo $sql;
+closedb($con);
+?>
+ <table class="table table-hover">
    <thead>
       <tr>
+	     
          <th>资源名称</th>
          <th>添加时间</th>
-       <th>下载权限</th>
+         <th>下载权限</th>
       </tr>
    </thead>
    <tbody>
-      <tr>
-         <td>Windows 10 Build 14316 (English(US))<span class="label label-primary">New</span></td>
-		 <td>2016-4-8</td>
-	<th>所有人</th>
-         
-      </tr>
-      <tr>
-         <td>Windows Server 2003 Build 3615 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-      <tr>
-        <td>Windows XP Build 2442 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-	  <tr>
-        <td>Windows XP Build 2442 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-	  <tr>
-        <td>Windows XP Build 2442 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-	  <tr>
-        <td>Windows XP Build 2442 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-	  <tr>
-        <td>Windows XP Build 2442 (English(US))</td>
-         <td>2016-4-8</td>
-         <th>VIP</th>
-      </tr>
-	  
+      <?php
+	  $i=1;
+	  while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+         {
+			$nowtime=time();
+            echo "<tr>";
+			echo "<td><input type='checkbox' name='checkItem' id='Bwchkid".$row['id']."'  /></td>";
+            echo "<td id ='BwStrid".$row['id']."'>" . $row['Filename'] . "</td>";
+            echo "<td>" . $row['adddate'] . "</td>";
+			echo "<td>" .$row['Permisson']."</td>";
+            echo "</tr>";
+			$i+=1;
+  }
+
+	  ?>
 
    </tbody>
 </table>
+
 <ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
+<?php
+if ($pages>1) {
+//计算首页、上一页、下一页、尾页的页数值
+$first=1;
+$prev=$page-1;
+$next=$page+1;
+$last=$pages;
+if(empty($tiaojian)){
+	  $link="filemanger.php?";  
+ }else{
+	 $link="filemanger.php?findstr=$tiaojian&";  
+ }
+if ($page >1) echo "<li><a href='".$link."pageid=".$first."'>&laquo;</a></li>";
+for ($x=1; $x<=$pages; $x++) {
+	 $linka=$link."pageid=".$x;
+	if($x==$page){
+		echo "<li class='active'><a href='$linka'>$x</a></li>";
+	}else{
+	echo "<li><a href='$linka'>$x</a></li>";	
+	}
+  
+} 
+if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></li>";
+}
+?>
+
 </ul>
 </div>
 </div>
@@ -82,91 +130,68 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 </div>
 </div>
 </div>
-<!-- 添加模态框（Modal） -->
-<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" 
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-             添加资源
-            </h4>
-         </div>
-         <div class="modal-body">
-            <form role="form">
-  <div class="form-group">
-    <label for="name">资源名称</label>
-    <input type="text" class="form-control" placeholder="请输入资源名称" name="zytitle">
-	</div>
-	  <div class="form-group">
-    <label for="name">资源地址</label>
-    <input type="text" class="form-control" placeholder="请输入资源下载时跳转的下载地址" name="zylink">
-	</div>
-	<div class="form-group">
-	 <label for="name">资源下载权限</label>
-      <select class="form-control">
-         <option>游客</option>
-         <option>普通用户</option>
-         <option>高级用户</option>
-         <option>机密</option>
-      </select>
-
 </div>
- </form>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" 
-               data-dismiss="modal">关闭
-            </button>
-            <button type="button" class="btn btn-primary">
-               添加
-            </button>
-         </div>
-      </div><!-- /.modal-content -->
-</div><!-- /.modal -->
-<!-- 删除模态框（Modal） -->
-<div class="modal fade" id="DELModal" tabindex="-2" role="dialog" aria-labelledby="DELModalLabel" aria-hidden="true">
+<!-- 添加模态框（Modal） -->
+<div  id="MyModal"  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
    <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <button type="button" class="close" 
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-             添加资源
-            </h4>
-         </div>
-         <div class="modal-body">
-         你确认要删除'XXXXXX'吗？
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-default" 
-               data-dismiss="modal">关闭
-            </button>
-            <button type="button" class="btn btn-primary">
-               删除
-            </button>
-         </div>
-      </div><!-- /.modal-content -->
+  <div class="modal-content">
+ 
+ </div>
+     </div>
 </div><!-- /.modal -->
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
       <script src="https://code.jquery.com/jquery.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="/js/bootstrap.min.js"></script>
+	  <script>
+	  $nowid="aaa"
+	 var $tempstr="";
+
+	//传递信息
+	$("[data-toggle='modal']").click(function(){
+ var _target = $(this).attr('data-target')
+ t=setTimeout(function () {
+ var _modal = $(_target).find(".modal-dialog")
+ _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 )
+ },200)
+ })
+
+
+   $(function () { $('#MyModal').on('hide.bs.modal', function () {
+	    $(this).removeData("bs.modal");
+	  })
+   });
+</script>
 	  <Script>
 	  function LoadAddWindows(){
-			$('#ModalAdd').modal('show');
+		$("#myModal").modal({  
+    remote: "interface/window/del.php?temp="+$tempstr 
+	});  
+
 		}
+		function setCookie(name,value)
+{
+var exp = new Date();
+exp.setTime(exp.getTime() + 2*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+function delCookie(name)
+{
+var exp = new Date();
+exp.setTime(exp.getTime() - 1);
+var cval=getCookie(name);
+if(cval!=null)
+document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
 	  </script>
 	  <script>
 		$(function(){
+			  var $i=1;
 			function initTableCheckbox() {
 				var $thr = $('table thead tr');
-				var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
+								var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
+				
 				/*将全选/反选复选框添加到表头最前，即增加一列*/
 				$thr.prepend($checkAllTh);
 				/*“全选/反选”复选框*/
@@ -188,11 +213,14 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 					$(this).find('input').click();
 				});
 				var $tbr = $('table tbody tr');
-				var $checkItemTd = $('<td><input type="checkbox" name="checkItem" /></td>');
+				var $aaa="bwoption";
+				var $checkItemTd = $('<td><input type="checkbox" name="checkItem"  /></td>');
 				/*每一行都在最前面插入一个选中复选框的单元格*/
-				$tbr.prepend($checkItemTd);
+				//$tbr.prepend($checkItemTd);
 				/*点击每一行的选中复选框时*/
 				$tbr.find('input').click(function(event){
+					//$tempstr=$tempstr+","+$( this)[0].id);
+					$.get("transfer.php?item="+$( this)[0].id);
 					/*调整选中行的CSS样式*/
 					$(this).parent().parent().toggleClass('warning');
 					/*如果已经被选中行的行数等于表格的数据行数，将全选框设为选中状态，否则设为未选中状态*/
@@ -207,15 +235,13 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 			}
 			initTableCheckbox();
 			// dom加载完毕
-   
+
 		});
-		$("[data-toggle='modal']").click(function(){
- var _target = $(this).attr('data-target')
- t=setTimeout(function () {
- var _modal = $(_target).find(".modal-dialog")
- _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 )},200)
- })
-		</script>
+		
+ 		</script>
+ 
+
+
 		
 
 </body>

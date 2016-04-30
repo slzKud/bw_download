@@ -3,12 +3,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
-function https($num) { 
-$http = array ( 
-403 => "HTTP/1.1 403 Forbidden", 
-); 
-header($http[$num]); 
-} 
 ?>
    <head>
       <title>BetaWorld×ÊÔ´Çø</title>
