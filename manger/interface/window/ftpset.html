@@ -1,0 +1,62 @@
+
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+             FTP对接设置
+            </h4>
+         </div>
+         <div class="modal-body">
+  <div class="form-group">
+    <label for="name">FTP服务器地址</label>
+    <input type="text" class="form-control" placeholder="FTP服务器地址，显示在FTP信息页面" name="zytitle" id='bwname'>
+	</div>
+	<div class="form-group">
+	 <label for="name">最低拥有FTP的用户组</label>
+      <select class="form-control" id='bwqx'>
+         <option>普通用户</option>
+         <option>高级用户</option>
+		   <option>VIP</option>
+         <option>管理员</option>
+      </select>
+</div> 
+	 <div class="form-group">
+    <label for="name">普通用户组的公用FTP账户</label>
+    <input type="text" class="form-control" placeholder="请输入普通用户组的公用FTP账户，登录FTP服务器时的设置以该用户的设置为准。" name="zytitle" id='bwname'>
+	</div> 
+<div class="form-group">
+    <label for="name">高级用户组的公用FTP账户</label>
+    <input type="text" class="form-control" placeholder="请输入高级用户组的公用FTP账户，登录FTP服务器时设置以该用户的设置为准。" name="zytitle" id='bwname'>
+	</div>  
+<div class="form-group">
+    <label for="name">VIP用户组的公用FTP账户</label>
+    <input type="text" class="form-control" placeholder="请输入VIP用户组的公用FTP账户，登录FTP服务器时候的设置以该用户的设置为准。" name="zytitle" id='bwname'>
+	</div>  
+<div class="form-group">
+    <label for="name">管理员用户组的公用FTP账户</label>
+    <input type="text" class="form-control" placeholder="请输入管理员组的公用FTP账户，登录FTP服务器时的设置以该用户的设置为准。" name="zytitle" id='bwname'>
+	</div>  	
+	<div class="form-group">
+    *最低用户组如果设置为普通用户以外的组别，低于此组别的FTP公用账户设置无法应用。<br>
+	*此设置只适用于使用Gene6 FTP server搭建的FTP服务器;关于FTP服务器端的设置，请参照安装文档。
+	</div>  	
+	
+</div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">关闭
+            </button>
+            <button type="button" class="btn btn-primary" onclick="AddSomething();">
+               保存
+            </button>
+			<script>
+		 function AddSomething(){
+		 var zyname=document.getElementById("bwname").value; 
+		 
+		 }
+</script> 
+         </div>
+

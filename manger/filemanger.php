@@ -19,49 +19,58 @@ function test_input($data) {
 }
 ?>
 <body>
-<div class="row">
+ <div class="container-fluid">
+
+        <div class="row">
 <?php include 'interface/sidebar.php';?>
 
-<div class="col-xs-8 text-left">
+<div class="col-md-10 text-left">
 
 	  <div class="panel-body">
     <div class="container">
-      <h1>ÎÄ¼ş¹ÜÀí</small></h1>
+      <h1>æ–‡ä»¶ç®¡ç†</small></h1>
 	  <hr>
 	   
 		<div class="container">
-		 <a href="interface/window/add.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary">Ìí¼ÓÎÄ¼ş</button></a>
-		<a href="interface/window/del.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger">É¾³ıÎÄ¼ş</button></a>
+		 
+     <form class="form-inline" role="form" action="filemanger.php" method="get">
+	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> æ·»åŠ æ–‡ä»¶</button></a>
+		<a href="interface/window/delfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> åˆ é™¤æ–‡ä»¶</button></a>
+   <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
+         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> æœç´¢</button>
+</form>
+</div>
 		<?php
  
- ////Éè¶¨Ã¿Ò»Ò³ÏÔÊ¾µÄ¼ÇÂ¼Êı
+ ////è®¾å®šæ¯ä¸€é¡µæ˜¾ç¤ºçš„è®°å½•æ•°
 $pagesize=8;
  $con=connectdb();
   mysqli_query($con,"set names 'utf8'");
- //¹¹½¨sql
+ //æ„å»ºsql
  if(empty($tiaojian)){
 	  $sql="select %tj% from bw_downtable ";  
  }else{
-	 $sql="select %tj% from bw_downtable and filename like '%".$tiaojian."%'";  
+	 $sql="select %tj% from bw_downtable where filename like '%".$tiaojian."%'";  
  }
- //¼ÆËãÒ³Êı
+ //è®¡ç®—é¡µæ•°
 $res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
 $myrow = mysqli_fetch_array($res);
 $numrows=$myrow[0];
-//¼ÆËã×ÜÒ³Êı
+//è®¡ç®—æ€»é¡µæ•°
 $pages=intval($numrows/$pagesize);
 if ($numrows%$pagesize)
 $pages++;
-//ÅĞ¶ÏÒ³ÊıÉèÖÃÓë·ñ£¬ÈçÎŞÔò¶¨ÒåÎªÊ×Ò³
+//åˆ¤æ–­é¡µæ•°è®¾ç½®ä¸å¦ï¼Œå¦‚æ— åˆ™å®šä¹‰ä¸ºé¦–é¡µ
 if (!isset($page))
 $page=1;
-//ÅĞ¶Ï×ªµ½Ò³Êı
+//åˆ¤æ–­è½¬åˆ°é¡µæ•°
 if (isset($ys))
 if ($ys>$pages)
 $page=$pages;
 else
 $page=$ys;
-//¼ÆËã¼ÇÂ¼Æ«ÒÆÁ¿
+//è®¡ç®—è®°å½•åç§»é‡
 $offset=$pagesize*($page-1);
 $rs=mysqli_query($con,str_replace("%tj%","id,Filename,Download,adddate,Permisson",$sql." order by id desc limit $offset,$pagesize"));
 //echo $sql;
@@ -71,9 +80,9 @@ closedb($con);
    <thead>
       <tr>
 	     
-         <th>×ÊÔ´Ãû³Æ</th>
-         <th>Ìí¼ÓÊ±¼ä</th>
-         <th>ÏÂÔØÈ¨ÏŞ</th>
+         <th>èµ„æºåç§°</th>
+         <th>æ·»åŠ æ—¶é—´</th>
+         <th>ä¸‹è½½æƒé™</th>
       </tr>
    </thead>
    <tbody>
@@ -86,7 +95,27 @@ closedb($con);
 			echo "<td><input type='checkbox' name='checkItem' id='Bwchkid".$row['id']."'  /></td>";
             echo "<td id ='BwStrid".$row['id']."'>" . $row['Filename'] . "</td>";
             echo "<td>" . $row['adddate'] . "</td>";
-			echo "<td>" .$row['Permisson']."</td>";
+			switch($row['Permisson']){
+				case '0':
+				$userqx="æ¸¸å®¢";
+				  break;
+				case '1':
+				$userqx="æ™®é€šç”¨æˆ·";
+				  break;
+				case '2':
+				$userqx="é«˜çº§ç”¨æˆ·";
+				  break;
+				case '3':
+				$userqx="VIP";
+				  break;
+				case '4':
+				$userqx="æœºå¯†";
+				  break;
+				 default:
+				$userqx="æœªçŸ¥";
+				  break;
+			}
+			echo "<td>" .$userqx."</td>";
             echo "</tr>";
 			$i+=1;
   }
@@ -99,7 +128,7 @@ closedb($con);
 <ul class="pagination">
 <?php
 if ($pages>1) {
-//¼ÆËãÊ×Ò³¡¢ÉÏÒ»Ò³¡¢ÏÂÒ»Ò³¡¢Î²Ò³µÄÒ³ÊıÖµ
+//è®¡ç®—é¦–é¡µã€ä¸Šä¸€é¡µã€ä¸‹ä¸€é¡µã€å°¾é¡µçš„é¡µæ•°å€¼
 $first=1;
 $prev=$page-1;
 $next=$page+1;
@@ -131,7 +160,7 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 </div>
 </div>
 </div>
-<!-- Ìí¼ÓÄ£Ì¬¿ò£¨Modal£© -->
+<!-- æ·»åŠ æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
 <div  id="MyModal"  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
    <div class="modal-dialog">
   <div class="modal-content">
@@ -139,15 +168,15 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
  </div>
      </div>
 </div><!-- /.modal -->
-<!-- jQuery (Bootstrap µÄ JavaScript ²å¼şĞèÒªÒıÈë jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
-      <!-- °üÀ¨ËùÓĞÒÑ±àÒëµÄ²å¼ş -->
+<!-- jQuery (Bootstrap çš„ JavaScript æ’ä»¶éœ€è¦å¼•å…¥ jQuery) -->
+      <script src="docs/js/jquery.min.js"></script>
+      <!-- åŒ…æ‹¬æ‰€æœ‰å·²ç¼–è¯‘çš„æ’ä»¶ -->
       <script src="/js/bootstrap.min.js"></script>
 	  <script>
 	  $nowid="aaa"
 	 var $tempstr="";
 
-	//´«µİĞÅÏ¢
+	//ä¼ é€’ä¿¡æ¯
 	$("[data-toggle='modal']").click(function(){
  var _target = $(this).attr('data-target')
  t=setTimeout(function () {
@@ -163,27 +192,6 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
    });
 </script>
 	  <Script>
-	  function LoadAddWindows(){
-		$("#myModal").modal({  
-    remote: "interface/window/del.php?temp="+$tempstr 
-	});  
-
-		}
-		function setCookie(name,value)
-{
-var exp = new Date();
-exp.setTime(exp.getTime() + 2*60*1000);
-document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
-}
-function delCookie(name)
-{
-var exp = new Date();
-exp.setTime(exp.getTime() - 1);
-var cval=getCookie(name);
-if(cval!=null)
-document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
-
 	  </script>
 	  <script>
 		$(function(){
@@ -192,49 +200,49 @@ document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 				var $thr = $('table thead tr');
 								var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
 				
-				/*½«È«Ñ¡/·´Ñ¡¸´Ñ¡¿òÌí¼Óµ½±íÍ·×îÇ°£¬¼´Ôö¼ÓÒ»ÁĞ*/
+				/*å°†å…¨é€‰/åé€‰å¤é€‰æ¡†æ·»åŠ åˆ°è¡¨å¤´æœ€å‰ï¼Œå³å¢åŠ ä¸€åˆ—*/
 				$thr.prepend($checkAllTh);
-				/*¡°È«Ñ¡/·´Ñ¡¡±¸´Ñ¡¿ò*/
+				/*â€œå…¨é€‰/åé€‰â€å¤é€‰æ¡†*/
 				var $checkAll = $thr.find('input');
 				$checkAll.click(function(event){
-					/*½«ËùÓĞĞĞµÄÑ¡ÖĞ×´Ì¬Éè³ÉÈ«Ñ¡¿òµÄÑ¡ÖĞ×´Ì¬*/
+					/*å°†æ‰€æœ‰è¡Œçš„é€‰ä¸­çŠ¶æ€è®¾æˆå…¨é€‰æ¡†çš„é€‰ä¸­çŠ¶æ€*/
 					$tbr.find('input').prop('checked',$(this).prop('checked'));
-					/*²¢µ÷ÕûËùÓĞÑ¡ÖĞĞĞµÄCSSÑùÊ½*/
+					/*å¹¶è°ƒæ•´æ‰€æœ‰é€‰ä¸­è¡Œçš„CSSæ ·å¼*/
 					if ($(this).prop('checked')) {
 						$tbr.find('input').parent().parent().addClass('warning');
 					} else{
 						$tbr.find('input').parent().parent().removeClass('warning');
 					}
-					/*×èÖ¹ÏòÉÏÃ°Åİ£¬ÒÔ·ÀÔÙ´Î´¥·¢µã»÷²Ù×÷*/
+					/*é˜»æ­¢å‘ä¸Šå†’æ³¡ï¼Œä»¥é˜²å†æ¬¡è§¦å‘ç‚¹å‡»æ“ä½œ*/
 					event.stopPropagation();
 				});
-				/*µã»÷È«Ñ¡¿òËùÔÚµ¥Ôª¸ñÊ±Ò²´¥·¢È«Ñ¡¿òµÄµã»÷²Ù×÷*/
+				/*ç‚¹å‡»å…¨é€‰æ¡†æ‰€åœ¨å•å…ƒæ ¼æ—¶ä¹Ÿè§¦å‘å…¨é€‰æ¡†çš„ç‚¹å‡»æ“ä½œ*/
 				$checkAllTh.click(function(){
 					$(this).find('input').click();
 				});
 				var $tbr = $('table tbody tr');
 				var $aaa="bwoption";
 				var $checkItemTd = $('<td><input type="checkbox" name="checkItem"  /></td>');
-				/*Ã¿Ò»ĞĞ¶¼ÔÚ×îÇ°Ãæ²åÈëÒ»¸öÑ¡ÖĞ¸´Ñ¡¿òµÄµ¥Ôª¸ñ*/
+				/*æ¯ä¸€è¡Œéƒ½åœ¨æœ€å‰é¢æ’å…¥ä¸€ä¸ªé€‰ä¸­å¤é€‰æ¡†çš„å•å…ƒæ ¼*/
 				//$tbr.prepend($checkItemTd);
-				/*µã»÷Ã¿Ò»ĞĞµÄÑ¡ÖĞ¸´Ñ¡¿òÊ±*/
+				/*ç‚¹å‡»æ¯ä¸€è¡Œçš„é€‰ä¸­å¤é€‰æ¡†æ—¶*/
 				$tbr.find('input').click(function(event){
 					//$tempstr=$tempstr+","+$( this)[0].id);
 					$.get("transfer.php?item="+$( this)[0].id);
-					/*µ÷ÕûÑ¡ÖĞĞĞµÄCSSÑùÊ½*/
+					/*è°ƒæ•´é€‰ä¸­è¡Œçš„CSSæ ·å¼*/
 					$(this).parent().parent().toggleClass('warning');
-					/*Èç¹ûÒÑ¾­±»Ñ¡ÖĞĞĞµÄĞĞÊıµÈÓÚ±í¸ñµÄÊı¾İĞĞÊı£¬½«È«Ñ¡¿òÉèÎªÑ¡ÖĞ×´Ì¬£¬·ñÔòÉèÎªÎ´Ñ¡ÖĞ×´Ì¬*/
+					/*å¦‚æœå·²ç»è¢«é€‰ä¸­è¡Œçš„è¡Œæ•°ç­‰äºè¡¨æ ¼çš„æ•°æ®è¡Œæ•°ï¼Œå°†å…¨é€‰æ¡†è®¾ä¸ºé€‰ä¸­çŠ¶æ€ï¼Œå¦åˆ™è®¾ä¸ºæœªé€‰ä¸­çŠ¶æ€*/
 					$checkAll.prop('checked',$tbr.find('input:checked').length == $tbr.length ? true : false);
-					/*×èÖ¹ÏòÉÏÃ°Åİ£¬ÒÔ·ÀÔÙ´Î´¥·¢µã»÷²Ù×÷*/
+					/*é˜»æ­¢å‘ä¸Šå†’æ³¡ï¼Œä»¥é˜²å†æ¬¡è§¦å‘ç‚¹å‡»æ“ä½œ*/
 					event.stopPropagation();
 				});
-				/*µã»÷Ã¿Ò»ĞĞÊ±Ò²´¥·¢¸ÃĞĞµÄÑ¡ÖĞ²Ù×÷*/
+				/*ç‚¹å‡»æ¯ä¸€è¡Œæ—¶ä¹Ÿè§¦å‘è¯¥è¡Œçš„é€‰ä¸­æ“ä½œ*/
 				$tbr.click(function(){
 					$(this).find('input').click();
 				});
 			}
 			initTableCheckbox();
-			// dom¼ÓÔØÍê±Ï
+			// domåŠ è½½å®Œæ¯•
 
 		});
 		

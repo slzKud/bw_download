@@ -1,11 +1,14 @@
 
-      <div class="col-xs-2 text-left">
+            <div class="col-md-2">
+      
 	  <ul class="nav nav-pills nav-stacked">
-     <li <?php if ($nowpageid==1){echo "class='active'";}?>><a href="index.php">ÒÇ±í°å</a></li>
-     <li <?php if ($nowpageid==2){echo "class='active'";}?>><a href="filemanger.php">ÏÂÔØ×ÊÔ´¹ÜÀí</a></li>
-     <li <?php if ($nowpageid==3){echo "class='active'";}?>><a href="usermanger.php">ÓÃ»§¹ÜÀí</a></li>
-     <li <?php if ($nowpageid==4){echo "class='active'";}?>><a href="systemmanger.php">ÏµÍ³»ù±¾ÉèÖÃ</a></li>
-	 <li><a href="#">·µ»Ø×ÊÔ´Çø</a></li>
+     <li <?php if ($nowpageid==1){echo "class='active'";}?>><a href="index.php"><span class="glyphicon glyphicon-dashboard"></span> ä»ªè¡¨æ¿</a></li>
+     <li <?php if ($nowpageid==2){echo "class='active'";}?>><a href="filemanger.php"><span class="glyphicon glyphicon-file"></span> ä¸‹è½½èµ„æºç®¡ç†</a></li>
+     <li <?php if ($nowpageid==3){echo "class='active'";}?>><a href="usermanger.php"><span class="glyphicon glyphicon-user"></span> ç”¨æˆ·ç®¡ç†</a></li>
+	 <li <?php if ($nowpageid==5){echo "class='active'";}?>><a href="report.php"><span class="glyphicon glyphicon-list-alt" ></span> æŠ¥è¡¨æŸ¥è¯¢</a></li>
+     <li <?php if ($nowpageid==4){echo "class='active'";}?>><a href="systemmanger.php"><span class="glyphicon glyphicon-wrench" ></span>ç³»ç»ŸåŸºæœ¬è®¾ç½®</a></li>
+	 <li><a href="../"><span class="glyphicon glyphicon-chevron-left"></span> è¿”å›žèµ„æºåŒº</a></li>
 </ul>
-	  </div>
+</div>
+
 	  

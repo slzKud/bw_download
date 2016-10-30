@@ -1,5 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
 session_start();
 //session_destroy();
 empty($_GET['step']) && $_GET['step'] = '1';
@@ -43,7 +44,7 @@ $email=$yzm=$LErr="";
         $nowaction="注册邮件验证";
         $tolink=$yzlink;
         $title='BetaWorld 资源区 - 邮件验证';
-		include $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.php';
+        SendMailToUser($toemail,$title,$nowaction,$tolink);
 	}
 	}else{
 		$LErr .= "验证码不正确<br>";
@@ -122,11 +123,21 @@ if (empty($_GET["email"])) {
 	if($LErr==""){
 		//开始注册
 		//拼接SQL
-		$sql="INSERT INTO bw_usertable (username, passmd5,email,permission) VALUES ('".$regusername ."', '".md5($regpassword)."','".$email."','1')";
+		$regdate=date('Y-m-d H:i:s');
+		$sql="INSERT INTO bw_usertable (username, passmd5,email,permission,regdate) VALUES ('".$regusername ."', '".md5($regpassword)."','".$email."','1','".$regdate."')";
 		$con=connectdb();
 		//echo $sql;
 		mysqli_query($con,$sql);
 		mysqli_close($con);
+		//FTP部分
+			$optftp=getthesettings('optftp');
+		$lowftp=getthesettings('lowftpper');
+		if($optftp==1){
+		if($lowftp=1){
+			$sql1="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser1') ."', '".$regusername."','".md5($regpassword)."')";
+			loaddb($sql1);
+		}
+		}
 	}
      }
     break;
@@ -189,7 +200,7 @@ default:
 }
  ?>
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="../js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>

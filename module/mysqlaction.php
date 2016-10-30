@@ -13,14 +13,13 @@ function connectdb() {
   $conc = mysqli_connect($dblist['dbhost'],$dblist['dbuser'],$dblist['dbpass'],$dblist['dbname']);
   if (!$conc)
   {
-  die('Could not connect: ' . mysqli_error());
+  die('Could not connect: ' . mysqli_error($con));
   }
   return $conc;
 }
-
-
 function loaddb($sql) {
   $cona=connectdb();
+  mysqli_query($cona,"set names 'utf8'");
   $result = mysqli_query($cona,$sql);
   closedb($cona);
   return $result;
@@ -28,6 +27,26 @@ function loaddb($sql) {
 function closedb($con) {
   mysqli_close($con);
 }
-  
-
+  function getthesettings($name) {
+  $sql="select setvalue from bw_settings where setname='$name'";
+  $rs=loaddb($sql);
+  //echo $sql.'<br>';
+  if (mysqli_num_rows($rs)>0){
+	  $row = mysqli_fetch_array($rs, MYSQL_ASSOC);
+	  return $row['setvalue'];
+  }else{
+	  return "error";
+  } 
+}
+ function savethesettings($name,$setvalue) {
+  $sql="select id from bw_settings where setname='$name'";
+  $rs=loaddb($sql);
+  $sql1="";
+  if (mysqli_num_rows($rs)>0){
+	 $sql1="UPDATE bw_settings SET setvalue = '$setvalue' WHERE setname = '$name'";
+  }else{
+	  $sql1="INSERT INTO bw_settings (setname,setvalue) VALUES( '$name', '$setvalue')";
+  } 
+  loaddb($sql1);
+}
 ?>

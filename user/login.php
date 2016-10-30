@@ -54,6 +54,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		//测试cookies代码
 		//setcookie("bwuser", "#########Test########", time()+3600,"/");
         makecookies($username,md5($pass),$adday);
+		$ip=getIP();
+	    $logindate=date('Y-m-d H:i:s');
+		$sqll="update bw_usertable set lastip='$ip',lastlogindate='$logindate' where username='$username'";
+		loaddb($sqll);
 		if (empty($_GET["url"])) {
 		echo "<meta http-equiv='refresh' content='1;url=../index.php'> ";
 		exit;
@@ -77,6 +81,17 @@ function test_input($data) {
    $data = stripslashes($data);
    $data = htmlspecialchars($data);
    return $data;
+}
+function getIP(){
+global $ip;
+if (getenv("HTTP_CLIENT_IP"))
+$ip = getenv("HTTP_CLIENT_IP");
+else if(getenv("HTTP_X_FORWARDED_FOR"))
+$ip = getenv("HTTP_X_FORWARDED_FOR");
+else if(getenv("REMOTE_ADDR"))
+$ip = getenv("REMOTE_ADDR");
+else $ip = "Unknow";
+return $ip;
 }
 ?>
 <html>
@@ -172,7 +187,7 @@ if($LErr != ""){
 </div>
 </div>
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="../js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>

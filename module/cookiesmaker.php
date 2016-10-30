@@ -1,5 +1,5 @@
 <?php
-	include  '/aes.class.php';
+include  'AES.class.php';
 function makecookies($username,$passmd5,$day) {
  //cookies要求
  //内容：user=$username;bwcode=*******(bwcode由用户名 密码md5和BWDOWNLOAD!!!合在一起后AES加密)

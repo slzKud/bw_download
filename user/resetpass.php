@@ -2,7 +2,8 @@
 <?php 
 //引入网页内容
 include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
 session_start();
 //session_destroy();
 empty($_GET['step']) && $_GET['step'] = '1';
@@ -44,7 +45,8 @@ $email=$yzm=$LErr="";
         $nowaction="重置密码";
         $tolink=$yzlink;
         $title='BetaWorld 资源区 - 邮件验证';
-		include $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.php';
+		//include $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.php';
+		SendMailToUser($toemail,$title,$nowaction,$tolink);
 	}
 	}else{
 		$LErr .= "验证码不正确<br>";
@@ -178,7 +180,7 @@ default:
 }
  ?>
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="../js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>

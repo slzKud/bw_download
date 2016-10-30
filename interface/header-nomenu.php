@@ -3,7 +3,7 @@
       <title>BetaWorld资源区</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- 引入 Bootstrap -->
-      <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../css/bootstrap.min.css" rel="stylesheet">
 
       <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
       <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
@@ -14,6 +14,8 @@
 	  <style>
 	  body {
 			font-family: 'Microsoft YaHei UI','Microsoft YaHei', sans-serif;
+			padding-top: 50px;
+			padding-bottom: 50px;
 		}
 	  @media(max-width:767px) { 
  #user-info {
@@ -26,7 +28,7 @@ right: 72px;
    </head>
    <body>
    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>

@@ -3,66 +3,152 @@
 $nowpageid=3;
 include 'interface/header.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+empty($tioajian)&&$tiaojian="";
+empty($_GET['findstr'])&&$_GET['findstr']="";
+empty($_GET['pageid'])&&$_GET['pageid']=1;
+empty($page)&&$page=1;
+$tiaojian=test_input($_GET['findstr']);
+$page=$_GET['pageid'];
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 ?>
 <body>
-<div class="row">
+ <div class="container-fluid">
+        <div class="row">
 <?php include 'interface/sidebar.php';?>
 
-<div class="col-xs-10 text-left">
+<div class="col-md-10 text-left">
 		  <div class="panel panel-default">
 
    <div class="panel-body">
     <div class="container">
-      <h1>ÓÃ»§¹ÜÀí</small></h1>
+      <h1>ç”¨æˆ·ç®¡ç†</small></h1>
 	  <hr>
 	   
 		<div class="container">
-		 <button type="button" class="btn btn-default">Ìí¼ÓÓÃ»§</button>    
-<button type="button" class="btn btn-primary">ĞŞ¸ÄÓÃ»§ĞÅÏ¢</button>   		 
-		<button type="button" class="btn btn-danger">É¾³ıÓÃ»§</button>
+		<form class="form-inline" role="form" action="usermanger.php" method="get">
+		 <a href="interface/window/adduser.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> æ·»åŠ ç”¨æˆ·</button> </a>   
+<a href="interface/window/modifyuser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯</button> </a>	 
+		<a href="interface/window/deluser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> åˆ é™¤ç”¨æˆ·</button></a>	 
+		<a href="interface/window/banuser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> å°ç¦/è§£å°ç”¨æˆ·</button></a>	 
+		 <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
+         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> æœç´¢</button>
+</form>
+</div>
+		<?php
+ 
+ ////è®¾å®šæ¯ä¸€é¡µæ˜¾ç¤ºçš„è®°å½•æ•°
+$pagesize=8;
+ $con=connectdb();
+  mysqli_query($con,"set names 'utf8'");
+ //æ„å»ºsql
+ if(empty($tiaojian)){
+	  $sql="select %tj% from bw_usertable ";  
+ }else{
+	 $sql="select %tj% from bw_usertable where username like '%".$tiaojian."%'";  
+ }
+ //è®¡ç®—é¡µæ•°
+
+$res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
+$myrow = mysqli_fetch_array($res);
+$numrows=$myrow[0];
+//è®¡ç®—æ€»é¡µæ•°
+$pages=intval($numrows/$pagesize);
+if ($numrows%$pagesize)
+$pages++;
+//åˆ¤æ–­é¡µæ•°è®¾ç½®ä¸å¦ï¼Œå¦‚æ— åˆ™å®šä¹‰ä¸ºé¦–é¡µ
+if (!isset($page))
+$page=1;
+//åˆ¤æ–­è½¬åˆ°é¡µæ•°
+if (isset($ys))
+if ($ys>$pages){
+$page=$pages;
+}else{
+$page=$ys;
+}
+//è®¡ç®—è®°å½•åç§»é‡
+$offset=$pagesize*($page-1);
+$rs=mysqli_query($con,str_replace("%tj%","id,username,permission",$sql." order by username desc limit $offset,$pagesize"));
+ //echo str_replace("%tj%","id,username,permission",$sql." order by id desc limit $offset,$pagesize");
+closedb($con);
+?>
 		 <table class="table">
    <thead>
       <tr>
-         <th>ÓÃ»§Ãû³Æ</th>
-         <th>ÓÃ»§È¨ÏŞ</th>
+         <th>ç”¨æˆ·åç§°</th>
+         <th>ç”¨æˆ·æƒé™</th>
        
       </tr>
    </thead>
    <tbody>
-      <tr>
-         <td>Admin</td>
-		 <td>¹ÜÀíÔ±</td>
-      </tr>
-         <tr>
-         <td>Kud</td>
-		 <td>VIP</td>
-      </tr>
-	     <tr>
-         <td>6324</td>
-		 <td>¹ÜÀíÔ±</td>
-      </tr>
-	     <tr>
-         <td>Test</td>
-		 <td>ÆÕÍ¨ÓÃ»§</td>
-      </tr>
-	     <tr>
-         <td>HAHAH</td>
-		 <td>¸ß¼¶ÓÃ»§</td>
-      </tr>
-	   <tr>
-         <td>HAHAH1</td>
-		 <td>·â½û</td>
-      </tr>
+       <?php
+	  $i=1;
+	  while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+         {
+			$nowtime=time();
+            echo "<tr>";
+			echo "<td><input type='checkbox' name='checkItem' id='Bwchkid".$row['id']."'  /></td>";
+            echo "<td id ='BwStrid".$row['id']."'>" . $row['username'] . "</td>";
+			switch($row['permission']){
+				case '-1':
+				$userqx="å·²å°ç¦";
+				  break;
+				case '1':
+				$userqx="æ™®é€šç”¨æˆ·";
+				  break;
+				case '2':
+				$userqx="é«˜çº§ç”¨æˆ·";
+				  break;
+				case '3':
+				$userqx="VIP";
+				  break;
+				case '4':
+				$userqx="ç®¡ç†å‘˜";
+				  break;
+				 default:
+				$userqx="æœªçŸ¥";
+				  break;
+			}
+			echo "<td>" .$userqx."</td>";
+            echo "</tr>";
+			$i+=1;
+  }
+
+	  ?>
+
    </tbody>
 </table>
 <ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
+  <?php
+if ($pages>1) {
+//è®¡ç®—é¦–é¡µã€ä¸Šä¸€é¡µã€ä¸‹ä¸€é¡µã€å°¾é¡µçš„é¡µæ•°å€¼
+$first=1;
+$prev=$page-1;
+$next=$page+1;
+$last=$pages;
+if(empty($tiaojian)){
+	  $link="usermanger.php?";  
+ }else{
+	 $link="usermanger.php?findstr=$tiaojian&";  
+ }
+if ($page >1) echo "<li><a href='".$link."pageid=".$first."'>&laquo;</a></li>";
+for ($x=1; $x<=$pages; $x++) {
+	 $linka=$link."pageid=".$x;
+	if($x==$page){
+		echo "<li class='active'><a href='$linka'>$x</a></li>";
+	}else{
+	echo "<li><a href='$linka'>$x</a></li>";	
+	}
+  
+} 
+if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></li>";
+}
+?>
 </ul>
 </div>
 </div>
@@ -70,49 +156,78 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 	  </div>
 </div>
 </div>
-<!-- jQuery (Bootstrap µÄ JavaScript ²å¼şĞèÒªÒıÈë jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
-      <!-- °üÀ¨ËùÓĞÒÑ±àÒëµÄ²å¼ş -->
+<!-- æ·»åŠ æ¨¡æ€æ¡†ï¼ˆModalï¼‰ -->
+<div  id="MyModal"  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:none;">
+   <div class="modal-dialog">
+  <div class="modal-content">
+ 
+ </div>
+     </div>
+</div><!-- /.modal -->
+<!-- jQuery (Bootstrap çš„ JavaScript æ’ä»¶éœ€è¦å¼•å…¥ jQuery) -->
+       <script src="docs/js/jquery.min.js"></script>
+      <!-- åŒ…æ‹¬æ‰€æœ‰å·²ç¼–è¯‘çš„æ’ä»¶ -->
       <script src="../js/bootstrap.min.js"></script>
+	  <script>
+	  $nowid="aaa"
+	 var $tempstr="";
+
+	//ä¼ é€’ä¿¡æ¯
+	$("[data-toggle='modal']").click(function(){
+ var _target = $(this).attr('data-target')
+ t=setTimeout(function () {
+ var _modal = $(_target).find(".modal-dialog")
+ _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 )
+ },200)
+ })
+
+
+   $(function () { $('#MyModal').on('hide.bs.modal', function () {
+	    $(this).removeData("bs.modal");
+	  })
+   });
+</script>
 	  <script>
 		$(function(){
 			function initTableCheckbox() {
 				var $thr = $('table thead tr');
 				var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
-				/*½«È«Ñ¡/·´Ñ¡¸´Ñ¡¿òÌí¼Óµ½±íÍ·×îÇ°£¬¼´Ôö¼ÓÒ»ÁĞ*/
+				/*å°†å…¨é€‰/åé€‰å¤é€‰æ¡†æ·»åŠ åˆ°è¡¨å¤´æœ€å‰ï¼Œå³å¢åŠ ä¸€åˆ—*/
 				$thr.prepend($checkAllTh);
-				/*¡°È«Ñ¡/·´Ñ¡¡±¸´Ñ¡¿ò*/
+				/*â€œå…¨é€‰/åé€‰â€å¤é€‰æ¡†*/
 				var $checkAll = $thr.find('input');
 				$checkAll.click(function(event){
-					/*½«ËùÓĞĞĞµÄÑ¡ÖĞ×´Ì¬Éè³ÉÈ«Ñ¡¿òµÄÑ¡ÖĞ×´Ì¬*/
+					/*å°†æ‰€æœ‰è¡Œçš„é€‰ä¸­çŠ¶æ€è®¾æˆå…¨é€‰æ¡†çš„é€‰ä¸­çŠ¶æ€*/
 					$tbr.find('input').prop('checked',$(this).prop('checked'));
-					/*²¢µ÷ÕûËùÓĞÑ¡ÖĞĞĞµÄCSSÑùÊ½*/
+					/*å¹¶è°ƒæ•´æ‰€æœ‰é€‰ä¸­è¡Œçš„CSSæ ·å¼*/
 					if ($(this).prop('checked')) {
 						$tbr.find('input').parent().parent().addClass('warning');
 					} else{
 						$tbr.find('input').parent().parent().removeClass('warning');
 					}
-					/*×èÖ¹ÏòÉÏÃ°Åİ£¬ÒÔ·ÀÔÙ´Î´¥·¢µã»÷²Ù×÷*/
+					/*é˜»æ­¢å‘ä¸Šå†’æ³¡ï¼Œä»¥é˜²å†æ¬¡è§¦å‘ç‚¹å‡»æ“ä½œ*/
 					event.stopPropagation();
 				});
-				/*µã»÷È«Ñ¡¿òËùÔÚµ¥Ôª¸ñÊ±Ò²´¥·¢È«Ñ¡¿òµÄµã»÷²Ù×÷*/
+				/*ç‚¹å‡»å…¨é€‰æ¡†æ‰€åœ¨å•å…ƒæ ¼æ—¶ä¹Ÿè§¦å‘å…¨é€‰æ¡†çš„ç‚¹å‡»æ“ä½œ*/
 				$checkAllTh.click(function(){
 					$(this).find('input').click();
 				});
 				var $tbr = $('table tbody tr');
 				var $checkItemTd = $('<td><input type="checkbox" name="checkItem" /></td>');
-				/*Ã¿Ò»ĞĞ¶¼ÔÚ×îÇ°Ãæ²åÈëÒ»¸öÑ¡ÖĞ¸´Ñ¡¿òµÄµ¥Ôª¸ñ*/
-				$tbr.prepend($checkItemTd);
-				/*µã»÷Ã¿Ò»ĞĞµÄÑ¡ÖĞ¸´Ñ¡¿òÊ±*/
+				/*æ¯ä¸€è¡Œéƒ½åœ¨æœ€å‰é¢æ’å…¥ä¸€ä¸ªé€‰ä¸­å¤é€‰æ¡†çš„å•å…ƒæ ¼*/
+				//$tbr.prepend($checkItemTd);
+				/*ç‚¹å‡»æ¯ä¸€è¡Œçš„é€‰ä¸­å¤é€‰æ¡†æ—¶*/
 				$tbr.find('input').click(function(event){
-					/*µ÷ÕûÑ¡ÖĞĞĞµÄCSSÑùÊ½*/
+					//ä¼ é€æ•°æ®ç»™åå°
+				    $.get("transfer.php?item="+$( this)[0].id);
+					/*è°ƒæ•´é€‰ä¸­è¡Œçš„CSSæ ·å¼*/
 					$(this).parent().parent().toggleClass('warning');
-					/*Èç¹ûÒÑ¾­±»Ñ¡ÖĞĞĞµÄĞĞÊıµÈÓÚ±í¸ñµÄÊı¾İĞĞÊı£¬½«È«Ñ¡¿òÉèÎªÑ¡ÖĞ×´Ì¬£¬·ñÔòÉèÎªÎ´Ñ¡ÖĞ×´Ì¬*/
+					/*å¦‚æœå·²ç»è¢«é€‰ä¸­è¡Œçš„è¡Œæ•°ç­‰äºè¡¨æ ¼çš„æ•°æ®è¡Œæ•°ï¼Œå°†å…¨é€‰æ¡†è®¾ä¸ºé€‰ä¸­çŠ¶æ€ï¼Œå¦åˆ™è®¾ä¸ºæœªé€‰ä¸­çŠ¶æ€*/
 					$checkAll.prop('checked',$tbr.find('input:checked').length == $tbr.length ? true : false);
-					/*×èÖ¹ÏòÉÏÃ°Åİ£¬ÒÔ·ÀÔÙ´Î´¥·¢µã»÷²Ù×÷*/
+					/*é˜»æ­¢å‘ä¸Šå†’æ³¡ï¼Œä»¥é˜²å†æ¬¡è§¦å‘ç‚¹å‡»æ“ä½œ*/
 					event.stopPropagation();
 				});
-				/*µã»÷Ã¿Ò»ĞĞÊ±Ò²´¥·¢¸ÃĞĞµÄÑ¡ÖĞ²Ù×÷*/
+				/*ç‚¹å‡»æ¯ä¸€è¡Œæ—¶ä¹Ÿè§¦å‘è¯¥è¡Œçš„é€‰ä¸­æ“ä½œ*/
 				$tbr.click(function(){
 					$(this).find('input').click();
 				});

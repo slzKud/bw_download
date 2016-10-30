@@ -7,6 +7,7 @@ empty($_GET['pageid'])&&$_GET['pageid']=1;
 empty($page)&&$page=1;
 $page=$_GET['pageid'];
 $nowpageid=2;
+$flag=0;
 ?>
 <body>
  <div class="container">
@@ -68,11 +69,13 @@ closedb($con);
             echo "<td>" . $row['Filename'] . "</td>";
             echo "<td>" . $row['adddate'] . "</td>";
             echo "</tr>";
+			$flag=1;
   }
 
 	  ?>
    </tbody>
 </table>
+<?php if($flag==0){echo "<center><p class='lead' >最近没有变动，去添加点吧！~</p></center>";} ?>
 <ul class="pagination">
   <?php
 if ($pages>1) {
@@ -101,7 +104,7 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 </div>
 
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>

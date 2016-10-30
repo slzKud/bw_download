@@ -1,7 +1,8 @@
-﻿<html>
+<html>
 <?php 
 session_start();
 include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 include 'interface/header-nomenu.php';
 empty($id)&&$id="";
 empty($LErr)&&$LErr="";
@@ -37,6 +38,19 @@ if (empty($_GET["fileid"])) {
    }
 if ($LErr==""){
 	//echo "d";
+	if (isset($_COOKIE["bwuser"])){
+	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
+     $downuser=veifycookies($_COOKIE["bwuser"]);
+       }else{
+		   $downuser="dangeruser";
+	   }
+	   }else{
+		   	 $downuser="anymouns";
+	} 
+	$ip=getIP();
+	$downdate=date('Y-m-d H:i:s');
+$sqlhistory="INSERT INTO bw_downloadhistory (fileid, downuser,ip,downtime) VALUES ($id,'$downuser','$ip','$downdate')";
+loaddb($sqlhistory);
 $sql="select Filename,Download from bw_downtable where id=".$id."  and permisson<=".$_SESSION['permission'];
 //echo $sql;
 $rs=loaddb($sql);
@@ -66,21 +80,60 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+function getIP(){
+global $ip;
+if (getenv("HTTP_CLIENT_IP"))
+$ip = getenv("HTTP_CLIENT_IP");
+else if(getenv("HTTP_X_FORWARDED_FOR"))
+$ip = getenv("HTTP_X_FORWARDED_FOR");
+else if(getenv("REMOTE_ADDR"))
+$ip = getenv("REMOTE_ADDR");
+else $ip = "Unknow";
+return $ip;
+}
 ?>
 <body>
-		<?php echo "<meta http-equiv='refresh' content='5;url=".$link."'> "; ?>
+
+<?php 
+echo "<input type='hidden' value='$id' id='loaddapp' />";
+ echo "<script>setTimeout( 'window.open(\"$link\");  ',5000); </script> "; 
+		/* php echo "<meta http-equiv='refresh' content='5;url=".$link."'> ";  */?>
+		<script>
+		 function feedback(){
+			 var  fileid=document.getElementById("loaddapp").value; 
+			 $.ajaxSetup({cache:false});
+		  $.get('feedback.php?fktype=filelost&fileid='+fileid,function (text, status) {
+			switch(trim(text))
+            {
+            case "ok":
+            alert("反馈成功！");
+            //window.location.reload();		
+            break;
+           case "no id":
+            alert("欸，id无效啊！");
+          break;
+         default:
+          alert("这是啥啊@#￥！");
+}
+			});
+		 }
+		  function trim(str){ //删除左右两端的空格
+ 　　     return str.replace(/(^\s*)|(\s*$)/g, "");
+ 　　 }
+ 
+		 </script>
    <div class="container">
 <div class="page-header">
    <h1>准备下载
    </h1>
 </div> 
   <div class="container">
-  <p class="lead">你下载的资源'<?php echo($filename); ?>'已经就绪，5秒之后自动跳转到下载地址....<br>如果未能跳转，请点击<a href="<?php echo($link); ?>">这里</a>。<br>如果资源无法下载，请<a href='feedback.php'>反馈</a>。</p>
+  <p class="lead">你下载的资源'<?php echo($filename); ?>'已经就绪，5秒之后自动跳转到下载地址....<br>如果未能跳转，请点击<a href="<?php echo($link); ?>" target="_blank">这里</a>。<br>如果资源无法下载，请<a onclick="feedback();">反馈</a>。</p>
    </div>
    </div>
 
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>

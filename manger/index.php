@@ -3,33 +3,112 @@
 $nowpageid=1;
 include 'interface/header.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php'; 
+$os=php_uname();
+$phpv=PHP_VERSION;
+$serverip=GetHostByName($_SERVER['SERVER_NAME']);
+$serverpath=$_SERVER['DOCUMENT_ROOT'];
+function getthename($id) {
+  $sql="select Filename from bw_downtable where id=$id";
+  $rs=loaddb($sql);
+   //echo $sql.'<br>';
+  if (mysqli_num_rows($rs)>0){
+	  $row = mysqli_fetch_array($rs, MYSQL_ASSOC);
+	  return $row['Filename'];
+  }else{
+	  return "error";
+  }
+}  
 ?>
 <body>
-<div class="row">
+ <div class="container-fluid">
+        <div class="row">
 <?php include 'interface/sidebar.php';?>
 
-<div class="col-xs-9 text-left">
+<div class="col-md-10 text-left">
 	  <div class="panel panel-default">
    <div class="panel-heading">
       <h3 class="panel-title">
-         ÒÇ±íÅÌ
+         ä»ªè¡¨ç›˜
       </h3>
    </div>
    <div class="panel-body">
     <div class="container">
-      <h1>»¶Ó­£¡<small><?php echo veifycookies($_COOKIE["bwuser"]);?></small></h1>
+      <h1>æ¬¢è¿ï¼<small><?php echo veifycookies($_COOKIE["bwuser"]);?></small></h1>
+	  <div class="container">
+	  </div>
 	   <div class="container">
-	
+	   <div class="col-md-5 text-left">
+	   <div class="panel panel-success">
+   <div class="panel-heading">
+      <h3 class="panel-title">30æ—¥å†…ä¸‹è½½æœ€å¤š</h3>
+   </div>
+   <div class="panel-body">
+     <ol>
+	   <?php
+	   $sql="SELECT fileid, count(1) AS counts FROM bw_downloadhistory  Where date_sub(curdate(), INTERVAL 30 DAY) <= date(`downtime`) GROUP BY fileid desc order by counts desc LIMIT 5";
+	   $rs=loaddb($sql);
+	   while($row=mysqli_fetch_row($rs)){
+		   $temp=getthename($row[0]);
+           echo "<li>$temp($row[1]æ¬¡)</li>";
+        }
+	   ?>
+        </ol>
+   </div>
+</div>
+	   
+	    
+		</div>
+		 <div class="col-md-5 text-left">
+		  <div class="panel panel-primary">
+       <div class="panel-heading">
+      <h3 class="panel-title">ç´¯è®¡ä¸‹è½½æœ€å¤š</h3>
+   </div>
+   <div class="panel-body">
+     <ol>
+	   <?php
+	   $sql="SELECT fileid, count(1) AS counts FROM bw_downloadhistory GROUP BY fileid desc order by counts desc LIMIT 5";
+	   $rs=loaddb($sql);
+	   while($row=mysqli_fetch_row($rs)){
+		   $temp=getthename($row[0]);
+           echo "<li>$temp($row[1]æ¬¡)</li>";
+        }
+	   ?>
+        </ol>
+		</div>
+		</div>
+   </div>
+    <div class="col-md-5 text-left">
+		  <div class="panel panel-primary">
+       <div class="panel-heading">
+      <h3 class="panel-title">ç³»ç»Ÿä¿¡æ¯</h3>
+   </div>
+   <div class="panel-body">
+
+	   <?php
+	  echo "ç³»ç»Ÿï¼š$os<br>
+	  PHPç‰ˆæœ¬ï¼š$phpv<br>
+	  æœåŠ¡å™¨IPï¼š$serverip<br>
+	  ç½‘ç«™è·¯å¾„ï¼š$serverpath<br>";
+	   ?>
+        </ol>
+		</div>
+		</div>
+   </div>
+		</div>
+		 
 	   </div>
 	  </div>
    </div>
 </div>
 </div>
 </div>
-<!-- jQuery (Bootstrap µÄ JavaScript ²å¼şĞèÒªÒıÈë jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
-      <!-- °üÀ¨ËùÓĞÒÑ±àÒëµÄ²å¼ş -->
-      <script src="js/bootstrap.min.js"></script>
+<!-- jQuery (Bootstrap çš„ JavaScript æ’ä»¶éœ€è¦å¼•å…¥ jQuery) -->
+    <script src="docs/js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="/js/highlight.js"></script>
+    <script src="/js/bootstrap-switch.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 <?php include 'interface/footer.php';?>
 </html>

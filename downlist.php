@@ -9,6 +9,7 @@ $tiaojian=test_input($_GET['findstr']);
 $page=$_GET['pageid'];
 $nowpageid=2;
 include 'interface/header.php';
+$flag=0;
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -30,7 +31,7 @@ function test_input($data) {
 	   <div class="form-inline text-right" >
     <form class="bs-example bs-example-form" role="form" action="downlist.php" method="get" id="PassForm">   
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
-         <button type="submit" class="btn btn-default">GO!</button>
+         <button type="submit" class="btn btn-default"><span class='glyphicon glyphicon-search' style="font-size: 20px;"></span></button>
       </form>   
     </div>	  
 	  </div>      
@@ -44,7 +45,7 @@ function test_input($data) {
  <?php
  
  ////设定每一页显示的记录数
-$pagesize=8;
+$pagesize=15;
  $con=connectdb();
   mysqli_query($con,"set names 'utf8'");
  //构建sql
@@ -81,7 +82,7 @@ closedb($con);
       <tr>
          <th>资源名称</th>
          <th>添加时间</th>
-         <th>下载链接</th>
+         <th></th>
       </tr>
    </thead>
    <tbody>
@@ -92,15 +93,16 @@ closedb($con);
             echo "<tr>";
             echo "<td>" . $row['Filename'] . "</td>";
             echo "<td>" . $row['adddate'] . "</td>";
-			echo "<td>" ."<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'>下载</a></td>";
+			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
             echo "</tr>";
+			$flag=1;
   }
 
 	  ?>
 
    </tbody>
 </table>
-
+<?php if($flag==0){echo "<center><p class='lead' >啊哈，未找到哦~</p></center>";} ?>
 <ul class="pagination">
 <?php
 if ($pages>1) {
@@ -133,7 +135,7 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 
 </div>
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>

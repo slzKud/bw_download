@@ -4,14 +4,43 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 ?>
-   <head>
-      <title>BetaWorld×ÊÔ´Çø</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!-- ÒıÈë Bootstrap -->
-      <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+<?php
+	  //è‡ªåŠ¨åˆ¤æ–­cookie
 
-      <!-- HTML5 Shim ºÍ Respond.js ÓÃÓÚÈÃ IE8 Ö§³Ö HTML5ÔªËØºÍÃ½Ìå²éÑ¯ -->
-      <!-- ×¢Òâ£º Èç¹ûÍ¨¹ı file://  ÒıÈë Respond.js ÎÄ¼ş£¬Ôò¸ÃÎÄ¼şÎŞ·¨ÆğĞ§¹û -->
+	  if (isset($_COOKIE["bwuser"])){
+	  //é‰´åˆ«ç”¨æˆ·ä»£ç 
+	  if ($_SESSION['permission']==0){
+	  $con=loaddb("select permission from bw_usertable where username='".veifycookies($_COOKIE["bwuser"])."'");
+	  $row=mysqli_fetch_array($con);
+     $_SESSION['permission']=$row['permission'];
+	 }
+	  if(veifycookies($_COOKIE["bwuser"])=="incorrectï¼"){
+	       echo "<meta http-equiv='refresh' content='1;url=../../index.php'> ";
+		   exit;
+	   }
+		   	 if($_SESSION['permission']<4){
+		    echo "<meta http-equiv='refresh' content='1;url=../../index.php'> ";
+			exit;
+			 }
+	  }else{
+		  echo "<meta http-equiv='refresh' content='1;url=../../index.php'> ";
+			exit; 
+	  }
+         
+       ?>
+   <head>
+   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+      <title>BetaWorldèµ„æºåŒºç®¡ç†ç«™</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- å¼•å…¥ Bootstrap -->
+     <!--<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">  -->
+   <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/highlight.css" rel="stylesheet">
+    <link href="/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    
+      <!-- HTML5 Shim å’Œ Respond.js ç”¨äºè®© IE8 æ”¯æŒ HTML5å…ƒç´ å’Œåª’ä½“æŸ¥è¯¢ -->
+      <!-- æ³¨æ„ï¼š å¦‚æœé€šè¿‡ file://  å¼•å…¥ Respond.js æ–‡ä»¶ï¼Œåˆ™è¯¥æ–‡ä»¶æ— æ³•èµ·æ•ˆæœ -->
       <!--[if lt IE 9]>
          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -19,42 +48,39 @@ empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 	  <style>
 	  body {
 			font-family: 'Microsoft YaHei UI','Microsoft YaHei', sans-serif;
+			padding-top: 50px;
+			padding-bottom: 50px;
 		}
 	  @media(max-width:767px) { 
  #user-info {
 position: absolute;
 top:0px;
-right: 72px;
+right: 0px;
 } }
 
 </style>
    </head>
    <body>
    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">BetaWorld×ÊÔ´Çø¹ÜÀíÕ¾</a>
+                
+                <a class="navbar-brand" href="/">BetaWorldèµ„æºåŒºç®¡ç†ç«™</a>
 				</div>
 			
           <div id="user-info">
           <p class="navbar-text pull-right">
             <?php
-	  //×Ô¶¯ÅĞ¶Ïcookie
+	  //è‡ªåŠ¨åˆ¤æ–­cookie
 
 	  if (isset($_COOKIE["bwuser"])){
-	  //¼ø±ğÓÃ»§´úÂë
-	  if(veifycookies($_COOKIE["bwuser"])!="incorrect£¡"){
+	  //é‰´åˆ«ç”¨æˆ·ä»£ç 
+	  if(veifycookies($_COOKIE["bwuser"])!="incorrectï¼"){
 	
-      echo "<p class='navbar-text navbar-right'>ÄãºÃ, <a href='/user/info.php' class='navbar-link'>".veifycookies($_COOKIE["bwuser"])."</a>.<a href='/user/login.php?type=logout' class='navbar-link'>µã´ËÍË³ö</a>.</p>";
+      echo "<p class='navbar-text navbar-right'>ä½ å¥½, <a href='/user/info.php' class='navbar-link'>".veifycookies($_COOKIE["bwuser"])."</a>.<a href='/user/login.php?type=logout' class='navbar-link'>ç‚¹æ­¤é€€å‡º</a>.</p>";
        }
 	   }else{
-		    echo "<a href='/user/login.php' class='navbar-link'>µÇÈë</a>";
+		    echo "<a href='/user/login.php' class='navbar-link'>ç™»å…¥</a>";
 			} 
          
        ?>
