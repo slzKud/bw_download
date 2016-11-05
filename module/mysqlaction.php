@@ -1,21 +1,25 @@
 <?php
 //mssql操作
-	
-//include_once $_SERVER['DOCUMENT_ROOT'].'/settings/db.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/settings/db.php';
 function connectdb() {
-	$dblist=array (
+	/* $dblist=array (
 'dbhost'=>"127.0.0.1",
 'dbuser'=>"root",
 'dbpass'=>"root",
 'dbname'=>"bw_download"
-);
+); */
   //$conc = mysql_connect($GLOBALS['dblist']['dbhost'],$GLOBALS['dblist']['dbuser'],$GLOBALS['dblist']['dbpass']);
-  $conc = mysqli_connect($dblist['dbhost'],$dblist['dbuser'],$dblist['dbpass'],$dblist['dbname']);
+ 
+try { 
+ $conc = mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
   if (!$conc)
   {
-  die('Could not connect: ' . mysqli_error($con));
+  echo "<meta http-equiv='refresh' content='0;url=../error.php?base64=".base64_encode("数据库链接失败。")."'> ";
   }
   return $conc;
+  }catch(Exception $e) {
+	  echo "<meta http-equiv='refresh' content='0;url=../error.php?base64=".base64_encode($e->getMessage())."'> ";
+	  }
 }
 function loaddb($sql) {
   $cona=connectdb();
