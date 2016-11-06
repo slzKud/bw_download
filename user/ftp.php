@@ -18,7 +18,7 @@ session_start();
 		   exit;
 	   }
 		$username= veifycookies($_COOKIE["bwuser"]);
-		$lowftp=getthesettings('lowftp');
+		$lowftp=getthesettings('lowftpper');
 		$optftp=getthesettings('optftp');
 		$ftpadress=getthesettings('ftpserveradress');
 	  }else{
