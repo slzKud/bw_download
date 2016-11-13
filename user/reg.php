@@ -9,7 +9,10 @@ $nowstep=1;
 $LErr="";
 //$nowstep=$_SESSION['nowstep'];
 $nowstep=$_GET['step'];
-
+if(getthesettings("closereg")==="1"){
+	$LErr="注册已经关闭。过几天再来吧。";
+	$nowstep=100;
+}
 	//表单处理
 	switch ($nowstep)
 {

@@ -25,7 +25,7 @@ session_start();
 		$lastloc=getIPLoc($lastip);
 		$lastlogindate=$row1['lastlogindate'];
 		$regdate=$row1['regdate'];
-		$lowftp=getthesettings('lowftp');
+		$lowftp=getthesettings('lowftpper');
 		$optftp=getthesettings('optftp');
 		if($optftp==1){
 			if($_SESSION['permission']>=$lowftp){

@@ -179,8 +179,12 @@ if($LErr != ""){
 <blockquote>
 <p>
 如果你无法登入，点<a href="cantlogin.php" >这里</a>。</p>
-<p>
-没有账户？<a href="reg.php" >注册</a>一个吧。</p>
+<?php 
+if(getthesettings("closereg")!="1"){
+	echo '<p>
+没有账户？<a href="reg.php" >注册</a>一个吧。</p>';
+}
+?>
 </blockquote><br>
 
 

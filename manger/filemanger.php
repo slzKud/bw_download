@@ -35,7 +35,9 @@ function test_input($data) {
 		 
      <form class="form-inline" role="form" action="filemanger.php" method="get">
 	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 添加文件</button></a>
+				<a href="interface/window/modifyfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 修改文件</button></a>
 		<a href="interface/window/delfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
+   
    <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> 搜索</button>

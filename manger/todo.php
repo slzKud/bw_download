@@ -547,6 +547,20 @@ savethesettings("ftpuser4",$newftpuser4);
 	savethesettings("optftp",$cx);
 	 echo "ok";
 	break;
+	 case "closereg":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("closereg",$cx);
+	 echo "ok";
+	break;
+	case "opensh":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("opensh",$cx);
+	 echo "ok";
+	break;
 	//FTP重置
 	 case "ftpreset":
 	 loaddb("delete from bw_ftp");

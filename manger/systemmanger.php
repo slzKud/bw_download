@@ -38,6 +38,14 @@ $nowpageid=4;
          <td>测试模式</td>
          <td><input id="switch-state" type="checkbox" name="testmode" checked></td>
       </tr>
+	  <tr>
+         <td>关闭注册</td>
+         <td><input id="switch-state" type="checkbox" name="closereg" <?php if(getthesettings("closereg")==="1"){echo 'checked';} ?>></td>
+      </tr>
+	   <tr>
+         <td>开启注册审核</td>
+         <td><input id="switch-state" type="checkbox" name="opensh" <?php if(getthesettings("opensh")==="1"){echo 'checked';} ?>></td>
+      </tr>
       <tr>
          <td>邮件发送设置</td>
          <td><a href="interface/window/email.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-warning">设置</button></a></td>
@@ -121,14 +129,23 @@ $('input[name="ftpon"]').on('switchChange.bootstrapSwitch', function(event, stat
   }
    $.post('todo.php', {type: "optftp",t:s});
 });
-$('input[name="opentjcode"]').on('switchChange.bootstrapSwitch', function(event, state) {
+$('input[name="closereg"]').on('switchChange.bootstrapSwitch', function(event, state) {
 	console.log(state);
   if (state==false){
 	  var s="off"
   }else{
 	  var s=1
   }
-   $.post('todo.php', {type: "optthetj",t:s});
+   $.post('todo.php', {type: "closereg",t:s});
+});
+$('input[name="opensh"]').on('switchChange.bootstrapSwitch', function(event, state) {
+	console.log(state);
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "opensh",t:s});
 });
 </script>
  <script>
