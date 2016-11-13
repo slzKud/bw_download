@@ -129,6 +129,7 @@ $('input[name="ftpon"]').on('switchChange.bootstrapSwitch', function(event, stat
   }
    $.post('todo.php', {type: "optftp",t:s});
 });
+
 $('input[name="closereg"]').on('switchChange.bootstrapSwitch', function(event, state) {
 	console.log(state);
   if (state==false){
@@ -146,6 +147,15 @@ $('input[name="opensh"]').on('switchChange.bootstrapSwitch', function(event, sta
 	  var s=1
   }
    $.post('todo.php', {type: "opensh",t:s});
+});
+$('input[name="opentjcode"]').on('switchChange.bootstrapSwitch', function(event, state) {
+	console.log(state);
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "optthetj",t:s});
 });
 </script>
  <script>
