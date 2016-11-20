@@ -1,6 +1,8 @@
 <html>
 <body>
 <?php
+//include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+//if(getthesettings("optmode")==="1"){echo 'checked';}
 function unixtime_to_date($unixtime, $timezone = 'PRC') {
     $datetime = new DateTime("@$unixtime"); //DateTime类的bug，加入@可以将Unix时间戳作为参数传入
     $datetime->setTimezone(new DateTimeZone($timezone));
@@ -21,7 +23,7 @@ $time=unixtime_to_date($endtime);
 	  <br>
 
 <h3>BetaWorld资源区正在进行一场维护<br><br>
-预计开放时间:<?echo $time;?></h3>
+喝杯茶就好。</h3>
 	  <br><br>
 	  
 <br>

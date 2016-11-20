@@ -1,8 +1,7 @@
 <html>
 <?php 
-$nowpageid=2;
+$nowpageid=6;
 include 'interface/header.php';
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
@@ -10,7 +9,6 @@ empty($_GET['pageid'])&&$_GET['pageid']=1;
 empty($page)&&$page=1;
 $tiaojian=test_input($_GET['findstr']);
 $page=$_GET['pageid'];
-$nowpageid=2;
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -20,26 +18,22 @@ function test_input($data) {
 ?>
 <body>
  <div class="container-fluid">
-
         <div class="row">
 <?php include 'interface/sidebar.php';?>
 
 <div class="col-md-10 text-left">
+		  <div class="panel panel-default">
 
-	  <div class="panel-body">
+   <div class="panel-body">
     <div class="container">
-      <h1>文件管理</small></h1>
+      <h1>用户组审核</small></h1>
 	  <hr>
 	   
 		<div class="container">
-		 
-     <form class="form-inline" role="form" action="filemanger.php" method="get">
-	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 添加文件</button></a>
-				<a href="interface/window/modifyfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 修改文件</button></a>
-					<a href="interface/window/pinfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 文件置顶</button></a>
-		<a href="interface/window/delfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
-   
-   <div class="form-group">
+		<form class="form-inline" role="form" action="usermanger.php" method="get">
+		 <a href="interface/window/admituserwin.php?mode=a"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 同意</button> </a>   
+<a href="interface/window/admituserwin.php?mode=d"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 否决</button> </a>	  
+		 <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> 搜索</button>
 </form>
@@ -52,11 +46,12 @@ $pagesize=8;
   mysqli_query($con,"set names 'utf8'");
  //构建sql
  if(empty($tiaojian)){
-	  $sql="select %tj% from bw_downtable ";  
+	  $sql="select %tj% from bw_admituser where ifs=0 ";  
  }else{
-	 $sql="select %tj% from bw_downtable where filename like '%".$tiaojian."%'";  
+	 $sql="select %tj% from bw_admituser  where username like '%".$tiaojian."%' and ifs=0";  
  }
  //计算页数
+
 $res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
 $myrow = mysqli_fetch_array($res);
 $numrows=$myrow[0];
@@ -69,38 +64,40 @@ if (!isset($page))
 $page=1;
 //判断转到页数
 if (isset($ys))
-if ($ys>$pages)
+if ($ys>$pages){
 $page=$pages;
-else
+}else{
 $page=$ys;
+}
 //计算记录偏移量
 $offset=$pagesize*($page-1);
-$rs=mysqli_query($con,str_replace("%tj%","id,Filename,Download,adddate,Permisson",$sql." order by id desc limit $offset,$pagesize"));
-//echo $sql;
+$rs=mysqli_query($con,str_replace("%tj%","id,username,oldper,newper,nowtime",$sql." order by username desc limit $offset,$pagesize"));
+ //echo str_replace("%tj%","id,username,permission",$sql." order by id desc limit $offset,$pagesize");
 closedb($con);
 ?>
- <table class="table table-hover">
+		 <table class="table">
    <thead>
       <tr>
-	     
-         <th>资源名称</th>
-         <th>添加时间</th>
-         <th>下载权限</th>
+	      <th>申请ID</th>
+         <th>用户名称</th>
+         <th>用户原权限</th>
+         <th>用户新权限</th>
+	     <th>申请时间</th>
       </tr>
    </thead>
    <tbody>
-      <?php
+       <?php
 	  $i=1;
 	  while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
          {
 			$nowtime=time();
             echo "<tr>";
 			echo "<td><input type='checkbox' name='checkItem' id='Bwchkid".$row['id']."'  /></td>";
-            echo "<td id ='BwStrid".$row['id']."'>" . $row['Filename'] . "</td>";
-            echo "<td>" . $row['adddate'] . "</td>";
-			switch($row['Permisson']){
-				case '0':
-				$userqx="游客";
+			echo "<td>".$row['id']."</td>";
+            echo "<td id ='BwStrid".$row['id']."'>" . $row['username'] . "</td>";
+			switch($row['oldper']){
+				case '-1':
+				$userqx="已封禁";
 				  break;
 				case '1':
 				$userqx="普通用户";
@@ -112,13 +109,35 @@ closedb($con);
 				$userqx="VIP";
 				  break;
 				case '4':
-				$userqx="机密";
+				$userqx="管理员";
 				  break;
 				 default:
 				$userqx="未知";
 				  break;
 			}
 			echo "<td>" .$userqx."</td>";
+			switch($row['newper']){
+				case '-1':
+				$userqx="已封禁";
+				  break;
+				case '1':
+				$userqx="普通用户";
+				  break;
+				case '2':
+				$userqx="高级用户";
+				  break;
+				case '3':
+				$userqx="VIP";
+				  break;
+				case '4':
+				$userqx="管理员";
+				  break;
+				 default:
+				$userqx="未知";
+				  break;
+			}
+			echo "<td>" .$userqx."</td>";
+			echo "<td>" .$row['nowtime']."</td>";
             echo "</tr>";
 			$i+=1;
   }
@@ -127,9 +146,8 @@ closedb($con);
 
    </tbody>
 </table>
-
 <ul class="pagination">
-<?php
+  <?php
 if ($pages>1) {
 //计算首页、上一页、下一页、尾页的页数值
 $first=1;
@@ -137,9 +155,9 @@ $prev=$page-1;
 $next=$page+1;
 $last=$pages;
 if(empty($tiaojian)){
-	  $link="filemanger.php?";  
+	  $link="usermanger.php?";  
  }else{
-	 $link="filemanger.php?findstr=$tiaojian&";  
+	 $link="usermanger.php?findstr=$tiaojian&";  
  }
 if ($page >1) echo "<li><a href='".$link."pageid=".$first."'>&laquo;</a></li>";
 for ($x=1; $x<=$pages; $x++) {
@@ -154,13 +172,11 @@ for ($x=1; $x<=$pages; $x++) {
 if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></li>";
 }
 ?>
-
 </ul>
 </div>
 </div>
-</div>
-</div>
-</div>
+
+	  </div>
 </div>
 </div>
 <!-- 添加模态框（Modal） -->
@@ -172,9 +188,9 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
      </div>
 </div><!-- /.modal -->
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="docs/js/jquery.min.js"></script>
+       <script src="docs/js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
-      <script src="/js/bootstrap.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
 	  <script>
 	  $nowid="aaa"
 	 var $tempstr="";
@@ -194,15 +210,11 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 	  })
    });
 </script>
-	  <Script>
-	  </script>
 	  <script>
 		$(function(){
-			  var $i=1;
 			function initTableCheckbox() {
 				var $thr = $('table thead tr');
-								var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
-				
+				var $checkAllTh = $('<th><input type="checkbox" id="checkAll" name="checkAll" /></th>');
 				/*将全选/反选复选框添加到表头最前，即增加一列*/
 				$thr.prepend($checkAllTh);
 				/*“全选/反选”复选框*/
@@ -224,14 +236,13 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 					$(this).find('input').click();
 				});
 				var $tbr = $('table tbody tr');
-				var $aaa="bwoption";
-				var $checkItemTd = $('<td><input type="checkbox" name="checkItem"  /></td>');
+				var $checkItemTd = $('<td><input type="checkbox" name="checkItem" /></td>');
 				/*每一行都在最前面插入一个选中复选框的单元格*/
 				//$tbr.prepend($checkItemTd);
 				/*点击每一行的选中复选框时*/
 				$tbr.find('input').click(function(event){
-					//$tempstr=$tempstr+","+$( this)[0].id);
-					$.get("transfer.php?item="+$( this)[0].id);
+					//传送数据给后台
+				    $.get("transfer.php?item="+$( this)[0].id);
 					/*调整选中行的CSS样式*/
 					$(this).parent().parent().toggleClass('warning');
 					/*如果已经被选中行的行数等于表格的数据行数，将全选框设为选中状态，否则设为未选中状态*/
@@ -245,16 +256,8 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 				});
 			}
 			initTableCheckbox();
-			// dom加载完毕
-
 		});
-		
- 		</script>
- 
-
-
-		
-
+		</script>
 </body>
 <?php include 'interface/footer.php';?>
 </html>

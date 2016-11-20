@@ -27,6 +27,7 @@ session_start();
 		$regdate=$row1['regdate'];
 		$lowftp=getthesettings('lowftpper');
 		$optftp=getthesettings('optftp');
+		$opsh=getthesettings('opensh');
 		if($optftp==1){
 			if($_SESSION['permission']>=$lowftp){
 				$str1="有";
@@ -82,7 +83,7 @@ session_start();
 	   上次登录IP及地区：$lastip $lastloc<br>";?></p>
      <!--  <a href="emailsend.php"><button type="button" class="btn btn-primary">电邮联系</button></a>  -->
 		<?php if($optftp==1){echo '<a href="ftp.php"><button type="button" class="btn btn-primary">查看FTP账户信息</button></a>';} ?>
-		
+		<?php if($opsh==1){echo '<a href="admituser.php"><button type="button" class="btn btn-primary">用户组更改</button></a>';} ?>
 </div>
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
       <script src="../js/jquery.min.js"></script>

@@ -11,14 +11,6 @@ color : #C0C0C0;
 
 <?php 
 $nowpageid=1;
-if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否维护状态，如果是；页面跳转
-		   file_exists("maintenance") || file_exists("maintenance.txt")
-		)
-		{
-			header("Maintenance: 1");
-			header("location:mainteninfo.php");
-			exit;
-		}
 include 'interface/header.php';
 ?>
 <body>
@@ -36,7 +28,7 @@ include 'interface/header.php';
 			<br />
 			<br />
       <h1>欢迎来到BetaWorld资源区！</h1>
-      <p>开始你的Beta之旅！</p>
+      <p>开始你的Beta之旅！<a href="about.php#us">了解更多</a></p>
 	  
 
       <p>

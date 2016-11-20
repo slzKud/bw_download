@@ -104,7 +104,19 @@ right: 80px;
 	  }else{
 		   	 $_SESSION['permission']=0;
 		    echo '<a href="/user/login.php" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 登入</a>';} 
+			if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否维护状态，如果是；页面跳转
+		   file_exists("maintenance") || file_exists("maintenance.txt") || getthesettings("optmode")==="1"
+		)
+		{
+			if($_SESSION['permission']<4){
+				header("Maintenance: 1");
+			header("location:../mainteninfo.php");
+			exit;
+			}
+			
+		}
        ?>
+	   
 	   </li>
 
    </div>  

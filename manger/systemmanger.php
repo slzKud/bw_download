@@ -35,15 +35,15 @@ $nowpageid=4;
             <table class="table table-striped">
    <tbody>
       <tr>
-         <td>测试模式</td>
-         <td><input id="switch-state" type="checkbox" name="testmode" checked></td>
+         <td>维护模式（关闭网站）</td>
+         <td><input id="switch-state" type="checkbox" name="testmode" checked  <?php if(getthesettings("optmode")==="1"){echo 'checked';} ?>></td>
       </tr>
 	  <tr>
          <td>关闭注册</td>
          <td><input id="switch-state" type="checkbox" name="closereg" <?php if(getthesettings("closereg")==="1"){echo 'checked';} ?>></td>
       </tr>
 	   <tr>
-         <td>开启注册审核</td>
+         <td>开启用户组审核</td>
          <td><input id="switch-state" type="checkbox" name="opensh" <?php if(getthesettings("opensh")==="1"){echo 'checked';} ?>></td>
       </tr>
       <tr>
@@ -119,6 +119,12 @@ $nowpageid=4;
  //绑定开关事件
  $('input[name="testmode"]').on('switchChange.bootstrapSwitch', function(event, state) {
   console.log(state); // true | false
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "opt",t:s});
 });
 $('input[name="ftpon"]').on('switchChange.bootstrapSwitch', function(event, state) {
   console.log(state);

@@ -460,6 +460,12 @@ $content=str_replace("%date%",date('Y-m-d H:i:s'),$emailstr);
 	if($cx=="off"){$cx=0;}
 	savethesettings("optthetj",$cx);
 	 echo "ok";
+	 case "opt":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("optmode",$cx);
+	 echo "ok";
 	break;
 	 case "modtjcode":
 	empty($_POST['code']) && $_POST['code']="";
