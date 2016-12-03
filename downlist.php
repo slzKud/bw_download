@@ -87,6 +87,27 @@ closedb($con);
    </thead>
    <tbody>
       <?php
+      //置顶文件
+  if(empty($tiaojian)){
+      $sqlpin="select fileid from bw_pinfile where ifok=1";
+      $rspin=loaddb($sqlpin);
+      while($rowp = mysqli_fetch_array($rspin, MYSQL_ASSOC))
+         {
+           $sqlp="select id,Filename,Download,adddate from bw_downtable where id=".$rowp['fileid']." and Permisson<= ".$_SESSION['permission'].""; 
+          //echo $sqlp;
+          $rspinx=loaddb($sqlp);
+          while($rowg = mysqli_fetch_array($rspinx, MYSQL_ASSOC))
+         {
+			$nowtime=time();
+            echo "<tr>";
+            echo "<td>" . $rowg['Filename'] . '<span class="label label-primary">置顶</span></td>';
+            echo "<td>" . $rowg['adddate'] . "</td>";
+			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$rowg['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$rowg['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
+            echo "</tr>";
+			//$flag=1;
+  }
+         }
+          }
 	  while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
          {
 			$nowtime=time();

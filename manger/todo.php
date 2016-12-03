@@ -131,11 +131,75 @@ $rsuser=loaddb("SELECT * FROM bw_usertable where username='".$username."'");
 	  exit;
 }
   //删除
-  break; 
+  break;
+case"admituser":
+empty($_POST['id']) && $_POST['id']="";
+//empty($_POST['username']) && $_POST['username']="";
+$applyid=$_POST['id'];
+if($applyid==""){
+	echo "no id";
+	exit;
+}
+$rsapply=loaddb("SELECT id,username,newper FROM bw_admituser where id=$applyid and ifs=0");
+while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+         {
+			$username=$row['username'];
+			$newper=$row['newper'];
+  }
+$rschk=loaddb("SELECT id FROM bw_usertable where username='$username'");
+//echo "SELECT id FROM bw_usertable where username='$username'";
+if(mysqli_num_rows($rschk) <0){
+echo "invaild user";
+	exit;
+	 }
+if(mysqli_num_rows($rsapply) >0){
+	 
+			$sql="update bw_admituser SET ifs=1 where id=$applyid and ifs=0";
+			loaddb($sql);
+			 $sql="update bw_usertable SET permission=$newper where username='$username'";
+			loaddb($sql);
+	     	 echo  "ok"; 
+			 exit;
+		 }else{
+			 echo  "apply is error"; 
+         exit;
+		 }
+break;  
+case"rejectuser":
+empty($_POST['id']) && $_POST['id']="";
+//empty($_POST['username']) && $_POST['username']="";
+$applyid=$_POST['id'];
+if($applyid==""){
+	echo "no id";
+	exit;
+}
+$rsapply=loaddb("SELECT id,username,newper FROM bw_admituser where id=$applyid and ifs=0");
+while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+         {
+			$username=$row['username'];
+			$newper=$row['newper'];
+  }
+$rschk=loaddb("SELECT id FROM bw_usertable where username='$username'");
+//echo "SELECT id FROM bw_usertable where username='$username'";
+if(mysqli_num_rows($rschk) <0){
+echo "invaild user";
+	exit;
+	 }
+if(mysqli_num_rows($rsapply) >0){
+	 
+			$sql="update bw_admituser SET ifs=-1 where id=$applyid and ifs=0";
+			loaddb($sql);
+	     	 echo  "ok"; 
+			 exit;
+		 }else{
+			 echo  "apply is error"; 
+         exit;
+		 }
+break;  
 case "addfiles":
 empty($_POST['zyname']) && $_POST['zyname']="";
 empty($_POST['zylink']) && $_POST['zylink']="";
-//empty($_POST['zyqx']) && $_POST['zyqx']=99;
+empty($_POST['zyqx']) && $_POST['zyqx']=99;
 $zyname=test_input($_POST['zyname']);
 $zylink=test_input($_POST['zylink']);
 $zyqx=test_input($_POST['zyqx']);
@@ -158,6 +222,63 @@ if ($zyname != ""){
 	  exit;
 }
  //添加
+  break;
+  case "modfile":
+empty($_POST['zyid']) && $_POST['zyid']="";
+empty($_POST['zyname']) && $_POST['zyname']="";
+empty($_POST['zylink']) && $_POST['zylink']="";
+empty($_POST['zyqx']) && $_POST['zyqx']=99;
+$zyid=test_input($_POST['zyid']);
+$zyname=test_input($_POST['zyname']);
+$zylink=test_input($_POST['zylink']);
+$zyqx=test_input($_POST['zyqx']);
+if ($zyname != ""){
+	if ($zylink == ""){
+		  echo "no link";
+	  exit;
+	}
+	if ($zyqx === 99){
+		  echo "no qx";
+	  exit;
+	}
+	//获取源文件
+	$sql="select * from bw_downtable where id in ($zyid)";
+	 //echo $sql;
+	 $rs=loaddb($sql);
+	 $orgfilename="";
+	 $orgdown="";
+	$orgqx=0;
+	 $addstr="";
+	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+         {
+			$orgfilename=$row['FileName'];
+			$orgdown=$row['Download'];
+			 $orgqx=$row['Permisson'];
+  }
+ if($orgfilename != $zyname){
+	  $addstr=$addstr.",FileName = '$zyname'";
+  }
+   if($orgdown != $zylink){
+	  $addstr=$addstr.",Download = '$zylink'";
+  }
+   if($orgqx != $zyqx){
+	  $addstr=$addstr.",Permisson = '$zyqx'";
+  }
+
+	 if ($addstr != ""){
+  $addstr=substr($addstr,1);
+  $sql1="UPDATE bw_downtable SET $addstr where id=$zyid";
+//echo $sql;
+  loaddb($sql1);
+  echo "ok";
+  }else{
+	  echo "no change";
+	  exit;
+  }
+	}else{
+	  echo "no name";
+	  exit;
+}
   break;
   case "moduser":
   empty($_POST['userid']) && $_POST['userid']="";
@@ -283,7 +404,8 @@ if($_POST['userqx']==""){
 	}
 $md5pass=md5($userpassword);
 $regdate=date('Y-m-d H:i:s');
-	$sql="INSERT INTO bw_usertable(username, passmd5,email,permission,regdate)  VALUES ('$username','$md5pass','$useremail',$userqx,$regdate)";
+	$sql="INSERT INTO bw_usertable(username, passmd5,email,permission,regdate)  VALUES ('$username','$md5pass','$useremail',$userqx,'$regdate')";
+	//echo $sql;
 	loaddb($sql);
 	//FTP部分
 	$optftp=getthesettings('optftp');
@@ -583,6 +705,44 @@ savethesettings("ftpuser4",$newftpuser4);
   }
   echo "ok";
   exit;
+	break;
+	case "pin":
+	empty($_POST['fileid']) && $_POST['fileid']="";
+	$fileid=test_input($_POST['fileid']);
+	if($fileid==""){
+		echo "no id";
+		exit;
+	}else{
+		$rschk=loaddb("SELECT id FROM bw_pinfile where fileid='".$fileid."' and ifok=1");
+	if(mysqli_num_rows($rschk) >0){
+        echo "file pinned";
+		exit;
+	}else{
+		$sql="INSERT INTO bw_pinfile (fileid,ifok) VALUES ($fileid,1) ";
+		loaddb($sql);
+		echo "ok";
+		exit;
+	}
+	}
+	break;
+	case "unpin":
+	empty($_POST['fileid']) && $_POST['fileid']="";
+	$fileid=test_input($_POST['fileid']);
+	if($fileid==""){
+		echo "no id";
+		exit;
+	}else{
+		$rschk=loaddb("SELECT id FROM bw_pinfile where fileid='".$fileid."' and ifok=1");
+	if(mysqli_num_rows($rschk) >0){
+       $sql="UPDATE bw_pinfile SET ifok=0 where fileid=$fileid ";
+		loaddb($sql);
+		echo "ok";
+		exit;
+	}else{
+		echo "file is not pinned";
+		exit;
+	}
+	}
 	break;
 default:
   	  echo "no type";

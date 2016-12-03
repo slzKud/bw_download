@@ -28,7 +28,7 @@ $per=0;
 //$ifd=0;
 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
          {
-			$list=$list."<br>".$i.".审核ID号'".$row['id']."'：关于'".$row['username']."'用户的提升用户组审核";
+			$list=$list."<br>".$i.".审核ID号'".$row['id']."'：关于'".$row['username']."'用户的更改用户组审核";
 			$i+=1;
   }
   }
@@ -73,56 +73,84 @@ while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
 		            <button type="button" class="btn btn-default" 
                data-dismiss="modal">关闭
             </button>
-             <?php if ($temp != "" and $ifd==0 ){echo "<button type='button' class='btn btn-primary' onclick='DelSomething();'>同意</button>";} ?>
-			  <?php if ($temp != "" and $ifd==1 ){echo "<button type='button' class='btn btn-primary' onclick='openSomething();'>否决</button>";} ?>
+             <?php if ($temp != "" and $ifd==0 ){echo "<button type='button' class='btn btn-primary' onclick='openSomething();'>同意</button>";} ?>
+			  <?php if ($temp != "" and $ifd==1 ){echo "<button type='button' class='btn btn-primary' onclick='rejectSomething();'>否决</button>";} ?>
 			 <script>
-		 function DelSomething(){
-			 var delid=document.getElementById("loaddapp").value; 
-			 var btimes=document.getElementById("bwbantime").value; 
-			  switch(btimes)
-            {
-           case "1天":
-            var btime=24*60*60;
-          break;
-		  case "30天":
-           var  btime=24*60*60*30;
-          break;
-		   case "1年":
-           var  btime=3;
-          break;
-		    case "永久":
-          var  btime=-1;
-          break;
-         default:
-         var btime=24*60*60;
-		 }
-		$.post('../manger/todo.php', { type: "banuser", username: delid ,timeplus: btime}, function (text, status) {
-			switch(trim(text))
-            {
-            case "ok":
-            alert("封禁成功！");
-            window.location.reload();		
-            break;
-           
-         default:
-          alert(text);
-}
-			});
-	}
 	function openSomething(){
 			 var delid=document.getElementById("loaddapp").value; 
-		$.post('../manger/todo.php', { type: "unbanuser", username: delid}, function (text, status) {
+			 var strs= new Array(); //定义一数组 
+			 var k=0;
+			 var j=0;
+            strs=delid.split(","); 
+            for (i=0;i<strs.length ;i++ ) 
+{ 
+	k=k+1;
+$.ajax({ 
+type:"POST", 
+cache : false, 
+async : false,
+url:'../manger/todo.php', 
+data:"type=admituser&id="+strs[i], 
+success:function (text, status) {
 			switch(trim(text))
             {
             case "ok":
-            alert("解封成功！");
-            window.location.reload();		
+            j=j+1;	
             break;
-           
          default:
           alert(text);
 }
-			});
+			}});
+
+}
+console.log(j);
+console.log(k);
+if(j==k){
+alert('操作成功！');
+window.location.reload();
+}else{
+	alert('操作失败！');
+}
+	
+	window.location.reload();	
+	}
+	function rejectSomething(){
+			 var delid=document.getElementById("loaddapp").value; 
+			 var strs= new Array(); //定义一数组 
+			 var k=0;
+			 var j=0;
+            strs=delid.split(","); 
+            for (i=0;i<strs.length ;i++ ) 
+{ 
+	k=k+1;
+$.ajax({ 
+type:"POST", 
+cache : false, 
+async : false,
+url:'../manger/todo.php', 
+data:"type=rejectuser&id="+strs[i], 
+success:function (text, status) {
+			switch(trim(text))
+            {
+            case "ok":
+            j=j+1;	
+            break;
+         default:
+          alert(text);
+}
+			}});
+
+}
+console.log(j);
+console.log(k);
+if(j==k){
+alert('操作成功！');
+window.location.reload();
+}else{
+	alert('操作失败！');
+}
+	
+	window.location.reload();	
 	}
 	function trim(str){ //删除左右两端的空格
 　　     return str.replace(/\s/g,'');
