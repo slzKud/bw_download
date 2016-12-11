@@ -55,7 +55,9 @@ $pagesize=15;
 	 $sql="select %tj% from bw_downtable where Permisson<= ".$_SESSION['permission']." and filename like '%".$tiaojian."%'";  
  }
  //计算页数
-$res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
+ $tempsql=str_replace("%tj%","count(*) as count",$sql);
+ //echo  $tempsql;
+$res=mysqli_query($con,$tempsql);
 $myrow = mysqli_fetch_array($res);
 $numrows=$myrow[0];
 //计算总页数
@@ -74,7 +76,7 @@ $page=$ys;
 //计算记录偏移量
 $offset=$pagesize*($page-1);
 $rs=mysqli_query($con,str_replace("%tj%","id,Filename,Download,adddate",$sql." order by id desc limit $offset,$pagesize"));
-//echo $sql;
+//echo str_replace("%tj%","id,Filename,Download,adddate",$sql." order by id desc limit $offset,$pagesize");
 closedb($con);
 ?>
  <table class="table table-hover">

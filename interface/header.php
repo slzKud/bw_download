@@ -1,8 +1,10 @@
-<?php 	  
+<?php 
+session_start();	  
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
+$SESSION=0;
+//echo $_SESSION['permission'];
 ?>
 <head>
 	  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -55,8 +57,11 @@ right: 80px;
 	  //鉴别用户代码
 	  if ($_SESSION['permission']==0){
 	  $con=loaddb("select permission from bw_usertable where username='".veifycookies($_COOKIE["bwuser"])."'");
+	  //echo "select permission from bw_usertable where username='".veifycookies($_COOKIE["bwuser"])."'";
+
 	  $row=mysqli_fetch_array($con);
      $_SESSION['permission']=$row['permission'];
+	 $SESSION=$row['permission'];
 	 }
 	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
       echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span> ".veifycookies($_COOKIE["bwuser"])."<b class='caret'></b></a>.
