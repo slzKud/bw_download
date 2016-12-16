@@ -1,7 +1,15 @@
  <?php
 //预备 收集信息用于调查
-empty($_GET['base64'])&&$_GET['base64']=0;
-$errormsg=base64_decode($_GET['base64']);
+empty($_GET['err'])&&$_GET['err']="";
+echo $_GET['err'];
+switch($_GET['err']){
+	case "1":
+      $errormsg="数据库连接失败.请重新检查.";
+	  break;
+	 default:
+	 $errormsg="未知错误.";
+	 break;
+}
 include 'interface/header-nomenu.php';
 ?>
  <style>

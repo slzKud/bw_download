@@ -14,7 +14,7 @@ try {
  $conc = mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
   if (!$conc)
   {
-  echo "<meta http-equiv='refresh' content='0;url=../error.php?base64=".base64_encode("数据库链接失败。")."'> ";
+  echo "<meta http-equiv='refresh' content='0;url=../error.php?err=1'> ";
   }
   return $conc;
   }catch(Exception $e) {
