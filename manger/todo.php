@@ -69,7 +69,7 @@ if($timet==-1){
 }else{
 	$tiemb=time()+$timet;
 }
-$nowdate=date("Y-m-d");
+$nowdate=date("Y-m-d h:i:s");
 $rsuser=loaddb("SELECT * FROM bw_usertable where username='".$username."'");
 	if(mysqli_num_rows($rsuser) >0){
 		 //更改用户权限
@@ -82,7 +82,7 @@ $rsuser=loaddb("SELECT * FROM bw_usertable where username='".$username."'");
          exit;
 		 }else{
 	     //添加封禁记录
-			 $sql="INSERT INTO bw_baneduser(username,btime,ifclose,nowdate)  VALUES ('$username',$tiemb,1,$nowdate)";
+			 $sql="INSERT INTO bw_baneduser(username,btime,ifclose,nowdate)  VALUES ('$username',$tiemb,1,'$nowdate')";
 			 loaddb($sql);
 	     	 echo  "ok"; 
          exit;

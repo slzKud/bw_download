@@ -28,7 +28,7 @@ include 'interface/header.php';
 			<br />
 			<br />
       <h1>欢迎来到BetaWorld资源区！</h1>
-      <p>开始你的Beta之旅！<a href="about.php#us">了解更多</a></p>
+      <p>开始你的Beta之旅！<a href="about.php">了解更多</a></p>
 	  
 
       <p>

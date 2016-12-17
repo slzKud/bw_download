@@ -6,10 +6,11 @@
 * <img src=img.php>
 * <img src=img.php?folder=images2/>
 ***********************************************/
+empty($_GET['folder'])&& $_GET['folder']="/image/";
 if($_GET['folder']){
 $folder=$_GET['folder'];
 }else{
-$folder='/images/';
+$folder='/image/';
 }
 //存放图片文件的位置
 $path = $_SERVER['DOCUMENT_ROOT']."/".$folder;

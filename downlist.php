@@ -1,4 +1,5 @@
 <html>
+<link href="./css/top.css" rel="stylesheet">
 <?php 
 include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 empty($tioajian)&&$tiaojian="";
@@ -17,6 +18,7 @@ function test_input($data) {
   return $data;
 }
 ?>
+
 <body>
  <div class="container">
  <br>
@@ -83,8 +85,8 @@ closedb($con);
    <thead>
       <tr>
          <th>资源名称</th>
-         <th>添加时间</th>
          <th></th>
+          <th>更新时间</th>
       </tr>
    </thead>
    <tbody>
@@ -103,8 +105,8 @@ closedb($con);
 			$nowtime=time();
             echo "<tr>";
             echo "<td>" . $rowg['Filename'] . '<span class="label label-primary">置顶</span></td>';
-            echo "<td>" . $rowg['adddate'] . "</td>";
 			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$rowg['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$rowg['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
+            echo "<td>" . $rowg['adddate'] . "</td>";
             echo "</tr>";
 			//$flag=1;
   }
@@ -115,8 +117,8 @@ closedb($con);
 			$nowtime=time();
             echo "<tr>";
             echo "<td>" . $row['Filename'] . "</td>";
-            echo "<td>" . $row['adddate'] . "</td>";
 			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
+             echo "<td>" . $row['adddate'] . "</td>";
             echo "</tr>";
 			$flag=1;
   }
@@ -161,6 +163,7 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
       <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
+       <script src="./js/top.js" type="text/javascript"></script>
 </body>
 <?php include 'interface/footer.php';?>
 </html>

@@ -1,0 +1,44 @@
+#updown{
+	 width: 62px;
+    height: 50px;
+    right: 50px;
+    bottom: 50px;
+    cursor: pointer;
+    position: fixed;
+    display: none;
+  
+
+    /* 兼容ie6位置fixed问题 */
+    _position:absolute;
+    _bottom:auto;
+    /*_top:expression(eval(document.documentElement.scrollTop));*/
+
+    _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));
+    _margin-bottom: 40px;	
+}
+#updown span{
+	cursor:pointer;
+	width:48px;
+	height:50px;
+	display:block;
+}
+#updown .up{
+	background:url(../css/updown.png) no-repeat;
+}
+#updown .up:hover{
+	background:url(../css/updown.png) top right no-repeat;
+}
+#updown .down{
+	background:url(../css/updown.png) bottom left no-repeat;
+}
+#updown .down:hover{
+	background:url(../css/updown.png) bottom right no-repeat;
+}
+#top{
+	background-color:#000;
+	margin: 0em 0 10px 0em;
+	border-style:solid; border-width:1px; border-color:#E5E5E5;
+	height:50px;
+	line-height:50px;
+	
+}

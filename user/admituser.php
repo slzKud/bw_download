@@ -50,8 +50,8 @@ switch($usernewper){
 				$usernewqx=0;
 				  break;
 			}
-$nowdate=date("Y-m-d");
- $sql="INSERT INTO bw_admituser(username,oldper,newper,nowtime)  VALUES ('$username',$useroldqx,$usernewqx,$nowdate)";
+$nowdate=date("Y-m-d h:i:s");
+ $sql="INSERT INTO bw_admituser(username,oldper,newper,nowtime)  VALUES ('$username',$useroldqx,$usernewqx,'$nowdate')";
 loaddb($sql);		
 //echo $sql;
 echo "<script>alert('你的用户权限更改申请已发送，请等待审批。');</script>"	;	

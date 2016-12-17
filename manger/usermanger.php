@@ -34,7 +34,7 @@ function test_input($data) {
 		 <a href="interface/window/adduser.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 添加用户</button> </a>   
 <a href="interface/window/modifyuser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 修改用户信息</button> </a>	 
 		<a href="interface/window/deluser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> 删除用户</button></a>	 
-		<a href="interface/window/banuser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> 封禁/解封用户</button></a>	 
+		<a href="interface/window/banuser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Ban-circle"></span> 封禁/解封用户</button></a>	 
 		 <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> 搜索</button>

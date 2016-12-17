@@ -1,5 +1,4 @@
 <html>
-
 <style>
 #w
 {
@@ -13,7 +12,9 @@ color : #C0C0C0;
 $nowpageid=1;
 include 'interface/header-nomenu.php';
 ?>
+<link href="./css/top.css" rel="stylesheet">
 <body>
+<div id="updown"><span class="up"></span></div>
 <br>
 <div class="container">
    <h1>欢迎来到BetaWorld资源区！</h1> 
@@ -103,8 +104,6 @@ include 'interface/header-nomenu.php';
 消费者也愿意购买高端的Win10 Mobile手机吗？不过现在当务之急，<br>
 是微软如何联合OEM厂商推出更多的Windows Phone手机。<br></p>
 	  </div>
-	   <a href='#us' class='btn btn-primary' role='button'>
-         ^ 返回顶部</a>
 	  </div>
 	  
 	 
@@ -113,6 +112,7 @@ include 'interface/header-nomenu.php';
       <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
+	  <script src="./js/top.js" type="text/javascript"></script>
 </body>
 <?php include 'interface/footer.php';?>
 </html>

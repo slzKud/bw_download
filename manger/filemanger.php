@@ -34,9 +34,9 @@ function test_input($data) {
 		<div class="container">
 		 
      <form class="form-inline" role="form" action="filemanger.php" method="get">
-	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 添加文件</button></a>
-				<a href="interface/window/modifyfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 修改文件</button></a>
-					<a href="interface/window/pinfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 文件置顶</button></a>
+	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
+				<a href="interface/window/modifyfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件</button></a>
+					<a href="interface/window/pinfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
 		<a href="interface/window/delfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
    
    <div class="form-group">

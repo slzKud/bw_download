@@ -31,8 +31,8 @@ function test_input($data) {
 	   
 		<div class="container">
 		<form class="form-inline" role="form" action="usermanger.php" method="get">
-		 <a href="interface/window/admituserwin.php?mode=a"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 同意</button> </a>   
-<a href="interface/window/admituserwin.php?mode=d"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 否决</button> </a>	  
+		 <a href="interface/window/admituserwin.php?mode=a"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-Ok"></span> 同意</button> </a>   
+<a href="interface/window/admituserwin.php?mode=d"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> 否决</button> </a>	  
 		 <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
          <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> 搜索</button>
@@ -155,9 +155,9 @@ $prev=$page-1;
 $next=$page+1;
 $last=$pages;
 if(empty($tiaojian)){
-	  $link="usermanger.php?";  
+	  $link="admituser.php?";  
  }else{
-	 $link="usermanger.php?findstr=$tiaojian&";  
+	 $link="admituser.php?findstr=$tiaojian&";  
  }
 if ($page >1) echo "<li><a href='".$link."pageid=".$first."'>&laquo;</a></li>";
 for ($x=1; $x<=$pages; $x++) {

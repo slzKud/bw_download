@@ -8,9 +8,9 @@
 	<?php
 	 if(getthesettings("opensh")==="1"){
 		 if ($nowpageid==6){
-			 echo '<li class="active" ><a href="admituser.php"><span class="glyphicon glyphicon-user"></span> 用户组审核</a></li>';
+			 echo '<li class="active" ><a href="admituser.php"><span class="glyphicon glyphicon-check"></span> 用户组审核</a></li>';
 		 }else{
-			 echo '<li ><a href="admituser.php"><span class="glyphicon glyphicon-user"></span> 用户组审核</a></li>';
+			 echo '<li ><a href="admituser.php"><span class="glyphicon glyphicon-check"></span> 用户组审核</a></li>';
 		 }
 		 
 		 }

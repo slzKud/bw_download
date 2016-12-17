@@ -1,5 +1,6 @@
 <?php 
-session_start();	  
+session_start();	
+ date_default_timezone_set("PRC");  
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
