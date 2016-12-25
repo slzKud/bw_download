@@ -21,6 +21,92 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 	return $state;
 	}		
 	//********************邮件正文*********************************
+	function SendMailToBanedUser($toemail,$username,$time){
+$emailstr="<html>
+ <style>
+	  body {
+			font-family: 'Microsoft YaHei Light','Microsoft YaHei', sans-serif;
+		}
+	  @media(max-width:767px) { 
+ #user-info {
+position: absolute;
+top:0px;
+right: 72px;
+} }
+</style>
+<body>
+<p>尊敬的%username%:</p>
+<p>非常遗憾的告诉你，你已经被Betaworld管理组封禁。<br>被封禁的原因:违反社区规则<br>被封禁的时长:%time%
+<br>如果你对此次封禁有异议，请反馈给管理员。</p>
+<br><small>你会收到这封邮件是因为你在Betaworld资源区上注册了账户。</small>
+</p>
+<br>
+BetaWorld资源区
+<br>
+%date%
+</body>
+</html>";
+$content=str_replace("%username%",$username,$emailstr);
+$content=str_replace("%time%",$time,$content);
+$content=str_replace("%date%",date('Y-m-d H:i:s'),$content);
+SendMailTo($toemail,"BetaWorld资源区 封禁通知",$content);
+	}
+	function SendMailToTellresult($toemail,$username,$result){
+		if($result==1){
+$emailstr="<html>
+ <style>
+	  body {
+			font-family: 'Microsoft YaHei Light','Microsoft YaHei', sans-serif;
+		}
+	  @media(max-width:767px) { 
+ #user-info {
+position: absolute;
+top:0px;
+right: 72px;
+} }
+</style>
+<body>
+<p>尊敬的%username%:</p>
+<p>恭喜你，你的用户组审批通过了。<br></p>
+<br>请重新登录资源区后即可享受新的权利。（如果无法使用，请清除cookies）。</b>
+<br><small>你会收到这封邮件是因为你在Betaworld资源区上注册了账户，并且提交了提升用户组申请。</small>
+</p>
+<br>
+BetaWorld资源区
+<br>
+%date%
+</body>
+</html>";
+		}else{
+$emailstr="<html>
+ <style>
+	  body {
+			font-family: 'Microsoft YaHei Light','Microsoft YaHei', sans-serif;
+		}
+	  @media(max-width:767px) { 
+ #user-info {
+position: absolute;
+top:0px;
+right: 72px;
+} }
+</style>
+<body>
+<p>尊敬的%username%:</p>
+<p>很抱歉，你的用户组审批已被否决了。<br></p>
+<br>这可能是因为你的用户资历不够，或者不符合社区规则。请再次申请并等待结果。</b>
+<br><small>你会收到这封邮件是因为你在Betaworld资源区上注册了账户，并且提交了提升用户组申请。</small>
+</p>
+<br>
+BetaWorld资源区
+<br>
+%date%
+</body>
+</html>";
+		}
+$content=str_replace("%username%",$username,$emailstr);
+$content=str_replace("%date%",date('Y-m-d H:i:s'),$content);
+SendMailTo($toemail,"BetaWorld资源区 用户组审批结果",$content);
+	}
     function SendMailToUser($toemail,$title,$nowaction,$tolink){
 		$emailstr="<html>
  <style>

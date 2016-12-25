@@ -18,7 +18,7 @@ include 'interface/header.php';
 include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 $nowpageid=4;
-
+//echo getthesettings("optmode");
 ?>
   <body>
        <div class="container-fluid">
@@ -36,7 +36,7 @@ $nowpageid=4;
    <tbody>
       <tr>
          <td>维护模式（关闭网站）</td>
-         <td><input id="switch-state" type="checkbox" name="testmode" checked  <?php if(getthesettings("optmode")==="1"){echo 'checked';} ?>></td>
+         <td><input id="switch-state" type="checkbox" name="testmode"  <?php if(getthesettings("optmode")==="1"){echo 'checked';} ?>></td>
       </tr>
 	  <tr>
          <td>关闭注册</td>

@@ -1,6 +1,7 @@
 <html>
 <?php 
 $nowpageid=1;
+include_once  $_SERVER['DOCUMENT_ROOT'].'/settings/ver.php';
 include 'interface/header.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php'; 
@@ -86,7 +87,10 @@ function getthename($id) {
    <div class="panel-body">
 
 	   <?php
-	  echo "系统：$os<br>
+     $ver=DVER;
+	  echo "
+    软件版本：$ver<br>
+    系统：$os<br>
 	  PHP版本：$phpv<br>
 	  服务器IP：$serverip<br>
 	  网站路径：$serverpath<br>";

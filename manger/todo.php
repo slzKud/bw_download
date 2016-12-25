@@ -2,6 +2,7 @@
 //how?
  date_default_timezone_set("PRC");
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
@@ -84,6 +85,17 @@ $rsuser=loaddb("SELECT * FROM bw_usertable where username='".$username."'");
 	     //添加封禁记录
 			 $sql="INSERT INTO bw_baneduser(username,btime,ifclose,nowdate)  VALUES ('$username',$tiemb,1,'$nowdate')";
 			 loaddb($sql);
+			 $rsapply=loaddb("SELECT email FROM bw_usertable where username='$username'");
+            while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+         {
+			$email=$row['email'];
+  }
+  if($timet==-1){
+ SendMailToBanedUser($email,$username,"永久封禁");
+  }else{
+ SendMailToBanedUser($email,$username,unixtime_to_date($tiemb));
+  }
+			
 	     	 echo  "ok"; 
          exit;
 		 }
@@ -158,7 +170,14 @@ if(mysqli_num_rows($rsapply) >0){
 			loaddb($sql);
 			 $sql="update bw_usertable SET permission=$newper where username='$username'";
 			loaddb($sql);
-	     	 echo  "ok"; 
+	     	
+			$rsemail=loaddb("SELECT email FROM bw_usertable where username='$username'");
+            while($row = mysqli_fetch_array($rsemail, MYSQL_ASSOC))
+         {
+			$email=$row['email'];
+  }
+		   SendMailToTellresult($email,$username,1); 
+		    echo  "ok"; 
 			 exit;
 		 }else{
 			 echo  "apply is error"; 
@@ -189,7 +208,14 @@ if(mysqli_num_rows($rsapply) >0){
 	 
 			$sql="update bw_admituser SET ifs=-1 where id=$applyid and ifs=0";
 			loaddb($sql);
-	     	 echo  "ok"; 
+	     	 
+			  $rsemail=loaddb("SELECT email FROM bw_usertable where username='$username'");
+            while($row = mysqli_fetch_array($rsemail, MYSQL_ASSOC))
+         {
+			$email=$row['email'];
+  }
+		   SendMailToTellresult($email,$username,0); 
+		   echo  "ok"; 
 			 exit;
 		 }else{
 			 echo  "apply is error"; 
@@ -757,5 +783,10 @@ function test_input($data) {
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
+}
+function unixtime_to_date($unixtime, $timezone = 'PRC') {
+    $datetime = new DateTime("@$unixtime"); //DateTime类的bug，加入@可以将Unix时间戳作为参数传入
+    $datetime->setTimezone(new DateTimeZone($timezone));
+    return $datetime->format("Y-m-d H:i:s");
 }
 ?>
