@@ -2,8 +2,11 @@
 //相关模块
 include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
+session_start();
+session_destroy();
 //退出代码
 empty($_GET['type']) && $_GET['type'] = 'login';
+empty($orgusername) && $orgusername = '';
 
 if ($_GET["type"]=="logout") {
   setcookie("bwuser", "", time()-3600,"/");
@@ -15,8 +18,18 @@ if ($_GET["type"]=="logout") {
 		exit;
 		}
 		}
-session_start();
-session_destroy();
+//验证登录
+  if (isset($_COOKIE["bwuser"])){
+     if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
+       $LErr="你已经登录用户".veifycookies($_COOKIE["bwuser"]).".5秒后返回首页。";
+       include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+       echo " <div class='container'' ><br><h2>Opps</h2> 
+	  <hr><div class='alert alert-danger'>".$LErr."</div></div>";
+    echo "<meta http-equiv='refresh' content='5;url=../index.php'> ";
+      include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';
+      exit;
+     }
+  }
 //定义登陆量
 empty($_POST['autologin']) && $_POST['autologin'] = '2';
 $username=$pass=$yzm=$LErr="";
@@ -44,7 +57,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
      $adday = 30;
 	 //echo "<script>alert('成功！');</script>";
 	 }
- 
+ //判断是邮箱还是用户名登录,如果是邮箱就转换成用户名
+ $orgusername=$username;
+$pattern = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
+  if ( preg_match( $pattern, $username ) ){
+$rs1=loaddb("SELECT username FROM bw_usertable where email='".$username."'");
+	if(mysqli_num_rows($rs1) >0){
+    $row1=mysqli_fetch_array($rs1);
+		$username=$row1['username'];
+  }
+  }
    $rs=loaddb("SELECT id FROM bw_usertable where username='".$username."' and passmd5='".md5($pass)."'");
    if($LErr==""){
 	if($yzm==$_SESSION['authnum_session']){
@@ -136,10 +158,10 @@ if($LErr != ""){
 	  ?>
 	  <form class="form-horizontal" action=<?php echo($tzzf);?> method="post" id="PassForm">
    <div class="form-group">
-      <label for="username" class="col-sm-2 control-label">用户名</label>
+      <label for="username" class="col-sm-2 control-label">用户名/邮箱</label>
       <div class="col-sm-8">
-         <input type="text" class="form-control" id="usertext" name="usertext"  value='<?php echo($username);?>'
-            placeholder="请输入用户名">
+         <input type="text" class="form-control" id="usertext" name="usertext"  value='<?php echo($orgusername);?>'
+            placeholder="请输入用户名或者注册邮箱">
       </div>
    </div>
    <div class="form-group">

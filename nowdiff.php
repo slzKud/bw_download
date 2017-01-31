@@ -75,7 +75,7 @@ closedb($con);
 	  ?>
    </tbody>
 </table>
-<?php if($flag==0){echo "<center><p class='lead' >最近没有变动，去添加点吧！~</p></center>";} ?>
+<?php if($flag==0){echo "<center><p class='lead' >最近没有变动，提醒管理员多加点吧！~</p></center>";} ?>
 <ul class="pagination">
   <?php
 if ($pages>1) {

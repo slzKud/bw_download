@@ -15,7 +15,7 @@ if($_GET['mode']=="a"){
 if($_GET['mode']=="d"){
 	$ifd=1;
 }
-$_SESSION['transfer']="";
+
 $temp=str_replace("Bwchkid","",$temp);
 $temp=substr($temp,1);
 if ($temp !="")
@@ -136,7 +136,8 @@ success:function (text, status) {
             j=j+1;	
             break;
          default:
-          alert(text);
+        // alert(text);
+		console.log(text);
 }
 			}});
 

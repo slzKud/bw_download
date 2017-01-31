@@ -6,6 +6,8 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
+empty($_SESSION['transfer'])&&$_SESSION['transfer']=0;
+$_SESSION['transfer']="";
 //自动判断cookie
 	  if (isset($_COOKIE["bwuser"])){
 	  //鉴别用户代码

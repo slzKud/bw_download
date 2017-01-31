@@ -14,7 +14,7 @@ color : #C0C0C0;
  <hr>
 <?php 
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
-session_start();
+//session_start();
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 empty($_POST['username']) && $_POST['username']="";
 empty($_POST['old']) && $_POST['old']="";
@@ -56,9 +56,9 @@ loaddb($sql);
 //echo $sql;
 echo "<script>alert('你的用户权限更改申请已发送，请等待审批。');</script>"	;	
 }
- include '../interface/header-nomenu.php';
+ include '../interface/header-user.php';
  if(getthesettings("opensh")!= "1"){
-	   include '../interface/header-nomenu.php';
+	   include '../interface/header-user.php';
 	   $LErr="对不起，此功能已被管理员禁用。";
 	   echo '
 <div class="alert alert-danger">'.$LErr.'</div>
@@ -134,7 +134,7 @@ function test_input($data) {
       <select class="form-control" name="new">
         <?php
 		if($_SESSION['permission']<2){echo "<option>高级用户</option>";}
-        if($_SESSION['permission']<3){echo "<option>VIP</option>";}
+        //if($_SESSION['permission']<3){echo "<option>VIP</option>";}
 		?>
       </select>
 

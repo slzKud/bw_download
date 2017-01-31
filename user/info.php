@@ -1,11 +1,11 @@
 <html>
 <?php 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+include $_SERVER['DOCUMENT_ROOT'].'/interface/header-user.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
-session_start();
+//session_start();
 //自动判断cookie
 	  if (isset($_COOKIE["bwuser"])){
 	  //鉴别用户代码

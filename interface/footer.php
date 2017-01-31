@@ -6,5 +6,5 @@ $code=getthesettings('tjcode');
 ?>
 <script type="text/javascript" src="../module/oneword.php?encode=js"></script>
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-   <p><center>BetaWorld资源区(Version <?php echo DVER; ?> Build <?php echo BUILDDATE; ?> )<?php if($tjon==1){echo $code;} ?></center> </P>
+   <p><center>BetaWorld资源区(Version <?php echo DVER; ?> Build <?php echo BUILDDATE; ?> )<?php if($tjon==1){echo $code;} ?> <a href="../feedback.php">点我反馈</a></center> </P>
 </nav>
