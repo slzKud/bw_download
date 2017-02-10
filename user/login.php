@@ -112,7 +112,7 @@ else if(getenv("HTTP_X_FORWARDED_FOR"))
 $ip = getenv("HTTP_X_FORWARDED_FOR");
 else if(getenv("REMOTE_ADDR"))
 $ip = getenv("REMOTE_ADDR");
-else $ip = "Unknow";
+else $ip = "Unknown";
 return $ip;
 }
 ?>

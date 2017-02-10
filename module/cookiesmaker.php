@@ -6,7 +6,7 @@ function makecookies($username,$passmd5,$day) {
  setcookie("bwuser", "username=".$username.";bwcode=".makebwcode($username,$passmd5).";end", time()+(60*60*24*$day),"/");
 }
 function makebwcode($username,$passmd5) {
-	$string=md5($username.'#'. strtolower($passmd5)."#BWDOWNLOAD!!!");
+	$string=md5(strtolower($username).'#'. strtolower($passmd5)."#BWDOWNLOAD!!!");
 	return base64_encode("BW!".$string."BW!");
  //bwcode由用户名 密码md5和BWDOWNLOAD!!!合在一起后AES加密)
 }
@@ -15,6 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 	$rs=loaddb("SELECT username,passmd5 FROM bw_usertable where username='".$username."'");
 	$row = mysqli_fetch_array($rs);
 	$comp=makebwcode($row['username'],$row['passmd5']);
+	//echo $row['username']."<br>".$row['passmd5'];
 	//echo "bw ".$comp." <br>new ".$bwcode."<br>";
 	if($comp==$bwcode){
 		return true;

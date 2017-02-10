@@ -73,7 +73,10 @@ right: 80px;
 		 if($_SESSION['permission']==4){echo "<li><a href='/manger/index.php' class='navbar-link'><span class='glyphicon glyphicon-cog'></span> 管理站</a></li>";}
 		 echo "<li><a href='/user/login.php?type=logout' class='navbar-link'><span class='glyphicon glyphicon-log-out'></span> 退出</a></li>
          </ul>";
-	
+          $ip=getIP();
+        $logindate=date('Y-m-d H:i:s');
+        $sqll="update bw_usertable set lastip='$ip',lastlogindate='$logindate' where username='".veifycookies($_COOKIE["bwuser"])."'";
+		loaddb($sqll);
 		 //如果被封禁
 		  if ($_SESSION['permission']==-1){
 			   //查找封禁记录
@@ -106,14 +109,15 @@ right: 80px;
 			
 		  }
        }
-	   }
+	   
 	  }else{
 		   	 $_SESSION['permission']=0;
 		    echo '<a href="/user/login.php" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 登入</a>';} 
 			if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否维护状态，如果是；页面跳转
 		   file_exists("maintenance") || file_exists("maintenance.txt") || getthesettings("optmode")==="1"
 		)
-		{
+		
+	  {
 			if($_SESSION['permission']<4){
 				header("Maintenance: 1");
 			header("location:../mainteninfo.php");
@@ -121,7 +125,21 @@ right: 80px;
 			}
 			
 		}
-       ?>
+		}else{
+		    echo '<a href="/user/login.php?type=logout" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 用户登录信息异常，点击重置！</a>';} 
+              
+function getIP(){
+global $ip;
+if (getenv("HTTP_CLIENT_IP"))
+$ip = getenv("HTTP_CLIENT_IP");
+else if(getenv("HTTP_X_FORWARDED_FOR"))
+$ip = getenv("HTTP_X_FORWARDED_FOR");
+else if(getenv("REMOTE_ADDR"))
+$ip = getenv("REMOTE_ADDR");
+else $ip = "Unknown";
+return $ip;
+}
+	   ?>
 	   
 	   </li>
 
