@@ -29,6 +29,29 @@ session_start();
             echo "ok";
                    exit;
             break;
+             case "changeuserpass":
+               empty($_POST['newpass']) &&$_POST['newpass']="";
+               empty($_POST['oldpass']) &&$_POST['oldpass']="";    
+               if($_POST['newpass']==""){
+                   echo "no pass";
+                   exit;
+               }
+               if($_POST['oldpass']==""){
+                   echo "no oldpass";
+                   exit;
+               }
+               $username=veifycookies($_COOKIE["bwuser"]);
+            $passmd5=md5($_POST['newpass']);
+     $rs=loaddb("SELECT id FROM bw_usertable where username='".$username."' and passmd5='".md5($_POST['oldpass'])."'");
+		if(mysqli_num_rows($rs) <=0){
+            echo "oldpass error";
+                   exit;
+        }else{
+loaddb("UPDATE bw_usertable SET passmd5='$passmd5' where username='$username'");
+            echo "ok";
+                   exit;
+        }
+            break;
   default:
             echo "no type";
             exit;

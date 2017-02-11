@@ -111,22 +111,26 @@ right: 80px;
        }
 	   
 	  }else{
-		   	 $_SESSION['permission']=0;
+		   echo '<a href="/user/login.php?type=logout" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 用户登录信息异常，点击重置！</a>';
+		   	 $_SESSION['permission']=0;}
+		  }else{
+		   
 		    echo '<a href="/user/login.php" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 登入</a>';} 
+
 			if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否维护状态，如果是；页面跳转
 		   file_exists("maintenance") || file_exists("maintenance.txt") || getthesettings("optmode")==="1"
 		)
-		
-	  {
+	   {
 			if($_SESSION['permission']<4){
 				header("Maintenance: 1");
 			header("location:../mainteninfo.php");
 			exit;
 			}
+	   }
 			
-		}
-		}else{
-		    echo '<a href="/user/login.php?type=logout" class="navbar-link"><span class="glyphicon glyphicon-user"></span> 用户登录信息异常，点击重置！</a>';} 
+		
+		
+		
               
 function getIP(){
 global $ip;

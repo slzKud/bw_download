@@ -150,9 +150,9 @@ function ok_user(){
 </script>	 
 </div>
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-      <script src="js/jquery.min.js"></script>
+      <script src="../js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
-      <script src="js/bootstrap.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
 </body>
 <?php include '../interface/footer.php';?>
 </html>
