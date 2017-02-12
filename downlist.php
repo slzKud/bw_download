@@ -45,14 +45,26 @@ function test_input($data) {
  下载区列表
  -->
  <?php
- 
+ //获取置顶列表，没有条件时排除
+ $sqlpin="select fileid from bw_pinfile where ifok=1";
+ $rspin=loaddb($sqlpin);
+ $expect="";
+if(mysqli_num_rows($rspin) >0){
+ while($rowp = mysqli_fetch_array($rspin, MYSQL_ASSOC))
+{
+ $expect= $expect.",".$rowp['fileid'];
+}
+//echo $expect;
+$expect=substr($expect,1);
+$expect="and id not in ($expect)";
+}
  ////设定每一页显示的记录数
 $pagesize=15;
  $con=connectdb();
   mysqli_query($con,"set names 'utf8'");
  //构建sql
  if(empty($tiaojian)){
-	  $sql="select %tj% from bw_downtable where Permisson<= ".$_SESSION['permission']."";  
+	  $sql="select %tj% from bw_downtable where Permisson<= ".$_SESSION['permission']." $expect";  
  }else{
 	 $sql="select %tj% from bw_downtable where Permisson<= ".$_SESSION['permission']." and filename like '%".$tiaojian."%'";  
  }
