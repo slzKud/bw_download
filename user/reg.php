@@ -128,10 +128,11 @@ if (empty($_GET["email"])) {
 		//拼接SQL
 		$regdate=date('Y-m-d H:i:s');
 		$sql="INSERT INTO bw_usertable (username, passmd5,email,permission,regdate) VALUES ('".$regusername ."', '".md5($regpassword)."','".$email."','1','".$regdate."')";
-		$con=connectdb();
+		//$con=connectdb();
 		//echo $sql;
-		mysqli_query($con,$sql);
-		mysqli_close($con);
+		//mysqli_query($con,$sql);
+		//mysqli_close($con);
+    loaddb($sql);
 		//FTP部分
 			$optftp=getthesettings('optftp');
 		$lowftp=getthesettings('lowftpper');
