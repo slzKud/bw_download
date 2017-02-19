@@ -70,7 +70,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
        
 </div>";
 	}
-       
+     //echo "<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>  ";
 	 }else{
 		echo '
 		   <h2>FTP信息</h2> 
@@ -93,6 +93,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
  ?>
 	<a href="info.php"><button type="button" class="btn btn-primary"><返回个人信息</button></a>
 <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">更改FTP密码</button>
+<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
       <script src="../js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
