@@ -6,6 +6,10 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
 empty($_GET['pageid'])&&$_GET['pageid']=1;
+empty($_GET['px'])&&$_GET['px']="username";
+empty($_GET['sc'])&&$_GET['sc']="desc";
+$desc=$_GET['sc'];
+if($desc!="asc" and $desc !="desc"){$desc="desc";}
 empty($page)&&$page=1;
 $tiaojian=test_input($_GET['findstr']);
 $page=$_GET['pageid'];
@@ -41,7 +45,6 @@ function test_input($data) {
 </form>
 </div>
 		<?php
- 
  ////设定每一页显示的记录数
 $pagesize=8;
  $con=connectdb();
@@ -73,16 +76,16 @@ $page=$ys;
 }
 //计算记录偏移量
 $offset=$pagesize*($page-1);
-$rs=mysqli_query($con,str_replace("%tj%","id,username,permission",$sql." order by username desc limit $offset,$pagesize"));
- //echo str_replace("%tj%","id,username,permission",$sql." order by id desc limit $offset,$pagesize");
+$rs=mysqli_query($con,str_replace("%tj%","id,username,permission,regdate",$sql." order by ".$_GET['px']." ".$desc." limit $offset,$pagesize"));
+//echo str_replace("%tj%","id,username,permission,regdate",$sql." order by ".$_GET['px']." ".$desc." limit $offset,$pagesize");
 closedb($con);
 ?>
 		 <table class="table">
    <thead>
       <tr>
-         <th>用户名称</th>
+         <th><a onclick="topx('username');">用户名称<?php if($_GET['px']=="username"){echo "（按此排序）";}?></a></th>
          <th>用户权限</th>
-       
+         <th><a onclick="topx('regdate');">注册时间<?php if($_GET['px']=="regdate"){echo "（按此排序）";}?></a></th>
       </tr>
    </thead>
    <tbody>
@@ -115,6 +118,7 @@ closedb($con);
 				  break;
 			}
 			echo "<td>" .$userqx."</td>";
+			echo "<td>" . $row['regdate']."</td>";
             echo "</tr>";
 			$i+=1;
   }
@@ -234,6 +238,24 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
 			}
 			initTableCheckbox();
 		});
+		function topx(field){
+			var uri="";
+			uri=this.location.href;
+			if(right(uri,3)=="php"){
+              //alert(uri+"?px="+field);
+			  window.location.href=uri+"?px="+field;
+			}else{
+             //alert(uri+"&px="+field);
+			 window.location.href=uri+"&px="+field;
+			}
+			
+		}
+		function right(mainStr,lngLen) { 
+// alert(mainStr.length) 
+ if (mainStr.length-lngLen>=0 && mainStr.length>=0 && mainStr.length-lngLen<=mainStr.length) { 
+ return mainStr.substring(mainStr.length-lngLen,mainStr.length)} 
+ else{return null} 
+ } 
 		</script>
 </body>
 <?php include 'interface/footer.php';?>
