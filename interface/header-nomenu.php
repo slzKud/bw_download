@@ -48,7 +48,7 @@ right: 72px;
 		  <li><a href="/nowdiff.php">最近新增</a></li>
 		  -->
 		  <li> <a href="../">返回资源区</a></li>
-		 <li> <a href="http://betaworld.cn">返回论坛</a></li>
+		 <li> <a href="http://betaworld.cn">返回社区</a></li>
       </ul>
 	     
        </div>

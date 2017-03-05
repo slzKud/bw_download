@@ -67,8 +67,7 @@ right: 80px;
 	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
       echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span> ".veifycookies($_COOKIE["bwuser"])."<b class='caret'></b></a>.
 	   <ul class='dropdown-menu'>       
-	   <li><a href='/user/info.php' class='navbar-link'><span class='glyphicon glyphicon-tag'></span> 个人信息</a></li>
-         <li><a href='/user/ftp.php' class='navbar-link'><span class='glyphicon glyphicon-save'></span> FTP</a></li>
+	   <li><a href='/user/index.php' class='navbar-link'><span class='glyphicon glyphicon-tag'></span> 个人中心</a></li>
 		 <li><a href='/feedback.php' class='navbar-link'><span class='glyphicon glyphicon-Comment'></span> 反馈</a></li>";
 		 if($_SESSION['permission']==4){echo "<li><a href='/manger/index.php' class='navbar-link'><span class='glyphicon glyphicon-cog'></span> 管理站</a></li>";}
 		 echo "<li><a href='/user/login.php?type=logout' class='navbar-link'><span class='glyphicon glyphicon-log-out'></span> 退出</a></li>
@@ -155,7 +154,7 @@ return $ip;
 		 <li <?php if($nowpageid==1)echo("class='active'");?> ><a href="/"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
 		 <li <?php if($nowpageid==2) echo("class='active'");?> ><a href="/downlist.php"><span class="glyphicon glyphicon-list"></span> 资源列表</a></li>
 		  <li <?php if($nowpageid==3) echo("class='active'");?> ><a href="/nowdiff.php"><span class="glyphicon glyphicon-time"></span> 最近新增</a></li>
-		 <li <?php if($nowpageid==4)echo("class='active'");?>> <a href="http://betaworld.cn"><span class="glyphicon glyphicon-Chevron-left"></span> 返回论坛</a></li>
+		 <li <?php if($nowpageid==4)echo("class='active'");?>> <a href="http://betaworld.cn"><span class="glyphicon glyphicon-Chevron-left"></span> 返回社区</a></li>
 		 </ul>
 		
 	     
