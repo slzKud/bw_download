@@ -696,6 +696,84 @@ savethesettings("ftpuser4",$newftpuser4);
 	echo "ok";
 	exit;
  break;
+ case "modftp2": 
+ //获取信息
+$lowftp=getthesettings('lowftpper');
+$ftpserveradress=getthesettings('ftpserveradress');
+$ftpuser1=getthesettings('ftpuser1');
+$ftpuser2=getthesettings('ftpuser2');
+$ftpuser3=getthesettings('ftpuser3');
+$ftpuser4=getthesettings('ftpuser4');
+$authpath=getthesettings('authpath');
+//获取新信息
+empty($_POST['lowftp']) && $_POST['lowftp']="";
+empty($_POST['ftpserveradress']) && $_POST['ftpserveradress']="";
+empty($_POST['ftpuser1']) && $_POST['ftpuser1']="";
+empty($_POST['ftpuser2']) && $_POST['ftpuser2']="";
+empty($_POST['ftpuser3']) && $_POST['ftpuser3']="";
+empty($_POST['ftpuser4']) && $_POST['ftpuser4']="";
+empty($_POST['auth']) && $_POST['auth']="";
+$newlowftp=test_input($_POST['lowftp']);
+$newftpserveradress=test_input($_POST['ftpserveradress']);
+$newftpuser1=test_input($_POST['ftpuser1']);
+$newftpuser2=test_input($_POST['ftpuser2']);
+$newftpuser3=test_input($_POST['ftpuser3']);
+$newftpuser4=test_input($_POST['ftpuser4']);
+$newauth=test_input($_POST['auth']);
+//比较
+if($_POST['lowftp'] ==""){
+	echo "no lowftp";
+	exit;
+}
+if($_POST['ftpserveradress'] ==""){
+	echo "no ftpserveradress";
+	exit;
+}
+if($_POST['ftpuser1'] ==""){
+	echo "no ftpuser1";
+	exit;
+}
+if($_POST['ftpuser2'] ==""){
+	echo "no ftpuser1";
+	exit;
+}
+if($_POST['ftpuser3'] ==""){
+	echo "no ftpuser1";
+	exit;
+}
+if($_POST['ftpuser4'] ==""){
+	echo "no ftpuser1";
+	exit;
+}
+if($_POST['auth'] ==""){
+	echo "no auth";
+	exit;
+}
+$addstr="";
+if($lowftp!=$newlowftp){
+savethesettings("lowftpper",$newlowftp);
+}
+if($ftpserveradress!=$newftpserveradress){
+savethesettings("ftpserveradress",$newftpserveradress);
+}
+if($ftpuser1!=$newftpuser1){
+savethesettings("ftpuser1",$newftpuser1);
+}
+if($ftpuser2!=$newftpuser2){
+savethesettings("ftpuser2",$newftpuser2);
+}
+if($ftpuser3!=$newftpuser3){
+savethesettings("ftpuser3",$newftpuser3);
+}
+if($ftpuser4!=$newftpuser4){
+savethesettings("ftpuser4",$newftpuser4);
+}
+if($authpath!=$newauth){
+savethesettings("authpath",$newauth);
+}
+	echo "ok";
+	exit;
+ break;
  case "optftp":
 	empty($_POST['t']) && $_POST['t']="";
 	$cx=test_input($_POST['t']);
@@ -715,6 +793,12 @@ savethesettings("ftpuser4",$newftpuser4);
 	$cx=test_input($_POST['t']);
 	if($cx=="off"){$cx=0;}
 	savethesettings("opensh",$cx);
+	 echo "ok";
+	break;
+	case "ftpmode":
+	empty($_POST['mode']) && $_POST['mode']="";
+	$cx=test_input($_POST['mode']);
+	savethesettings("ftpmode",$cx);
 	 echo "ok";
 	break;
 	//FTP重置

@@ -59,6 +59,15 @@ $nowpageid=4;
          <td>开启FTP服务器对接功能</td>
          <td><input id="mySwitch" type="checkbox" name="ftpon" <?php if(getthesettings("optftp")==="1"){echo 'checked';} ?> /></td>
       </tr>
+       <tr>
+         <td>FTP对接模式</td>
+         <td><select class="form-control" name="new" onchange="s(this)">
+         
+        <option <?php if(getthesettings("ftpmode")==="1"){echo 'selected="selected"';} ?>> Gene6 Ftp DB 验证</option>
+         <option  <?php if(getthesettings("ftpmode")==="2"){echo 'selected="selected"';} ?>  >Betaworld FTPWatchdog 增强认证</option>
+      </select></td>
+      </tr>
+      
 	   <tr>
          <td>FTP对接设置</td>
          <td><a href="interface/window/ftpset.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-warning">设置</button></a></td>
@@ -173,6 +182,18 @@ $('input[name="opentjcode"]').on('switchChange.bootstrapSwitch', function(event,
 			);
 			}
 		 }
-		
+		function s(obj){
+		var t=obj.value; 
+   	//alert(t);
+    if (t=="Gene6 Ftp DB 验证"){
+  var s=1;
+}else{
+  var s=2;
+}
+	 $.post('todo.php', {type: "ftpmode",mode:s}, function (text, status) {
+			 alert("保存成功!请刷新后进行配置");
+       });
+			}
+
  </script>
 </html>
