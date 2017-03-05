@@ -146,6 +146,8 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                                 用户名：$username<br><br>
                                 密码：已被用户手动更改  <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
+								FTP端口：48893<br><br>
+								FTP加密方法：隐式TLS FTP加密。<br><br>
                                 流量：暂不可用  <button type=‘button’ class='btn btn-success btn-xs'>流量管理</button><br><br>
                             ";
 	}else{
@@ -156,10 +158,12 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                                 用户名：$username<br><br>
                                 密码：与资源区相同 <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
+								FTP端口：48893<br><br>
+								FTP加密方法：隐式TLS FTP加密。<br><br>
                                 流量：暂不可用 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-success btn-xs'>流量管理</button><br><br>
                             ";
 	}
-     //echo "<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>  ";
+     echo "<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>  ";
 	 }else{
 		echo '
         <h2> Public/公共 </h2>
