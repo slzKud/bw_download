@@ -5,8 +5,33 @@ include $_SERVER['DOCUMENT_ROOT'].'/interface/header-user.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
+include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
 //session_start();
 //自动判断cookie
+function makemb($username){
+	$r=getftpinfo($username,"StatsDownloaded");
+$r1=getftpinfo($username,"DefaultLimit");
+if($r<(1024*1024*1024)){
+$r2= round($r/(1024*1024),2);
+$r3= round($r1/(1024*1024*1024),2);
+return $r2."MB/".$r3."GB";
+exit;
+}
+if($r<(1024*1024)){
+ $r2= round($r/(1024),2);
+$r3= round($r1/(1024*1024*1024),2);
+return $r2."KB/".$r3."GB" ;
+exit;  
+}
+$r2= round($r/(1024*1024*1024),2);
+$r3= round($r1/(1024*1024*1024),2);
+return $r2."GB/".$r3."GB";
+}
+function progvalue($username){
+$r=getftpinfo($username,"StatsDownloaded");
+$r1=getftpinfo($username,"DefaultLimit");
+return ($r/$r1)*100;
+}
 	  if (isset($_COOKIE["bwuser"])){
 	  //鉴别用户代码
 	  if ($_SESSION['permission']==0){
@@ -146,7 +171,7 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                                 用户名：$username<br><br>
                                 密码：已被用户手动更改  <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
-                                流量：暂不可用  <button type=‘button’ class='btn btn-success btn-xs'>流量管理</button><br><br>
+                               
                             ";
 	}else{
  echo "
@@ -156,7 +181,6 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                                 用户名：$username<br><br>
                                 密码：与资源区相同 <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
-                                流量：暂不可用 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' class='btn btn-success btn-xs'>流量管理</button><br><br>
                             ";
 	}
      //echo "<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>  ";
@@ -178,13 +202,20 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                             
        '; 
 	 }
+	 if(getthesettings('ftpmode')==1){
+      echo "流量：暂不可用 <br><br>";
+	 }else{
+		 $m=makemb($username);
+		 $p=progvalue($username);
+    echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs'>购买流量</button><br><br>";
+	 }
  ?>
- 当前使用流量：</h4>
+
+</h4>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar"
-                                     aria-valuenow="63.2" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: 63.2%;">
-                                    <span class="sr-only">已用20G</span>
+                                     aria-valuenow="<?php echo $p;?>" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: <?php echo $p;?>%;">
                                 </div>
                             </div>
                         </div>
@@ -199,7 +230,6 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
                                 <div class="progress-bar progress-bar-info" role="progressbar"
                                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
                                      style="width: 63.2%;">
-                                    <span class="sr-only">已用0G</span>
                                 </div>
                             </div>
                         </div>

@@ -138,8 +138,16 @@ if (empty($_GET["email"])) {
 		$lowftp=getthesettings('lowftpper');
 		if($optftp==1){
 		if($lowftp=1){
+    
+     if(getthesettings("ftpmode")==1){
 			$sql1="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser1') ."', '".$regusername."','".md5($regpassword)."')";
 			loaddb($sql1);
+     }else{
+       $sql1="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser1') ."', '".$regusername."','".md5($regpassword)."')";
+			loaddb($sql1);
+      include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
+      regftpuser($regusername,$regpassword,getthesettings('ftpuser1'));
+     }
 		}
 		}
 	}

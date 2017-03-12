@@ -2,6 +2,7 @@
 //引入网页内容
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php'; 
 session_start();
 //自动判断cookie
 	  if (isset($_COOKIE["bwuser"])){
@@ -25,7 +26,12 @@ session_start();
                }
             $username=veifycookies($_COOKIE["bwuser"]);
             $passmd5=md5($_POST['pass']);
+           if(getthesettings("ftpmode")==1){       
             loaddb("UPDATE bw_ftp SET password='$passmd5' where userid='$username'");
+           }else{
+loaddb("UPDATE bw_ftp SET password='$passmd5' where userid='$username'");
+setftpuserpass($username,$_POST['pass']);
+           }
             echo "ok";
                    exit;
             break;

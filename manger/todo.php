@@ -4,6 +4,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 empty($_SESSION['transfer'])&&$_SESSION['transfer']=0;
@@ -362,8 +363,16 @@ if($_POST['userqx']==""){
 	  $addstr=$addstr.",permission =  $userqx";
 	  if($optftp==1){
 			if($lowftp<=$userqx){
-			$sqlx="UPDATE bw_ftp SET account='".getthesettings('ftpuser'.$userqx)."' where userid='$orgusername'";
+			if(getthesettings('ftpmode')==1){
+            $sqlx="UPDATE bw_ftp SET account='".getthesettings('ftpuser'.$userqx)."' where userid='$orgusername'";
 			loaddb($sqlx);
+			}else{
+            $sqlx="UPDATE bw_ftp SET account='".getthesettings('ftpuser'.$userqx)."' where userid='$orgusername'";
+			loaddb($sqlx);
+            delftpuser($orgusername);
+			regftpusernomd5($orgusername,$orgpassword,getthesettings('ftpuser'.$userqx));
+			}
+			
 			}
 		}
   }
@@ -372,9 +381,16 @@ if($_POST['userqx']==""){
 	  $addstr=$addstr.",passmd5= '".md5($userpassword)."'";
 	  //FTP部分
 		if($optftp==1){
+			
 			if($lowftp<=$orguserqx){
+			if(getthesettings('ftpmode')==1){
 			$sqlx="UPDATE bw_ftp SET password='".md5($userpassword)."' where userid='$orgusername'";
 			loaddb($sqlx);
+			}else{
+			$sqlx="UPDATE bw_ftp SET password='".md5($userpassword)."' where userid='$orgusername'";
+			loaddb($sqlx);	
+			setftpuserpass($orgusername,$userpassword);
+			}
 			}
 		}
 	  }
@@ -440,6 +456,14 @@ $regdate=date('Y-m-d H:i:s');
 		$lowftp=getthesettings('lowftpper');
 		if($optftp==1){
 		if($lowftp<=$userqx){
+			 if(getthesettings("ftpmode")==1){
+			$sqlx="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser'.$userqx) ."', '".$username."','".$md5pass."')";
+			loaddb($sqlx);
+     }else{
+      $sqlx="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser'.$userqx) ."', '".$username."','".$md5pass."')";
+			loaddb($sqlx);
+      regftpuser($username,$userpassword,getthesettings('ftpuser'.$userqx));
+     }
 			$sqlx="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser'.$userqx) ."', '".$username."','".$md5pass."')";
 			loaddb($sqlx);
 		}
@@ -803,7 +827,8 @@ savethesettings("authpath",$newauth);
 	break;
 	//FTP重置
 	 case "ftpreset":
-	 loaddb("delete from bw_ftp");
+	 if (getthesettings('ftpmode')==1){
+loaddb("delete from bw_ftp");
 	$lowftp=getthesettings("lowftpper");
 	$sql="select username,passmd5,permission from bw_usertable where permission >=$lowftp";
 	$rs=loaddb($sql);
@@ -815,6 +840,10 @@ savethesettings("authpath",$newauth);
             $sql1="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser'.$per) ."', '".$orgusername."','".$orgpassword."')";
 			loaddb($sql1);
   }
+	 }else{
+		 resetftp();
+	 }
+	 
   echo "ok";
   exit;
 	break;
