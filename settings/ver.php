@@ -1,5 +1,5 @@
 <?php 
-define("DVER", "0.514-Ftppay"); 
-define("BUILDDATE", "20170219"); 
+define("DVER", "0.53"); 
+define("BUILDDATE", "20170319"); 
 define("BWSERVERKEY", "thisthemostprettygirl"); 
 ?>

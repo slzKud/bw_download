@@ -171,7 +171,9 @@ return ($r/$r1)*100;
                                 用户名：$username<br><br>
                                 密码：已被用户手动更改  <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
-                               
+								FTP端口：48893<br><br>
+								FTP加密方法：隐式TLS FTP加密。<br><br>
+                            
                             ";
 	}else{
  echo "
@@ -181,6 +183,8 @@ return ($r/$r1)*100;
                                 用户名：$username<br><br>
                                 密码：与资源区相同 <button type=‘button’ class='btn btn-success btn-xs' data-toggle='modal' data-target='#myModal'>更改密码</button><br><br>
                                 FTP地址：$ftpadress<br><br>
+								FTP端口：48893<br><br>
+								FTP加密方法：隐式TLS FTP加密。<br><br>
                             ";
 	}
      //echo "<a href=ftppay.php><button type='button' class='btn btn-primary'>购买FTP流量</button></a>  ";

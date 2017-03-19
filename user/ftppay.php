@@ -65,3 +65,4 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';
 ?>
+
