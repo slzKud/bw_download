@@ -85,7 +85,6 @@ $nowpageid=4;
 		
          <td> <a href="interface/window/tjdm.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary">设置</button></a></td>
       </tr>
-	 
    </tbody>
 </table>
         </div>

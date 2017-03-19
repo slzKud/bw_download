@@ -51,6 +51,7 @@ function closedb($con) {
   }else{
 	  $sql1="INSERT INTO bw_settings (setname,setvalue) VALUES( '$name', '$setvalue')";
   } 
+  //echo $sql1;
   loaddb($sql1);
 }
 ?>

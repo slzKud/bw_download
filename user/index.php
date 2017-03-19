@@ -207,7 +207,8 @@ return ($r/$r1)*100;
 	 }else{
 		 $m=makemb($username);
 		 $p=progvalue($username);
-    echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs'>购买流量</button><br><br>";
+	echo scanserver()."<br><br>";
+    echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs' onclick='a();'>购买流量</button><br><br>";
 	 }
  ?>
 
@@ -222,7 +223,7 @@ return ($r/$r1)*100;
                         <div class="col-md-6">
                         	<h2> B-Side </h2>
                             <h4>
-                                当前状态：不可用 &nbsp;&nbsp;&nbsp;&nbsp; <a href="#">为什么？</a><br><br>
+                                当前状态：不可用 &nbsp;&nbsp;&nbsp;&nbsp; <a href="#" onclick="b();">为什么？</a><br><br>
                                 流量：0G/0G &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success btn-xs" disabled="disabled">流量管理</button><br><br>
                             </h4>
                              当前使用流量：
@@ -275,6 +276,8 @@ return ($r/$r1)*100;
 		  });
 		 
  }
+  function a(){alert('功能尚未开发完成！');}
+   function b(){alert('因为B-side还没启用呢，哼！');}
  </script>
  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

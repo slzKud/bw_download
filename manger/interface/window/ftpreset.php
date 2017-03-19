@@ -26,7 +26,8 @@
 			 <script>
 		 function DelSomething(){
 			$.post('todo.php', { type: "ftpreset"}, function (text, status) { 
-			  alert(trim(text));
+		    var str2 = text.replace("<br>", "\n");
+			  alert(trim(str2));
 			  window.location.reload();	
 			  });
 	}
