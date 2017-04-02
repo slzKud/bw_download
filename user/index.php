@@ -9,6 +9,7 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
 //session_start();
 //自动判断cookie
 function makemb($username){
+	$r1=0;
 	$r=getftpinfo($username,"StatsDownloaded");
 $r1=getftpinfo($username,"DefaultLimit");
 if($r<(1024*1024*1024)){
@@ -28,8 +29,10 @@ $r3= round($r1/(1024*1024*1024),2);
 return $r2."GB/".$r3."GB";
 }
 function progvalue($username){
+	$r1=0;
 $r=getftpinfo($username,"StatsDownloaded");
 $r1=getftpinfo($username,"DefaultLimit");
+if($r1==0){return 0;}
 return ($r/$r1)*100;
 }
 	  if (isset($_COOKIE["bwuser"])){
@@ -206,14 +209,19 @@ return ($r/$r1)*100;
                             
        '; 
 	 }
-	 if(getthesettings('ftpmode')==1){
+	 if(getthesettings('optftp')==1){
+if(getthesettings('ftpmode')==1){
       echo "流量：暂不可用 <br><br>";
-	 }else{
+	 }elseif(getthesettings('ftpmode')==2){
 		 $m=makemb($username);
 		 $p=progvalue($username);
 	echo scanserver()."<br><br>";
     echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs' onclick='a();'>购买流量</button><br><br>";
+	 }else{
+		 $p=0;
 	 }
+	 }
+	 
  ?>
 
 </h4>

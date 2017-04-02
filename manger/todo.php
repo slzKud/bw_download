@@ -628,6 +628,28 @@ $content=str_replace("%date%",date('Y-m-d H:i:s'),$emailstr);
 		exit;
 	}
 	break;
+	 case "modtoserverkey":
+	empty($_POST['to']) && $_POST['to']="";
+	$to=test_input($_POST['to']);
+	if($to!=""){
+		   savethesettings("serverkey",$to);
+		   echo "ok";
+	}else{
+		echo "no key";
+		exit;
+	}
+	break;
+	 case "modtogocard":
+	empty($_POST['to']) && $_POST['to']="";
+	$to=test_input($_POST['to']);
+	if($to!=""){
+		   savethesettings("gocard",$to);
+		   echo "ok";
+	}else{
+		echo "no address";
+		exit;
+	}
+	break;
 	 case "optthetj":
 	empty($_POST['t']) && $_POST['t']="";
 	$cx=test_input($_POST['t']);

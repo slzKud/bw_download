@@ -111,6 +111,8 @@ $i=$i+1;
    echo '<br />'.str_repeat(' ', 1024*4);
    loaddb("INSERT INTO `bw_usertable` VALUES (1,'".$_POST["username"]."','".md5($_POST["userpass"])."','".$_POST["useremail"]."',4,'127.0.0.1','2016-06-07 09:00:00','2016-06-07 09:00:00')",$cona);
    loaddb("INSERT INTO `bw_settings` VALUES (3,'fkemail','".$_POST["useremail"]."')",$cona);
+    loaddb("INSERT INTO `bw_settings` VALUES (999,'ftpmode','1')",$cona);
+	loaddb("INSERT INTO `bw_settings` VALUES (998,'optftp','0')",$cona);
    file_put_contents('../settings/db.php', "<?php
 define(\"DBHOST\", \"".$_POST['mysql'].":".$_POST['port']."\");
 define(\"DBUSER\", \"".$_POST['muser']."\");

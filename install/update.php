@@ -10,8 +10,8 @@ if(file_exists("update.lock")){
  flush();
 	exit();
 }
-if (DVER!="0.455"){
-    echo "ERROR:VER is not 0.455";
+if (DVER!="0.54"){
+    echo "ERROR:VER is not 0.54";
     echo '<br />'.str_repeat(' ', 1024*4);
     exit;
 }

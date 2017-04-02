@@ -85,6 +85,16 @@ $nowpageid=4;
 		
          <td> <a href="interface/window/tjdm.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary">设置</button></a></td>
       </tr>
+      <tr>
+         <td>服务器状态回调密钥</td>
+        <td> <form class="form-inline" role="form" ><input type="password" class="form-control" id="serverkey" name="username" value="<?php echo getthesettings("serverkey"); ?>"
+            placeholder="请输入密钥，建议6个字符以上。" /><button type="button" class="btn btn-primary" onclick="Modtheserverkey();" >保存</button></form></td>
+      </tr>
+      <tr>
+         <td>登录充值卡回调页面</td>
+        <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="gocard" name="username" value="<?php echo getthesettings("gocard"); ?>"
+            placeholder="请输入回调地址，用于跳转到充值界面（仅FTP模式2下可用）。" /><button type="button" class="btn btn-primary" onclick="Modthecard();" >保存</button></form></td>
+      </tr>
    </tbody>
 </table>
         </div>
@@ -177,6 +187,22 @@ $('input[name="opentjcode"]').on('switchChange.bootstrapSwitch', function(event,
 		var toemail=document.getElementById("fkemail").value; 
 		if (toemail!=""){
 			 $.post('todo.php', {type: "modtofk",to:toemail}, function (text, status) {
+			 alert("保存成功");}
+			);
+			}
+		 }
+function Modtheserverkey(){
+		var toemail=document.getElementById("serverkey").value; 
+		if (toemail!=""){
+			 $.post('todo.php', {type: "modtoserverkey",to:toemail}, function (text, status) {
+			 alert("保存成功");}
+			);
+			}
+		 }
+     function Modthecard(){
+		var toemail=document.getElementById("gocard").value; 
+		if (toemail!=""){
+			 $.post('todo.php', {type: "modtogocard",to:toemail}, function (text, status) {
 			 alert("保存成功");}
 			);
 			}
