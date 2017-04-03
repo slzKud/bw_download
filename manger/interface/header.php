@@ -77,7 +77,7 @@ right: 0px;
 	  //鉴别用户代码
 	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
 	
-      echo "<p class='navbar-text navbar-right'>你好, <a href='/user/info.php' class='navbar-link'>".veifycookies($_COOKIE["bwuser"])."</a>.<a href='/user/login.php?type=logout' class='navbar-link'>点此退出</a>.</p>";
+      echo "<p class='navbar-text navbar-right'>你好, <a href='/user/index.php' class='navbar-link'>".veifycookies($_COOKIE["bwuser"])."</a>.<a href='/user/login.php?type=logout' class='navbar-link'>点此退出</a>.</p>";
        }
 	   }else{
 		    echo "<a href='/user/login.php' class='navbar-link'>登入</a>";
