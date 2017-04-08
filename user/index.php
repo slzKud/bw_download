@@ -221,7 +221,7 @@ if(getthesettings('ftpmode')==1){
 		 $p=0;
 	 }
 	 }
-	 
+	 empty($p)&&$p=0;
  ?>
 
 </h4>
