@@ -88,7 +88,7 @@ function trim(str){ //删除左右两端的空格
 </script>    
    <div data-role="dialog" id="dialog-ajax" class="padding20"
     data-close-button="true"
-    data-href="interface/window/addcard.html"
+    data-href="interface/window/addcard.php"
     data-width="600"
     data-overlay="true" data-overlay-color="op-dark"></div>          
 <?php

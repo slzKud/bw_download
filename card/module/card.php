@@ -1,13 +1,14 @@
 <?php
 include_once 'mysqlaction.php';
-//makecardidtodb("30元5mb",15);
-function makecardidtodb($type,$num){
+//makecardidtodb("30元5mb",15,0);
+function makecardidtodb($type,$num,$flag){
     //获取typeid
     $sql1="select id from bw_cardtype where fname='$type'";
     $con=loaddb($sql1);
     $row=mysqli_fetch_array($con);
 	$typeid=$row['id'];
     //循环生成并导入
+    $card['x'] = "t";
     for ($x=0; $x<=$num; $x++) {
      //时间戳
     $t=time();
@@ -16,7 +17,11 @@ function makecardidtodb($type,$num){
     $sql1="INSERT INTO bw_card (cardid,cardtype,status,createdate) VALUES( '$card', '$type', 0, '$tdate')";
     //echo $sql1."<br>";
     loaddb($sql1);
-     } 
+    if($flag==1){
+      if($x==0){echo $card;}
+       if($x!=0){echo "\n".$card;}
+    }
+     }
 }
 function makecardid($typeid,$t){
     /*

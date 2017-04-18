@@ -7,7 +7,7 @@ if($_GET['code']!=""){
     if(veifycookies($base)!="incorrect！"){
     $username=veifycookies($base);
     setcookie("bwcard", $base, time()+(60*60*24*0.5),"/");
-    echo "<meta http-equiv='refresh' content='1;url=../pay.php'> ";
+    echo "<meta http-equiv='refresh' content='1;url=pay.php'> ";
 //echo "<script>alert('欢迎 $username ！')</script> ";
 }
 }
