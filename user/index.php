@@ -30,6 +30,7 @@ return $r2."GB/".$r3."GB";
 function progvalue($username){
 $r=getftpinfo($username,"StatsDownloaded");
 $r1=getftpinfo($username,"DefaultLimit");
+if($r1==0){return 0;}
 return ($r/$r1)*100;
 }
 	  if (isset($_COOKIE["bwuser"])){
@@ -213,6 +214,7 @@ return ($r/$r1)*100;
 		 $p=progvalue($username);
 	echo scanserver()."<br><br>";
     echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs' onclick='a();'>购买流量</button><br><br>";
+	 empty($p) && $p=0;
 	 }
  ?>
 
