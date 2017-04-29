@@ -30,7 +30,7 @@ empty($_SESSION['permission'])&&$_SESSION['permission']=0;
        ?>
    <head>
    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-      <title>BetaWorld资源区管理站</title>
+      <title>BetaWorld 资源区管理站</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- 引入 Bootstrap -->
      <!--<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">  -->
