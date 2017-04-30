@@ -216,7 +216,7 @@ if(getthesettings('ftpmode')==1){
 		 $m=makemb($username);
 		 $p=progvalue($username);
 	echo scanserver()."<br><br>";
-    echo "当前使用流量：$m  <button type=‘button’ class='btn btn-success btn-xs' onclick='a();'>购买流量</button><br><br>";
+    echo "当前使用流量：$m  <a href='ftppay.php'><button type=‘button’ class='btn btn-success btn-xs'>购买流量</button></a><br><br>";
 	 }else{
 		 $p=0;
 	 }

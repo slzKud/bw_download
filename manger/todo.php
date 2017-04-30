@@ -841,6 +841,13 @@ savethesettings("authpath",$newauth);
 	savethesettings("opensh",$cx);
 	 echo "ok";
 	break;
+	case "opencard":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("opencard",$cx);
+	 echo "ok";
+	break;
 	case "ftpmode":
 	empty($_POST['mode']) && $_POST['mode']="";
 	$cx=test_input($_POST['mode']);

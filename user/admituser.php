@@ -56,7 +56,7 @@ loaddb($sql);
 //echo $sql;
 echo "<script>alert('你的用户权限更改申请已发送，请等待审批。');</script>"	;	
 }
- include '../interface/header-user.php';
+ 
  if(getthesettings("opensh")!= "1"){
 	   include '../interface/header-user.php';
 	   $LErr="对不起，此功能已被管理员禁用。";
@@ -66,6 +66,7 @@ echo "<script>alert('你的用户权限更改申请已发送，请等待审批�
 include '../interface/footer.php';
 exit;
    }
+	 include '../interface/header-user.php';
 //自动判断cookie
 	  if (isset($_COOKIE["bwuser"])){
 	  //鉴别用户代码

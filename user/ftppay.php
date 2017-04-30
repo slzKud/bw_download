@@ -2,12 +2,24 @@
 //引入网页内容
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
 include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/settings/card.php';
+//require_once $_SERVER['DOCUMENT_ROOT'].'/settings/card.php';
 empty($_GET['links'])&&$_GET['links']="";
+if(getthesettings("opencard")!="1"){
+  include '../interface/header-user.php';
+	   $LErr="对不起，此功能正在建设中，请等待开发。";
+	   echo '
+<div class="alert alert-danger">'.$LErr.'</div>
+</div>';
+include '../interface/footer.php';
+exit;
+    }
 if($_GET['links']!=""){
-  echo $cardlinks[$_GET['links']]['link'];
+  //echo $cardlinks[$_GET['links']]['link'];
+  $url=getthesettings("gocard");
+  $url=$url."/links.php?type=getlinks&links=".$_GET['links'];
+  $re=curl_file_get_contents($url);
+  echo $re;
   exit;
 }
 echo "<html>";
@@ -31,8 +43,18 @@ include $_SERVER['DOCUMENT_ROOT'].'/interface/header-user.php';
 	 <label for="name">购买的卡片类型</label>
       <select class="form-control" name="new" id="n">
       <?php
+      /*
       foreach($cardlinks as $v){
     echo "<option>".$v['name']."</option>";
+}
+*/  
+   $url=getthesettings("gocard");
+    $url=$url."/links.php?type=getlist";
+    $list=curl_file_get_contents($url);
+    echo $url;
+    $a=explode(",",$list);
+     foreach($a as $v){
+    echo "<option>".$v."</option>";
 }
       ?>
       </select>

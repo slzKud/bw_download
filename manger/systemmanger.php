@@ -95,6 +95,10 @@ $nowpageid=4;
         <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="gocard" name="username" value="<?php echo getthesettings("gocard"); ?>"
             placeholder="请输入回调地址，用于跳转到充值界面（仅FTP模式2下可用）。" /><button type="button" class="btn btn-primary" onclick="Modthecard();" >保存</button></form></td>
       </tr>
+      <tr>
+         <td>开启充值卡页面</td>
+         <td><input id="mySwitch" type="checkbox" name="opencard" <?php if(getthesettings("opencard")==="1"){echo 'checked';} ?> /></td>
+      </tr>
    </tbody>
 </table>
         </div>
@@ -162,6 +166,15 @@ $('input[name="closereg"]').on('switchChange.bootstrapSwitch', function(event, s
 	  var s=1
   }
    $.post('todo.php', {type: "closereg",t:s});
+});
+$('input[name="opencard"]').on('switchChange.bootstrapSwitch', function(event, state) {
+	console.log(state);
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "opencard",t:s});
 });
 $('input[name="opensh"]').on('switchChange.bootstrapSwitch', function(event, state) {
 	console.log(state);
