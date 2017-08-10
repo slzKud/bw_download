@@ -47,7 +47,7 @@
 		 switch(zyqxname)
             {
             case "游客":
-            var zyqx=0;
+            var zyqx=-1;
             break;
            case "普通用户":
             var zyqx=1;

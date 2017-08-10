@@ -30,7 +30,7 @@ return $r;
 }
 function setftplimit($username,$value) {
 $authpath=getthesettings("authpath");
-$authcode=md5(urlencode($username).$value."pass");
+$authcode=md5(urlencode($username).$value."limit");
 $authpath=$authpath."/do?username=".urlencode($username)."&value=$value&type=limit&authcode=$authcode";
 $r=curl_file_get_contents($authpath);
 return $r;

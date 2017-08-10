@@ -4,6 +4,10 @@
 include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
+empty($_GET['px'])&&$_GET['px']="username";
+empty($_GET['sc'])&&$_GET['sc']="desc";
+$desc=$_GET['sc'];
+if($desc!="asc" and $desc !="desc"){$desc="desc";}
 empty($_GET['pageid'])&&$_GET['pageid']=1;
 empty($page)&&$page=1;
 $tiaojian=test_input($_GET['findstr']);
@@ -96,9 +100,9 @@ closedb($con);
  <table class="table table-hover">
    <thead>
       <tr>
-         <th>资源名称</th>
+         <th><a onclick="topx('filename');">资源名称<?php if($_GET['px']=="filename"){echo "（按此排序）";}?></a></th>
          <th></th>
-          <th>更新时间</th>
+          <th><a onclick="topx('adddate');">更新时间<?php if($_GET['px']=="adddate"){echo "（按此排序）";}?></a></th>
       </tr>
    </thead>
    <tbody>
@@ -139,7 +143,12 @@ closedb($con);
 
    </tbody>
 </table>
-<?php if($flag==0){echo "<center><p class='lead' >啊哈，未找到哦~</p></center>";} ?>
+<?php 
+echo "<center><p class='lead' >";
+if($flag==0){echo "啊哈，未找到哦~";} 
+if($_SESSION['permission']==0){echo "注册账户可获取更多资源.";} 
+echo "</p></center>";
+?>
 <ul class="pagination">
 <?php
 if ($pages>1) {
@@ -177,5 +186,25 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
       <script src="js/bootstrap.min.js"></script>
        <script src="./js/top.js" type="text/javascript"></script>
 </body>
+<script>
+    function topx(field){
+			var uri="";
+			uri=this.location.href;
+			if(right(uri,3)=="php"){
+              //alert(uri+"?px="+field);
+			  window.location.href=uri+"?px="+field;
+			}else{
+             //alert(uri+"&px="+field);
+			 window.location.href=uri+"&px="+field;
+			}
+			
+		}
+		function right(mainStr,lngLen) { 
+// alert(mainStr.length) 
+ if (mainStr.length-lngLen>=0 && mainStr.length>=0 && mainStr.length-lngLen<=mainStr.length) { 
+ return mainStr.substring(mainStr.length-lngLen,mainStr.length)} 
+ else{return null} 
+ } 
+ </script>
 <?php include 'interface/footer.php';?>
 </html>

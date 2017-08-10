@@ -1,3 +1,6 @@
+<?php
+header('P3P: CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"');
+?>
 <?php 
 session_start();	
  date_default_timezone_set("PRC");  

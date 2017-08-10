@@ -6,6 +6,10 @@ include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
+empty($_GET['px'])&&$_GET['px']="filename";
+empty($_GET['sc'])&&$_GET['sc']="desc";
+$desc=$_GET['sc'];
+if($desc!="asc" and $desc !="desc"){$desc="desc";}
 empty($_GET['pageid'])&&$_GET['pageid']=1;
 empty($page)&&$page=1;
 $tiaojian=test_input($_GET['findstr']);
@@ -34,7 +38,7 @@ function test_input($data) {
 		<div class="container">
 		 
      <form class="form-inline" role="form" action="filemanger.php" method="get">
-	 <a href="interface/window/addfile.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
+	 <a href="interface/window/addfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
 				<a href="interface/window/modifyfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件</button></a>
 					<a href="interface/window/pinfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
 		<a href="interface/window/delfile.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>

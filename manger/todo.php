@@ -229,6 +229,7 @@ case "addfiles":
 empty($_POST['zyname']) && $_POST['zyname']="";
 empty($_POST['zylink']) && $_POST['zylink']="";
 empty($_POST['zyqx']) && $_POST['zyqx']=99;
+if($_POST['zyqx']==-1){$_POST['zyqx']=0;}
 $zyname=test_input($_POST['zyname']);
 $zylink=test_input($_POST['zylink']);
 $zyqx=test_input($_POST['zyqx']);
