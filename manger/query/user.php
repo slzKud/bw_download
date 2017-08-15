@@ -15,7 +15,7 @@ if(isset($order_column)){
     $i = intval($order_column);
     switch($i){
         case 0;$orderSql = " order by username ".$order_dir;break;
-        case 2;$orderSql = " order by regdate ".$order_dir;break;
+        case 3;$orderSql = " order by regdate ".$order_dir;break;
         default;$orderSql = '';
     }
 }
