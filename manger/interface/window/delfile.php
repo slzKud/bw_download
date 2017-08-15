@@ -5,8 +5,6 @@
 empty($temp)&& $temp="";
 $temp=$_SESSION['transfer'];
 //$_SESSION['transfer']="";
-$temp=str_replace("Bwchkid","",$temp);
-$temp=substr($temp,1);
 if ($temp !="")
 {
 $sql1="select Filename from bw_downtable where id in (".$temp.")";
@@ -20,6 +18,15 @@ while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
   }
   }
   echo "<input type='hidden' value='$temp' id='loaddapp' />";
+  function showzd($id){
+     $sql1="select fileid from bw_pinfile where fileid in (".$id.") and ifok=1";
+  $rschk=loaddb($sql1);
+  if(mysqli_num_rows($rschk) >0){
+return 1;
+  }else{
+return -1;
+  }
+ }
  ?>
  
  <div class="modal-header">

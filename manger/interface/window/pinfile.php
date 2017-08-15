@@ -7,8 +7,6 @@
 empty($temp)&& $temp="";
 $temp=$_SESSION['transfer'];
 //$_SESSION['transfer']="";
-$temp=str_replace("Bwchkid","",$temp);
-$temp=substr($temp,1);
 $i=0;
 if ($temp !="")
 {

@@ -16,8 +16,7 @@ if($_GET['mode']=="d"){
 	$ifd=1;
 }
 
-$temp=str_replace("Bwchkid","",$temp);
-$temp=substr($temp,1);
+
 if ($temp !="")
 {
 $sql1="select id,username from bw_admituser where id in (".$temp.")";

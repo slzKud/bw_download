@@ -33,6 +33,11 @@ empty($_POST['type']) && $_POST['type']="other";
 try {  
 switch ($_POST['type'])
 {
+case "transfer":
+            $p=$_POST['p'];
+            $_SESSION['transfer']=$p;
+            echo "ok";
+            break;
 case "delfiles":
 empty($_POST['filelist']) && $_POST['filelist']="";
 if ($_POST['filelist'] != ""){

@@ -5,8 +5,7 @@
 empty($temp)&& $temp="";
 $temp=$_SESSION['transfer'];
 //$_SESSION['transfer']="";
-$temp=str_replace("Bwchkid","",$temp);
-$temp=substr($temp,1);
+
 if ($temp !="")
 {
 $sql1="select username from bw_usertable where id in (".$temp.")";
