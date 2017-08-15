@@ -122,6 +122,21 @@ function test_input($data) {
 });
                     $(document).ready(function() {
     $('#th').dataTable( {
+        'language': {    
+            'emptyTable': '没有可以显示的数据',    
+            'loadingRecords': '加载中...',    
+            'processing': '查询中...',    
+            'search': '搜索:',    
+            'lengthMenu': '每页 _MENU_ 条记录',    
+            'zeroRecords': '没有数据',    
+            'paginate': {      
+                    'next':       '下一页',    
+                    'previous':   '上一页'    
+                    },    
+            'info': '第 _PAGE_ 页 / 共 _PAGES_ 页',    
+            'infoEmpty': '没有数据',    
+            'infoFiltered': '(从 _MAX_ 条记录中筛选)'    
+        } ,
         "processing": true,
         "serverSide": true,
         "ajax": "query/admit.php",
