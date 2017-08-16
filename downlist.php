@@ -61,7 +61,7 @@ include 'interface/header.php';
         "serverSide": true,
         "ajax": "query/download.php",
         'language': {    
-            'emptyTable': '没有数据',    
+            'emptyTable': '没有可以显示的数据',    
             'loadingRecords': '加载中...',    
             'processing': '查询中...',    
             'search': '搜索:',    

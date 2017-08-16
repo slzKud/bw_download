@@ -1,5 +1,5 @@
 
-<Center><image src="https://slz.moe/usr/uploads/2017/02/387370319.png"></image></Center><Center><h1>BetaWorld资源区<h1><h2>2016-2017</h2><br>版本 V5.0</Center>
+<Center><image src="https://slz.moe/usr/uploads/2017/02/387370319.png"></image></Center><Center><h1>BetaWorld资源区<h1><h2>2016-2017</h2><br>版本 V0.6</Center>
 
 <h3>* 致谢 </h3>
 
@@ -15,10 +15,11 @@
     * 632481545（人赢+FTP服务器管理者+实际的站长）
     * driver1998（BWDB开发者）
     * Kud（资源区开发者）
-    # TubeChip404（人赢*2）
+    * JiongDream（友情协助）
+    * TubeChip404（人赢*2）
     # 随便问我（大佬）
     # TNEPLUS（友情协助）
-    # JiongDream（友情协助）
+    # LIJIALUO（友情协助）
 
     - 有Bug欢迎通过反馈系统提交到管理员和程序猿手上哦。
 
@@ -33,5 +34,5 @@
 
 	
 	
-本文修改于2017.2.12晚
+本文修改于2017.8.17
 

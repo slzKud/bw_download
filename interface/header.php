@@ -156,7 +156,7 @@ return $ip;
 	  
 		 <li <?php if($nowpageid==1)echo("class='active'");?> ><a href="/"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
 		 <li <?php if($nowpageid==2) echo("class='active'");?> ><a href="/downlist.php"><span class="glyphicon glyphicon-list"></span> 资源列表</a></li>
-		  <li <?php if($nowpageid==3) echo("class='active'");?> ><a href="/nowdiff.php"><span class="glyphicon glyphicon-time"></span> 最近新增</a></li>
+		  <li <?php if($nowpageid==3) echo("class='active'");?> ><a href="/updatediray.php"><span class="glyphicon glyphicon-time"></span> 更新日志</a></li>
 		 <li <?php if($nowpageid==4)echo("class='active'");?>> <a href="http://betaworld.cn"><span class="glyphicon glyphicon-Chevron-left"></span> 返回社区</a></li>
 		 </ul>
 		

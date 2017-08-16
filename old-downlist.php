@@ -35,7 +35,7 @@ function test_input($data) {
 	  </div>
       <div class="col-xs-6">
 	   <div class="form-inline text-right" >
-    <form class="bs-example bs-example-form" role="form" action="downlist.php" method="get" id="PassForm">   
+    <form class="bs-example bs-example-form" role="form" action="old-downlist.php" method="get" id="PassForm">   
             <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
          <button type="submit" class="btn btn-default"><span class='glyphicon glyphicon-search' style="font-size: 20px;"></span></button>
       </form>   
