@@ -1,9 +1,9 @@
 <html>
 <?php 
 $nowpageid=2;
-include 'interface/header.php';
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include dirname(__FILE__).'/interface/header.php';
+include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
 empty($_GET['px'])&&$_GET['px']="filename";

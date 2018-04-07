@@ -40,14 +40,14 @@ $recordsFiltered = 0;
 //表的总记录数 必要
 $recordsTotal = 0;
 $recordsTotalResult = loaddb($sumSql);
-while ($row =mysqli_fetch_array($recordsTotalResult)) {
+while ($row =mysqli_fetch_array($recordsTotalResult, MYSQLI_ASSOC)) {
     $recordsTotal =  $row['sum'];
 }
 //定义过滤条件查询过滤后的记录数sql
 $sumSqlWhere =" and username LIKE '%".$search."%' ";
 if(strlen($search)>0){
     $recordsFilteredResult = loaddb($sumSql.$sumSqlWhere);
-    while ($row =mysqli_fetch_array($recordsFilteredResult)) {
+    while ($row =mysqli_fetch_array($recordsFilteredResult, MYSQLI_ASSOC)) {
         $recordsFiltered =  $row['sum'];
     }
 }else{

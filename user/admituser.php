@@ -13,9 +13,9 @@ color : #C0C0C0;
    <h2>用户组更改申请</h2> 
  <hr>
 <?php 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php';
 //session_start();
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 empty($_POST['username']) && $_POST['username']="";
 empty($_POST['old']) && $_POST['old']="";
 empty($_POST['new']) && $_POST['new']="";

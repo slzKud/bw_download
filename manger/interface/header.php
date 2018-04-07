@@ -1,6 +1,6 @@
 <?php 	  
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once dirname(dirname(dirname(__FILE__))).'/module/cookiesmaker.php'; 
+include_once dirname(dirname(dirname(__FILE__))).'/module/mysqlaction.php';
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 ?>

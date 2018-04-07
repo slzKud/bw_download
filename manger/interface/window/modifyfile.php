@@ -10,7 +10,7 @@
             </h4>
          </div>
          <?php
- include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+ include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
  session_start();
  empty($_SESSION['transfer'])&& $_SESSION['transfer']="";
 empty($temp)&& $temp="";

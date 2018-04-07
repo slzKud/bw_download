@@ -1,6 +1,6 @@
 <?php 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php';
 empty($_GET['type'])&&$_GET['type']="pay";
 if(getthesettings("gocard")!=""){
 if (isset($_COOKIE["bwuser"])){

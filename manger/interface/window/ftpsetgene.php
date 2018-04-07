@@ -1,5 +1,5 @@
 <?php
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
 $lowftp=getthesettings('lowftpper');
 $ftpserveradress=getthesettings('ftpserveradress');
 $ftpuser1=getthesettings('ftpuser1');

@@ -1,8 +1,8 @@
 <?php 
 //引入网页内容
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php'; 
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
+include_once dirname(dirname(__FILE__)).'/module/bwftp.php'; 
 session_start();
 //自动判断cookie
 	  if (isset($_COOKIE["bwuser"])){

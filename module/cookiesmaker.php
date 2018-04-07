@@ -11,7 +11,7 @@ function makebwcode($username,$passmd5) {
  //bwcode由用户名 密码md5和BWDOWNLOAD!!!合在一起后AES加密)
 }
 function veifybwcode($username,$bwcode) {
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 	$rs=loaddb("SELECT username,passmd5 FROM bw_usertable where username='".$username."'");
 	$row = mysqli_fetch_array($rs);
 	$comp=makebwcode($row['username'],$row['passmd5']);

@@ -8,7 +8,7 @@ function unixtime_to_date($unixtime, $timezone = 'PRC') {
     $datetime->setTimezone(new DateTimeZone($timezone));
     return $datetime->format("Y-m-d H:i:s");
 }
-include 'interface/header-nomenu.php';
+include dirname(__FILE__).'/interface/header-nomenu.php';
 $endtime=time()+100000;
 $time=unixtime_to_date($endtime);
 ?>
@@ -34,5 +34,5 @@ $time=unixtime_to_date($endtime);
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

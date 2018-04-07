@@ -1,7 +1,7 @@
 <?php header("Pragma: no-cache"); ?>
 <?php 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
+include_once dirname(__FILE__).'/module/mysqlaction.php';
+include_once dirname(__FILE__).'/module/sendmail.api.php';
 $LErr="";
 $fktitle ="";
 $fktype ="";
@@ -66,7 +66,7 @@ function test_input($data) {
 <html>
 <?php 
 $nowpageid=1;
-include 'interface/header-nomenu.php';
+include dirname(__FILE__).'/interface/header-nomenu.php';
 ?>
 <body>
  <script type="text/javascript">
@@ -119,5 +119,5 @@ if($LErr != ""){
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

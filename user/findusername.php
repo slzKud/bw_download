@@ -1,9 +1,9 @@
 <html>
 <?php 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
+include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/sendmail.api.php';
 session_start();
 //session_destroy();
 empty($_GET['step']) && $_GET['step'] = '1';
@@ -45,7 +45,7 @@ $email=$yzm=$LErr="";
         $nowaction="找回用户名";
         $tolink=$yzlink;
         $title='BetaWorld 资源区 - 邮件验证';
-		//include $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.php';
+		//include dirname(dirname(__FILE__)).'/module/sendmail.php';
 		SendMailToUser($toemail,$title,$nowaction,$tolink);
 	}
 	}else{
@@ -150,5 +150,5 @@ default:
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';?>
+<?php include dirname(dirname(__FILE__)).'/interface/footer.php';?>
 </html>

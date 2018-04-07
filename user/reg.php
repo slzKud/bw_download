@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/sendmail.api.php';
 session_start();
 //session_destroy();
 empty($_GET['step']) && $_GET['step'] = '1';
@@ -145,7 +145,7 @@ if (empty($_GET["email"])) {
      }else{
        $sql1="INSERT INTO bw_ftp (account,userid,password) VALUES ('".getthesettings('ftpuser1') ."', '".$regusername."','".md5($regpassword)."')";
 			loaddb($sql1);
-      include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
+      include_once  dirname(dirname(__FILE__)).'/module/bwftp.php';
       regftpuser($regusername,$regpassword,getthesettings('ftpuser1'));
      }
 		}
@@ -177,7 +177,7 @@ function test_input($data) {
 <?php 
 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
 ?>
 <body>
 <script type="text/javascript">
@@ -216,5 +216,5 @@ default:
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';?>
+<?php include dirname(dirname(__FILE__)).'/interface/footer.php';?>
 </html>

@@ -2,7 +2,7 @@
 <?php 
 $nowpageid=3;
 include 'interface/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
 empty($_GET['pageid'])&&$_GET['pageid']=1;

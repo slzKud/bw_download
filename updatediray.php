@@ -6,8 +6,8 @@
 </style>
 <?php 
 $nowpageid=3;
-include 'interface/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include dirname(__FILE__).'/interface/header.php';
+include_once dirname(__FILE__).'/module/mysqlaction.php';
 empty($_GET['d'])&&$_GET['d']="all";
 $showdate=$_GET['d'];
 $nowpageid=2;
@@ -118,5 +118,5 @@ $(this).css("display","none");
 });
 </script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

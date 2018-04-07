@@ -1,11 +1,11 @@
 <html>
 <?php 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-user.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
+include dirname(dirname(__FILE__)).'/interface/header-user.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
+include_once  dirname(dirname(__FILE__)).'/module/ip.php';
+include_once  dirname(dirname(__FILE__)).'/module/bwftp.php';
 //session_start();
 //自动判断cookie
 function makemb($username){
@@ -350,5 +350,5 @@ if(getthesettings('ftpmode')==1){
 		 
  }
  </script>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';?>
+<?php include dirname(dirname(__FILE__)).'/interface/footer.php';?>
 </html>

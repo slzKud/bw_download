@@ -1,8 +1,8 @@
 <?php
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
 if(getthesettings("ftpmode")==1){
-include_once  $_SERVER['DOCUMENT_ROOT'].'/manger/interface/window/ftpsetgene.php';
+include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/manger/interface/window/ftpsetgene.php';
 }else{
-include_once  $_SERVER['DOCUMENT_ROOT'].'/manger/interface/window/ftpsetbw.php';
+include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/manger/interface/window/ftpsetbw.php';
 }
 ?>

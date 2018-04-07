@@ -1,7 +1,7 @@
 <html>
 <link href="./css/top.css" rel="stylesheet">
 <?php 
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include dirname(__FILE__).'/module/mysqlaction.php';
 empty($tioajian)&&$tiaojian="";
 empty($_GET['findstr'])&&$_GET['findstr']="";
 empty($_GET['px'])&&$_GET['px']="username";
@@ -13,7 +13,7 @@ empty($page)&&$page=1;
 $tiaojian=test_input($_GET['findstr']);
 $page=$_GET['pageid'];
 $nowpageid=2;
-include 'interface/header.php';
+include dirname(__FILE__).'/interface/header.php';
 $flag=0;
 function test_input($data) {
   $data = trim($data);
@@ -206,5 +206,5 @@ if ($page < $pages ) echo "<li><a href='".$link."pageid=".$last."'>&raquo;</a></
  else{return null} 
  } 
  </script>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

@@ -1,9 +1,9 @@
 <?php 
 //引入网页内容
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
-//require_once $_SERVER['DOCUMENT_ROOT'].'/settings/card.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
+include_once  dirname(dirname(__FILE__)).'/module/bwftp.php';
+//require_once dirname(dirname(__FILE__)).'/settings/card.php';
 empty($_GET['links'])&&$_GET['links']="";
 if(getthesettings("opencard")!="1"){
   include '../interface/header-user.php';
@@ -23,7 +23,7 @@ if($_GET['links']!=""){
   exit;
 }
 echo "<html>";
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-user.php';
+include dirname(dirname(__FILE__)).'/interface/header-user.php';
 ?>
 <body>
 <div class="container">
@@ -86,6 +86,6 @@ window.open(text);
 </body>
 </html>
 <?php
-include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';
+include dirname(dirname(__FILE__)).'/interface/footer.php';
 ?>
 

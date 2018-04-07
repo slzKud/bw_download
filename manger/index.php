@@ -1,14 +1,14 @@
 <html>
 <?php 
 $nowpageid=1;
-include_once  $_SERVER['DOCUMENT_ROOT'].'/settings/ver.php';
+include_once  dirname(dirname(__FILE__)).'/settings/ver.php';
 include 'interface/header.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php'; 
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php'; 
 $os=php_uname();
 $phpv=PHP_VERSION;
 $serverip=GetHostByName($_SERVER['SERVER_NAME']);
-$serverpath=$_SERVER['DOCUMENT_ROOT'];
+$serverpath=dirname(dirname(__FILE__));
 function getthename($id) {
   $sql="select Filename from bw_downtable where id=$id";
   $rs=loaddb($sql);

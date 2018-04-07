@@ -1,4 +1,4 @@
-<?php include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php'; ?>
+<?php include_once dirname(dirname(dirname(__FILE__))).'/module/mysqlaction.php'; ?>
             <div class="col-md-2">
       
 	  <ul class="nav nav-pills nav-stacked">

@@ -1,7 +1,7 @@
 <?php
 
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
 empty($tocsv)&&$tocsv=0;
 empty($_GET['csv'])&&$_GET['csv']="";
 $tocsv=$_GET['csv'];

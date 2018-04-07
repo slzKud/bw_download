@@ -9,7 +9,7 @@
          </div>
          <div class="modal-body">
 		 <?php
-		  include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+		  include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
 		  $optftp=getthesettings('optftp');
 		  if($optftp==1){
 		echo "现在即将重置FTP数据库，系统会根据用户表信息自动重置FTP数据表。<br>对于你从管理界面修改了用户信息产生的FTP无法登陆问题非常有用。<br>你是否继续？";

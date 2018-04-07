@@ -10,7 +10,7 @@ color : #C0C0C0;
 
 <?php 
 $nowpageid=1;
-include 'interface/header-nomenu.php';
+include dirname(__FILE__).'/interface/header-nomenu.php';
 ?>
 <link href="./css/top.css" rel="stylesheet">
 <body>
@@ -37,5 +37,5 @@ echo "About.md 文件不存在，请手动添加。";
       <script src="js/bootstrap.min.js"></script>
 	  <script src="./js/top.js" type="text/javascript"></script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

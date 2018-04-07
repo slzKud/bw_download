@@ -1,5 +1,5 @@
 <?php
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
 $code=getthesettings('tjcode');
 ?>
          <div class="modal-header">

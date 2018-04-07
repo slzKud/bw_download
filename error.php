@@ -10,7 +10,7 @@ switch($_GET['err']){
 	 $errormsg="未知错误.";
 	 break;
 }
-include 'interface/header-nomenu.php';
+include dirname(__FILE__).'/interface/header-nomenu.php';
 ?>
  <style>
 	  body {

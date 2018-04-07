@@ -1,5 +1,5 @@
 <?php
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 function getIPLoc($queryIP){ 
 $sql="select loc from bw_ip where ip='$queryIP'";
 $rs=loaddb($sql);

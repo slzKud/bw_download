@@ -13,7 +13,7 @@ $folder=$_GET['folder'];
 $folder='/image/';
 }
 //存放图片文件的位置
-$path = $_SERVER['DOCUMENT_ROOT']."/".$folder;
+$path = dirname(dirname(__FILE__))."/".$folder;
 $files=array();
 if ($handle=opendir("$path")) {
 while(false !== ($file = readdir($handle))) {

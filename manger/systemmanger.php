@@ -15,8 +15,8 @@
   <?php 
 $nowpageid=4;
 include 'interface/header.php';
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
+include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
 $nowpageid=4;
 //echo getthesettings("optmode");
 ?>

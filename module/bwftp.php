@@ -1,5 +1,5 @@
 <?php 
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 function regftpuser($username,$pass,$type) {
 $authpath=getthesettings("authpath");
 $passmd5=md5($pass);

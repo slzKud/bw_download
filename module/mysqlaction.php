@@ -1,6 +1,6 @@
 <?php
 //mssql操作
-include_once $_SERVER['DOCUMENT_ROOT'].'/settings/db.php';
+include_once dirname(dirname(__FILE__)).'/settings/db.php';
 function connectdb() {
 	/* $dblist=array (
 'dbhost'=>"127.0.0.1",

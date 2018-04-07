@@ -1,7 +1,7 @@
 <?php 
 //相关模块
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
+include dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include dirname(dirname(__FILE__)).'/module/cookiesmaker.php';
 session_start();
 session_destroy();
 //退出代码
@@ -22,11 +22,11 @@ if ($_GET["type"]=="logout") {
   if (isset($_COOKIE["bwuser"])){
      if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
        $LErr="你已经登录用户".veifycookies($_COOKIE["bwuser"]).".5秒后返回首页。";
-       include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+       include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
        echo " <div class='container'' ><br><h2>Opps</h2> 
 	  <hr><div class='alert alert-danger'>".$LErr."</div></div>";
     echo "<meta http-equiv='refresh' content='5;url=../index.php'> ";
-      include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';
+      include dirname(dirname(__FILE__)).'/interface/footer.php';
       exit;
      }
   }
@@ -119,7 +119,7 @@ return $ip;
 <html>
 <?php 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
 ?>
 <body>
 <script type="text/javascript">
@@ -217,5 +217,5 @@ if(getthesettings("closereg")!="1"){
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';?>
+<?php include dirname(dirname(__FILE__)).'/interface/footer.php';?>
 </html>

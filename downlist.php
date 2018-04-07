@@ -1,7 +1,7 @@
 <?php
 $nowpageid=2;
 include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include 'interface/header.php';
+include dirname(__FILE__).'/interface/header.php';
 ?>
 
 <body>
@@ -79,5 +79,5 @@ include 'interface/header.php';
 } );
        </script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

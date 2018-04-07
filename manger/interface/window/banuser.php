@@ -8,8 +8,8 @@
             </h4>
          </div>
  <?php
- include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
- include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
+ include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
+ include_once dirname(dirname(dirname(dirname(__FILE__)))).'/module/cookiesmaker.php';
  session_start();
  empty($_SESSION['transfer'])&& $_SESSION['transfer']="";
 empty($temp)&& $temp="";

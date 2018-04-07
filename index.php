@@ -11,7 +11,7 @@ color : #C0C0C0;
 
 <?php 
 $nowpageid=1;
-include 'interface/header.php';
+include dirname(__FILE__).'/interface/header.php';
 ?>
 <body>
 
@@ -60,5 +60,5 @@ include 'interface/header.php';
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>

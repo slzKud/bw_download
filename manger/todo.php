@@ -1,10 +1,10 @@
 <?php
 //how?
  date_default_timezone_set("PRC");
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/sendmail.api.php';
-include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/bwftp.php';
+include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once dirname(dirname(__FILE__)).'/module/sendmail.api.php';
+include_once dirname(dirname(__FILE__)).'/module/cookiesmaker.php'; 
+include_once  dirname(dirname(__FILE__)).'/module/bwftp.php';
 session_start();
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 empty($_SESSION['transfer'])&&$_SESSION['transfer']=0;
@@ -580,7 +580,7 @@ if($_POST['emailpass'] ==""){
   echo  "invaild email"; 
   exit;
 }
-require_once $_SERVER['DOCUMENT_ROOT'].'/module/email.class.php';
+require_once dirname(dirname(__FILE__)).'/module/email.class.php';
 $emailstr="<html>
  <style>
 	  body {

@@ -1,7 +1,7 @@
 <html>
 <?php 
 //引入网页内容
-include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
+include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
 ?>
 <body>
  <div class="container" >
@@ -24,5 +24,5 @@ include $_SERVER['DOCUMENT_ROOT'].'/interface/header-nomenu.php';
       <!-- 包括所有已编译的插件 -->
       <script src="../js/bootstrap.min.js"></script>
 </body>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/interface/footer.php';?>
+<?php include dirname(dirname(__FILE__)).'/interface/footer.php';?>
 </html>

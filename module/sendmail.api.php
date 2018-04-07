@@ -1,5 +1,5 @@
 <?php
-include_once  $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 	require_once "email.class.php";
 	date_default_timezone_set('prc');
 	//echo SendMailTo("804317269@qq.com","如果你看到这封邮件，那么你的邮件配置信息是正确的。","如果你看到这封邮件，那么你的邮件配置信息是正确的。");

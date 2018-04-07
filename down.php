@@ -1,9 +1,9 @@
 <html>
 <?php 
 session_start();
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
-include $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php';
-include 'interface/header-nomenu.php';
+include dirname(__FILE__).'/module/mysqlaction.php';
+include dirname(__FILE__).'/module/cookiesmaker.php';
+include dirname(__FILE__).'/interface/header-nomenu.php';
 empty($id)&&$id="";
 empty($LErr)&&$LErr="";
 //var_dump ($_GET);
@@ -137,5 +137,5 @@ echo "<input type='hidden' value='$id' id='loaddapp' />";
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
 </body>
-<?php include 'interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/footer.php';?>
 </html>
