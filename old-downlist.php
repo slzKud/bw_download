@@ -54,7 +54,7 @@ function test_input($data) {
  $rspin=loaddb($sqlpin);
  $expect="";
 if(mysqli_num_rows($rspin) >0){
- while($rowp = mysqli_fetch_array($rspin, MYSQL_ASSOC))
+ while($rowp = mysqli_fetch_array($rspin, MYSQLI_ASSOC))
 {
  $expect= $expect.",".$rowp['fileid'];
 }
@@ -111,12 +111,12 @@ closedb($con);
   if(empty($tiaojian)){
       $sqlpin="select fileid from bw_pinfile where ifok=1";
       $rspin=loaddb($sqlpin);
-      while($rowp = mysqli_fetch_array($rspin, MYSQL_ASSOC))
+      while($rowp = mysqli_fetch_array($rspin, MYSQLI_ASSOC))
          {
            $sqlp="select id,Filename,Download,adddate from bw_downtable where id=".$rowp['fileid']." and Permisson<= ".$_SESSION['permission'].""; 
           //echo $sqlp;
           $rspinx=loaddb($sqlp);
-          while($rowg = mysqli_fetch_array($rspinx, MYSQL_ASSOC))
+          while($rowg = mysqli_fetch_array($rspinx, MYSQLI_ASSOC))
          {
 			$nowtime=time();
             echo "<tr>";
@@ -128,7 +128,7 @@ closedb($con);
   }
          }
           }
-	  while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	  while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$nowtime=time();
             echo "<tr>";

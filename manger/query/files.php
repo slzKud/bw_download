@@ -68,7 +68,7 @@ if(strlen($search)>0){
     //直接查询所有记录
     $dataResult = loaddb($totalResultSql.$orderSql.$limitSql);
     //echo $totalResultSql.$orderSql.$limitSql;
-    while ($row = mysqli_fetch_array($dataResult, MYSQL_ASSOC)) {
+    while ($row = mysqli_fetch_array($dataResult, MYSQLI_ASSOC)) {
                $obj = array($row['id'],$row['Filename'].showzd($row['id']),$row['adddate'],topername($row['Permisson']));
         array_push($infos,$obj);
     }

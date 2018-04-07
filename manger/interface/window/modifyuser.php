@@ -35,7 +35,7 @@ if (strpos($temp,",") === false){
 	 $username="";
 	 $email="";
 	 $userqx=0;
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$username=$row['username'];
 			$email=$row['email'];

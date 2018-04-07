@@ -94,7 +94,7 @@ $rsuser=loaddb("SELECT * FROM bw_usertable where username='".$username."'");
 			 $sql="INSERT INTO bw_baneduser(username,btime,ifclose,nowdate)  VALUES ('$username',$tiemb,1,'$nowdate')";
 			 loaddb($sql);
 			 $rsapply=loaddb("SELECT email FROM bw_usertable where username='$username'");
-            while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+            while($row = mysqli_fetch_array($rsapply, MYSQLI_ASSOC))
          {
 			$email=$row['email'];
   }
@@ -161,7 +161,7 @@ if($applyid==""){
 	exit;
 }
 $rsapply=loaddb("SELECT id,username,newper FROM bw_admituser where id=$applyid and ifs=0");
-while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rsapply, MYSQLI_ASSOC))
          {
 			$username=$row['username'];
 			$newper=$row['newper'];
@@ -180,7 +180,7 @@ if(mysqli_num_rows($rsapply) >0){
 			loaddb($sql);
 	     	
 			$rsemail=loaddb("SELECT email FROM bw_usertable where username='$username'");
-            while($row = mysqli_fetch_array($rsemail, MYSQL_ASSOC))
+            while($row = mysqli_fetch_array($rsemail, MYSQLI_ASSOC))
          {
 			$email=$row['email'];
   }
@@ -201,7 +201,7 @@ if($applyid==""){
 	exit;
 }
 $rsapply=loaddb("SELECT id,username,newper FROM bw_admituser where id=$applyid and ifs=0");
-while($row = mysqli_fetch_array($rsapply, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rsapply, MYSQLI_ASSOC))
          {
 			$username=$row['username'];
 			$newper=$row['newper'];
@@ -218,7 +218,7 @@ if(mysqli_num_rows($rsapply) >0){
 			loaddb($sql);
 	     	 
 			  $rsemail=loaddb("SELECT email FROM bw_usertable where username='$username'");
-            while($row = mysqli_fetch_array($rsemail, MYSQL_ASSOC))
+            while($row = mysqli_fetch_array($rsemail, MYSQLI_ASSOC))
          {
 			$email=$row['email'];
   }
@@ -284,7 +284,7 @@ if ($zyname != ""){
 	 $orgdown="";
 	$orgqx=0;
 	 $addstr="";
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$orgfilename=$row['FileName'];
 			$orgdown=$row['Download'];
@@ -355,7 +355,7 @@ if($_POST['userqx']==""){
 	 $addstr="";
 	 	$optftp=getthesettings('optftp');
 		$lowftp=getthesettings('lowftpper');
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$orgusername=$row['username'];
 			$orgemail=$row['email'];
@@ -867,7 +867,7 @@ loaddb("delete from bw_ftp");
 	$lowftp=getthesettings("lowftpper");
 	$sql="select username,passmd5,permission from bw_usertable where permission >=$lowftp";
 	$rs=loaddb($sql);
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$orgusername=$row['username'];
 			 $orgpassword=$row['passmd5'];

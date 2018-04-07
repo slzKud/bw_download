@@ -36,7 +36,7 @@ if (strpos($temp,",") === false){
 	 $filename="";
 	 $downaddress="";
 	 $fileqx=0;
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$filename=$row['FileName'];
 			$downaddress=$row['Download'];

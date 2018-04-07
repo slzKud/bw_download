@@ -82,7 +82,19 @@
          default:
          var userqx=1;
 		 }
-		 if(userpassword==userpasswordagain){
+     if(trim(username)==""){
+      alert("欸，密码无效啊！");
+      return 0;
+     }
+     if(trim(userpassword)==""){
+      alert("欸，密码无效啊！");
+      return 0;
+     }
+     if(trim(useremail)==""){
+      alert("欸，密码无效啊！");
+      return 0;
+     }
+     		 if(userpassword==userpasswordagain){
 		    //alert('用户名:'+username+'\n用户密码：'+userpassword+'\n用户邮箱：'+useremail+'\n用户权限：'+userqx);
 			$.post('../manger/todo.php', {type: "adduser",username:username,userpassword:userpassword,useremail:useremail,userqx:userqx }, function (text, status) {
 			switch(trim(text))
@@ -116,7 +128,7 @@
             alert("Opps,发生错误！");
           break;
          default:
-          alert("这是啥啊@#￥！");
+          alert("这是啥啊@#￥！\n"+text);
 }
 			});
 		 }else{

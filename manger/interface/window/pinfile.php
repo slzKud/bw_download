@@ -13,7 +13,7 @@ if ($temp !="")
 $sql1="select filename from bw_downtable where id in (".$temp.")";
 $rs=loaddb($sql1);
 $list="";
-while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$list=$row['filename'];
 			$i+=1;

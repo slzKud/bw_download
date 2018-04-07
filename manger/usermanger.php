@@ -35,7 +35,7 @@ function test_input($data) {
 	   
 		<div class="container">
 		<form class="form-inline" role="form" action="usermanger.php" method="get">
-		 <a href="interface/window/adduser.html"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 添加用户</button> </a>   
+		 <a href="interface/window/adduser.php"  data-toggle="modal"  data-target="#MyModal"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> 添加用户</button> </a>   
 <a onclick="selectid('interface/window/modifyuser.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 修改用户信息</button> </a>	 
 		<a onclick="selectid('interface/window/deluser.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> 删除用户</button></a>	 
 		<a onclick="selectid('interface/window/banuser.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Ban-circle"></span> 封禁/解封用户</button></a>	 

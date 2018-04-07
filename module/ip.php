@@ -4,7 +4,7 @@ function getIPLoc($queryIP){
 $sql="select loc from bw_ip where ip='$queryIP'";
 $rs=loaddb($sql);
 if (mysqli_num_rows($rs)>0){
-	  $row = mysqli_fetch_array($rs, MYSQL_ASSOC);
+	  $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
 	  return $row['loc'];
   }else{
 	  $loc=getIPLoc_sina($queryIP);

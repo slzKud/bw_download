@@ -36,7 +36,7 @@ function closedb($con) {
   $rs=loaddb($sql);
   //echo $sql.'<br>';
   if (mysqli_num_rows($rs)>0){
-	  $row = mysqli_fetch_array($rs, MYSQL_ASSOC);
+	  $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
 	  return $row['setvalue'];
   }else{
 	  return "error";

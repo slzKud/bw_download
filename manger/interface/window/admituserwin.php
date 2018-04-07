@@ -25,7 +25,7 @@ $list="";
 $i=1;
 $per=0;
 //$ifd=0;
-while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$list=$list."<br>".$i.".审核ID号'".$row['id']."'：关于'".$row['username']."'用户的更改用户组审核";
 			$i+=1;

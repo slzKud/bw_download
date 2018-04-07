@@ -55,7 +55,7 @@ $sql="select Filename,Download from bw_downtable where id=".$id."  and permisson
 //echo $sql;
 $rs=loaddb($sql);
 if (mysqli_num_rows($rs)> 0 ){
-	$row = mysqli_fetch_array($rs, MYSQL_ASSOC);
+	$row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
 	$filename=$row['Filename'];
 	$link=$row['Download'];
 }else{

@@ -15,9 +15,10 @@ $flag=0;
 $con=connectdb();
 mysqli_query($con,"set names 'utf8'");
 //构建sql
-$sql=" select %tj% from bw_downtable where date_sub(curdate(), INTERVAL 7 DAY) <= date(`adddate`) order by sumdate desc";  
+$sql=" select %tj% from bw_downtable where date_sub(curdate(), INTERVAL 7 DAY) <= date(`adddate`) order by adddate desc";  
 //计算页数
-$res=mysqli_query($con,str_replace("%tj%","count(*) as count",$sql));
+$res=loaddb(str_replace("%tj%","count(*) as count",$sql));
+//echo str_replace("%tj%","count(*) as count",$sql);;
 $myrow = mysqli_fetch_array($res);
 $numrows=$myrow[0];//总项目数
 $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
@@ -35,7 +36,7 @@ $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
     <label for="name">显示日期选择:</label>
     <select class="form-control" name="d">
     <?php
-     while($row = mysqli_fetch_array($nr, MYSQL_ASSOC))
+     while($row = mysqli_fetch_array($nr, MYSQLI_ASSOC))
      {
          if($showdate==$row['sumdate']){
             echo "<option selected='selected'>" . $row['sumdate'] . "</option>";
@@ -55,7 +56,7 @@ $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
 <?php
 if($showdate=="" or $showdate=="all"){
     $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
-    while($rowg = mysqli_fetch_array($nr, MYSQL_ASSOC))
+    while($rowg = mysqli_fetch_array($nr, MYSQLI_ASSOC))
     {
         $n=1;
         $d=$rowg['sumdate'];
@@ -66,7 +67,7 @@ if($showdate=="" or $showdate=="all"){
         echo ' </div>';
         echo ' <div class="panel-body">  <div class="content"> <div class="text">';
         $nd=loaddb("select filename from bw_downtable where adddate='$d'");
-        while($rowx = mysqli_fetch_array($nd, MYSQL_ASSOC))
+        while($rowx = mysqli_fetch_array($nd, MYSQLI_ASSOC))
         {
             $x=$rowx['filename'];
             echo "$n.新增了文件: <a href='old-downlist.php?findstr=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";
@@ -85,7 +86,7 @@ if($showdate=="" or $showdate=="all"){
     echo ' </div>';
     echo ' <div class="panel-body">  <div class="content"> <div class="text">';
     $nd=loaddb("select filename from bw_downtable where adddate='$d'");
-    while($rowx = mysqli_fetch_array($nd, MYSQL_ASSOC))
+    while($rowx = mysqli_fetch_array($nd, MYSQLI_ASSOC))
     {
         $x=$rowx['filename'];
         echo "$n.新增了文件: <a href='old-downlist.php?findstr=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";

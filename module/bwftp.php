@@ -54,7 +54,7 @@ return $r;
 function resetftp() {
     $sql1="select userid from bw_ftp";
 	$rs1=loaddb($sql1);
-    while($row1 = mysqli_fetch_array($rs1, MYSQL_ASSOC))
+    while($row1 = mysqli_fetch_array($rs1, MYSQLI_ASSOC))
          {
             $r=delftpuser($row1['userid']);
             echo "Delete ".$row1['userid'].":".$r."<br>";
@@ -64,7 +64,7 @@ function resetftp() {
 	$sql="select username,passmd5,permission from bw_usertable where permission >=$lowftp";
 	$rs=loaddb($sql);
     $authpath=getthesettings("authpath");
-	 while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
              //创建数据表
 			$orgusername=$row['username'];

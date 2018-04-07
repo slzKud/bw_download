@@ -68,12 +68,12 @@ if(strlen($search)>0){
 }else{
     $sqlpin="select fileid from bw_pinfile where ifok=1";
       $rspin=loaddb($sqlpin);
-      while($rowp = mysqli_fetch_array($rspin, MYSQL_ASSOC))
+      while($rowp = mysqli_fetch_array($rspin, MYSQLI_ASSOC))
          {
            $sqlp="select id,Filename,Download,adddate from bw_downtable where id=".$rowp['fileid']." and Permisson<= ".$_SESSION['permission'].""; 
           //echo $sqlp;
           $rspinx=loaddb($sqlp);
-          while($rowg = mysqli_fetch_array($rspinx, MYSQL_ASSOC))
+          while($rowg = mysqli_fetch_array($rspinx, MYSQLI_ASSOC))
          {
 			 $obj = array($rowg['Filename']. "<span class='label label-primary'>置顶</span>", $rowg['adddate'],  "<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$rowg['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$rowg['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
               array_push($infos,$obj);
@@ -83,7 +83,7 @@ if(strlen($search)>0){
     //直接查询所有记录
     $dataResult = loaddb($totalResultSql.$orderSql.$limitSql);
     //echo $totalResultSql.$sumSqlWhere.$orderSql.$limitSql;
-    while ($row = mysqli_fetch_array($dataResult, MYSQL_ASSOC)) {
+    while ($row = mysqli_fetch_array($dataResult, MYSQLI_ASSOC)) {
          $obj = array($row['filename'], $row['adddate'], "<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
         array_push($infos,$obj);
     }

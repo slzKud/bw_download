@@ -12,7 +12,7 @@ $sql1="select username from bw_usertable where id in (".$temp.")";
 $rs=loaddb($sql1);
 $list="";
 $i=1;
-while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$list=$list."<br>".$i.".".$row['username'];
 			$i+=1;

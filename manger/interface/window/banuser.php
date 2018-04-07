@@ -24,7 +24,7 @@ $list="";
 $i=1;
 $per=0;
 $ifd=0;
-while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
+while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$list=$row['username'];
 			$per=$row['permission'];
@@ -52,7 +52,7 @@ while($row = mysqli_fetch_array($rs, MYSQL_ASSOC))
 			}else{
 				$sql="SELECT count(*) as n FROM bw_baneduser where username='$list' and ifclose=1";
 				$rschk=loaddb($sql);
-		        $row = mysqli_fetch_array($rschk, MYSQL_ASSOC);
+		        $row = mysqli_fetch_array($rschk, MYSQLI_ASSOC);
 				$num=$row['n'];
 				//echo $sql;
 				//echo $num;
