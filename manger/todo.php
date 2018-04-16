@@ -250,7 +250,14 @@ if ($zyname != ""){
 	}
 	$sql="INSERT INTO bw_downtable(FileName, Download,Permisson,adddate)  VALUES ('$zyname','$zylink',$zyqx,'$nowdate')";
 	loaddb($sql);
+	$sql="SELECT id from bw_downtable where FileName='$zyname' and Download='$zylink' and adddate='$nowdate'";
+	$rs=loaddb($sql);
+	$row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
+	$fileid_S=$row['id'];
 	//echo $sql;
+	$sql1="INSERT INTO bw_filelinks (fileid,LinkDesc,B64Links) VALUES (".$fileid_S .", '默认链接','".base64_encode($zylink)."')";
+	//echo $sql1;
+	loaddb($sql1);
 	echo "ok";
 	}else{
 	  echo "no name";
@@ -304,6 +311,17 @@ if ($zyname != ""){
   $addstr=substr($addstr,1);
   $sql1="UPDATE bw_downtable SET $addstr where id=$zyid";
 //echo $sql;
+  loaddb($sql1);
+  //对链接的修改（如果默认链接不存在，则添加）
+  $sql="select B64Links from bw_filelinks where fileid=$zyid and LinkDesc='默认链接'";
+  $rs=loaddb($sql);
+  $sql1="";
+  if (mysqli_num_rows($rs)>0){
+	 $sql1="UPDATE bw_filelinks SET B64Links = '".base64_encode($zylink)."' WHERE fileid=$zyid and LinkDesc='默认链接' ";
+  }else{
+	$sql1="INSERT INTO bw_filelinks (fileid,LinkDesc,B64Links) VALUES (".$zyid.", '默认链接','".base64_encode($zylink)."')";
+  } 
+  //echo $sql1;
   loaddb($sql1);
   echo "ok";
   }else{
@@ -920,6 +938,28 @@ loaddb("delete from bw_ftp");
 	}
 	}
 	break;
+	case "cleanlinks":
+	empty($_POST['fileid']) && $_POST['fileid']="";
+	if($_POST['fileid']==""){
+		echo "no id";
+		exit;
+	}
+	loaddb("delete from bw_filelinks where fileid=".test_input($_POST['fileid']));
+	echo "ok";
+    break;
+	case "addlinks":
+	empty($_POST['fileid']) && $_POST['fileid']="";
+	empty($_POST['desc']) && $_POST['desc']="";
+	empty($_POST['b64']) && $_POST['b64']="";
+	if($_POST['fileid']=="" || $_POST['desc']=="" || $_POST['b64']==""){
+		echo "info invild"; 
+		exit;
+	}
+	$sql1="INSERT INTO bw_filelinks (fileid,LinkDesc,B64Links) VALUES (".$_POST['fileid'] .", '".$_POST['desc']."','".$_POST['b64']."')";
+	//echo $sql1;
+	loaddb($sql1);
+	echo "ok";
+    break;
 default:
   	  echo "no type";
 	  exit;

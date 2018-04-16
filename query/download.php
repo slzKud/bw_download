@@ -62,7 +62,7 @@ if(strlen($search)>0){
     $dataResult = loaddb($totalResultSql.$sumSqlWhere.$orderSql.$limitSql);
     //echo $totalResultSql.$sumSqlWhere.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult)) {
-        $obj = array($row['filename'], $row['adddate'], "<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
+        $obj = array($row['filename'], $row['adddate'], "<a href ='links.php?mode=l&fileid=".$row['id']."'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
         array_push($infos,$obj);
     }
 }else{
@@ -75,7 +75,7 @@ if(strlen($search)>0){
           $rspinx=loaddb($sqlp);
           while($rowg = mysqli_fetch_array($rspinx, MYSQLI_ASSOC))
          {
-			 $obj = array($rowg['Filename']. "<span class='label label-primary'>置顶</span>", $rowg['adddate'],  "<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$rowg['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$rowg['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
+			 $obj = array($rowg['Filename']. "<span class='label label-primary'>置顶</span>", $rowg['adddate'],  "<a href ='links.php?mode=l&fileid=".$rowg['id']."'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a>");
               array_push($infos,$obj);
 
   }
@@ -84,7 +84,7 @@ if(strlen($search)>0){
     $dataResult = loaddb($totalResultSql.$orderSql.$limitSql);
     //echo $totalResultSql.$sumSqlWhere.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult, MYSQLI_ASSOC)) {
-         $obj = array($row['filename'], $row['adddate'], "<a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>");
+         $obj = array($row['filename'], $row['adddate'], "<a href ='links.php?mode=l&fileid=".$row['id']."'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a>");
         array_push($infos,$obj);
     }
 }

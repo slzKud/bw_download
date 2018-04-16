@@ -1,6 +1,6 @@
 <?php
 $nowpageid=2;
-include $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include dirname(__FILE__).'/module/mysqlaction.php';
 include dirname(__FILE__).'/interface/header.php';
 ?>
 

@@ -101,8 +101,8 @@ closedb($con);
    <thead>
       <tr>
          <th><a onclick="topx('filename');">资源名称<?php if($_GET['px']=="filename"){echo "（按此排序）";}?></a></th>
-         <th></th>
           <th><a onclick="topx('adddate');">更新时间<?php if($_GET['px']=="adddate"){echo "（按此排序）";}?></a></th>
+          <th>操作</th>
       </tr>
    </thead>
    <tbody>
@@ -121,8 +121,8 @@ closedb($con);
 			$nowtime=time();
             echo "<tr>";
             echo "<td>" . $rowg['Filename'] . '<span class="label label-primary">置顶</span></td>';
-			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$rowg['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$rowg['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
             echo "<td>" . $rowg['adddate'] . "</td>";
+			echo "<td> <a href ='links.php?mode=l&fileid=".$rowg['id']."' ><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
             echo "</tr>";
 			//$flag=1;
   }
@@ -133,8 +133,8 @@ closedb($con);
 			$nowtime=time();
             echo "<tr>";
             echo "<td>" . $row['Filename'] . "</td>";
-			echo "<td> <a href ='http://".$_SERVER['HTTP_HOST']."/down.php?fileid=".$row['id']."&timestamp=".$nowtime."&yzcode=".md5("?fileid=".$row['id']."&timestamp=".$nowtime."BETAWORLD2016DDD!!!"). "'><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
-             echo "<td>" . $row['adddate'] . "</td>";
+            echo "<td>" . $row['adddate'] . "</td>";
+			echo "<td> <a href ='links.php?mode=l&fileid=".$row['id']."' ><span class='glyphicon glyphicon-cloud-download' style='font-size: 20px;'></span></a></td>";
             echo "</tr>";
 			$flag=1;
   }

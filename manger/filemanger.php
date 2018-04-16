@@ -37,8 +37,9 @@ function test_input($data) {
 	   
 		<div class="container">
 	 <a onclick="selectid('interface/window/addfile.php');"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
-				<a onclick="selectid('interface/window/modifyfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件</button></a>
-					<a onclick="selectid('interface/window/pinfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
+				<a onclick="selectid('interface/window/modifyfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件基本信息</button></a>
+                <a onclick="selectid('interface/window/modifylinks.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件链接信息</button></a>
+                    <a onclick="selectid('interface/window/pinfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
 		<a onclick="selectid('interface/window/delfile.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
 </div>
 <br>
