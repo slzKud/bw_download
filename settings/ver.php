@@ -1,4 +1,4 @@
 <?php 
-define("DVER", "0.62"); 
-define("BUILDDATE", "20180407"); 
+define("DVER", "0.66"); 
+define("BUILDDATE", "20180422"); 
 ?>

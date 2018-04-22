@@ -1,3 +1,4 @@
+<?php include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php'; ?>
 <meta http-equiv="Cache-control" content="no-cache">
 <meta http-equiv="Cache" content="no-cache">
          <div class="modal-header">
@@ -30,6 +31,25 @@
       </select>
  
 </div>
+<div class="form-group">
+    <label for="name">资源分类选择</label>
+    <select class="form-control" id="chkselect">
+   <option value="fake">请选择分类类别</option>
+   <?php
+    $sql="select chkid,chkname from bw_chkid where motherid=''";
+    //echo $sql;
+    $rs=loaddb($sql);
+    if (mysqli_num_rows($rs)> 0){
+        while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
+         {
+			echo "<option value = '".$row['chkid']."' >".$row['chkname']."</option>";
+  }
+    }else{
+        echo "<option>分类未找到</option>";
+    }
+    ?>
+    </select>
+	</div>
  </form>
          </div>
          <div class="modal-footer">
@@ -43,7 +63,12 @@
 		 function AddSomething(){
 		 var zyname=document.getElementById("bwname").value; 
 		 var zylink=document.getElementById("bwlink").value; 
-		 var zyqxname=document.getElementById("bwqx").value; 
+     var zyqxname=document.getElementById("bwqx").value; 
+     var chkid=$("#chkselect").val();
+     if(chkid=="fake"){
+       alert("必须选择一个类型");
+       return 0;
+     }
 		 switch(zyqxname)
             {
             case "游客":
@@ -64,7 +89,7 @@
          default:
          var zyqx=0;
 		 }
-		    $.post('../manger/todo.php', { type: "addfiles", zyname:zyname,zylink:zylink,zyqx:zyqx }, function (text, status) {
+		    $.post('../manger/todo.php', { type: "addfiles", zyname:zyname,zylink:zylink,zyqx:zyqx,chkid:chkid }, function (text, status) {
 			switch(trim(text))
             {
             case "ok":

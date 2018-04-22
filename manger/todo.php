@@ -234,10 +234,12 @@ case "addfiles":
 empty($_POST['zyname']) && $_POST['zyname']="";
 empty($_POST['zylink']) && $_POST['zylink']="";
 empty($_POST['zyqx']) && $_POST['zyqx']=99;
+empty($_POST['chkid']) && $_POST['chkid']="";
 if($_POST['zyqx']==-1){$_POST['zyqx']=0;}
 $zyname=test_input($_POST['zyname']);
 $zylink=test_input($_POST['zylink']);
 $zyqx=test_input($_POST['zyqx']);
+$chkid=test_input($_POST['chkid']);
 $nowdate=date("Y-m-d");
 if ($zyname != ""){
 	if ($zylink == ""){
@@ -248,7 +250,11 @@ if ($zyname != ""){
 		  echo "no qx";
 	  exit;
 	}
-	$sql="INSERT INTO bw_downtable(FileName, Download,Permisson,adddate)  VALUES ('$zyname','$zylink',$zyqx,'$nowdate')";
+	if ($chkid === ""){
+		echo "no chkid";
+	exit;
+  }
+	$sql="INSERT INTO bw_downtable(FileName, Download,Permisson,adddate,chkid)  VALUES ('$zyname','$zylink',$zyqx,'$nowdate','$chkid')";
 	loaddb($sql);
 	$sql="SELECT id from bw_downtable where FileName='$zyname' and Download='$zylink' and adddate='$nowdate'";
 	$rs=loaddb($sql);
@@ -270,10 +276,12 @@ empty($_POST['zyid']) && $_POST['zyid']="";
 empty($_POST['zyname']) && $_POST['zyname']="";
 empty($_POST['zylink']) && $_POST['zylink']="";
 empty($_POST['zyqx']) && $_POST['zyqx']=99;
+empty($_POST['chkid']) && $_POST['chkid']="";
 $zyid=test_input($_POST['zyid']);
 $zyname=test_input($_POST['zyname']);
 $zylink=test_input($_POST['zylink']);
 $zyqx=test_input($_POST['zyqx']);
+$chkid=test_input($_POST['chkid']);
 if ($zyname != ""){
 	if ($zylink == ""){
 		  echo "no link";
@@ -283,6 +291,10 @@ if ($zyname != ""){
 		  echo "no qx";
 	  exit;
 	}
+	if ($chkid === ""){
+		echo "no chkid";
+	exit;
+  }
 	//获取源文件
 	$sql="select * from bw_downtable where id in ($zyid)";
 	 //echo $sql;
@@ -291,11 +303,13 @@ if ($zyname != ""){
 	 $orgdown="";
 	$orgqx=0;
 	 $addstr="";
+	 $orgchk="";
 	 while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
          {
 			$orgfilename=$row['FileName'];
 			$orgdown=$row['Download'];
 			 $orgqx=$row['Permisson'];
+			 $orgchk=$row['chkid'];
   }
  if($orgfilename != $zyname){
 	  $addstr=$addstr.",FileName = '$zyname'";
@@ -306,6 +320,9 @@ if ($zyname != ""){
    if($orgqx != $zyqx){
 	  $addstr=$addstr.",Permisson = '$zyqx'";
   }
+  if($orgchk != $chkid){
+	$addstr=$addstr.",chkid = '$chkid'";
+}
 
 	 if ($addstr != ""){
   $addstr=substr($addstr,1);
@@ -959,7 +976,44 @@ loaddb("delete from bw_ftp");
 	//echo $sql1;
 	loaddb($sql1);
 	echo "ok";
-    break;
+	break;
+	case "addchk":
+	empty($_POST['chkname']) && $_POST['chkname']="";
+	if($_POST['chkname']==""){
+		echo "chk invild"; 
+		exit;
+	}
+	$chkid=md5($_POST['chkname'].time()."!!!");
+	$chkname=test_input($_POST['chkname']);
+	$rschk=loaddb("SELECT chkid FROM bw_chkid where chkname='$chkname'");
+	if(mysqli_num_rows($rschk) >0){
+		echo "exists";
+		exit();
+	}
+	$sql1="INSERT INTO bw_chkid (chkid,chkname) VALUES ('$chkid','$chkname')";
+	//echo $sql1;
+	loaddb($sql1);
+	echo "ok";
+	break;
+	case "modchk":
+	empty($_POST['chkname']) && $_POST['chkname']="";
+	empty($_POST['chkid']) && $_POST['chkid']="";
+	if($_POST['chkname']=="" || $_POST['chkid']==""){
+		echo "chk invild"; 
+		exit;
+	}
+	$chkid=test_input($_POST['chkid']);
+	$chkname=test_input($_POST['chkname']);
+	$rschk=loaddb("SELECT chkid FROM bw_chkid where chkid='$chkid'");
+	if(mysqli_num_rows($rschk) >0){
+		$sqlx="UPDATE bw_chkid SET chkname='$chkname' where chkid='$chkid'";
+		loaddb($sqlx);	
+		echo "ok";
+	}else{
+		echo "chk invild"; 
+		exit;
+	}
+	break;
 default:
   	  echo "no type";
 	  exit;

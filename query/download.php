@@ -1,7 +1,7 @@
 <?php
 session_start();
  include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
-
+ empty($_SESSION['chkid']) && $_SESSION['chkid']="";
 //获取Datatables发送的参数 必要
 $draw = $_GET['draw'];//这个值作者会直接返回给前台
  
@@ -43,7 +43,12 @@ while ($row =mysqli_fetch_array($recordsTotalResult)) {
     $recordsTotal =  $row['sum'];
 }
 //定义过滤条件查询过滤后的记录数sql
-$sumSqlWhere =" and filename LIKE '%".$search."%'";
+if($_SESSION['chkid']!=""){
+    $sumSqlWhere =" and filename LIKE '%".$search."%' and chkid='".$_SESSION['chkid']."' ";
+}else{
+    $sumSqlWhere =" and filename LIKE '%".$search."%' ";
+}
+
 if(strlen($search)>0){
     $recordsFilteredResult = loaddb($sumSql.$sumSqlWhere);
     while ($row =mysqli_fetch_array($recordsFilteredResult)) {
@@ -54,7 +59,11 @@ if(strlen($search)>0){
 }
  
 //query data
+if($_SESSION['chkid']!=""){
+$totalResultSql = "SELECT id,filename,download,adddate FROM bw_downtable"." where Permisson <= ".$_SESSION['permission']." and chkid='".$_SESSION['chkid']."'";
+}else{
 $totalResultSql = "SELECT id,filename,download,adddate FROM bw_downtable"." where Permisson <= ".$_SESSION['permission']."";
+}
 $infos = array();
 $nowtime=time();
 if(strlen($search)>0){

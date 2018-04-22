@@ -21,7 +21,28 @@ include dirname(__FILE__).'/interface/header.php';
 	  </div>      
    </div>
    <hr>
-    <?php if($_SESSION['permission']==0){echo "<center><p class='lead' ><a href='user/reg.php'>注册</a>或<a href='user/login.php'>登入</a>账户可获取更多资源.</p></center>";} ?>
+   <?php if($_SESSION['permission']==0){echo "<center><p class='lead' ><a href='user/reg.php'>注册</a>或<a href='user/login.php'>登入</a>账户可获取更多资源.</p></center>";} ?>
+   <div class="row" id="t">
+   <div class="col-xs-6">
+   <b>类型筛选：</b><select class="form-control" id="chkselect" onchange="chksend();">
+   <option value="fake">请选择类别</option>
+   <?php
+    $sql="select chkid,chkname from bw_chkid where motherid=''";
+    //echo $sql;
+    $rs=loaddb($sql);
+    if (mysqli_num_rows($rs)> 0){
+        while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
+         {
+			echo "<option value = '".$row['chkid']."' >".$row['chkname']."</option>";
+  }
+    }else{
+        echo "<option>分类未找到</option>";
+    }
+    ?>
+    </select>
+    </div>
+    </div>
+    <br>
 <table class="table table-hover"  id="th">
                         <thead>
                         <tr>
@@ -31,18 +52,6 @@ include dirname(__FILE__).'/interface/header.php';
                         </thead>
                         <tbody>
                         <tr>
-                            
-                            <td>2017-06-07 09:00:00</td>
-                            <td>BW88SDF5FVSPC</td>
-                            <td>BW88SDF5FVSPC</td>
-                         
-                        </tr>
-                        <tr>
-                           
-                            <td>2017-07-21 00:00:00</td>
-                            <td>BW85GDFRDESBS</td>
-    <td>BW88SDF5FVSPC</td>
-                        </tr>
                         </tbody>
                     </table>
                   
@@ -51,12 +60,23 @@ include dirname(__FILE__).'/interface/header.php';
       <script src="js/jquery.min.js"></script>
       <script src="js/jquery.dataTables.min.js"></script>
       <script src="js/dataTables.bootstrap.js"></script>
+      <script src="js/fnReloadAjax.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
        <script src="./js/top.js" type="text/javascript"></script>
        <script>
-           $(document).ready(function() {
-    $('#th').dataTable( {
+       var dt;
+    $(document).ready(function() {
+        //第一次加载清除筛选
+        $.ajax({
+    type:"GET",
+    url:"query/chkselect.php",
+    data:"chkid=clean",
+    async:false,
+    success:function(data){
+    }
+  });
+    dt=$('#th').dataTable( {
         "processing": true,
         "serverSide": true,
         "ajax": "query/download.php",
@@ -77,6 +97,30 @@ include dirname(__FILE__).'/interface/header.php';
         }  
     } );
 } );
+function chksend(){
+    var chkid=$("#chkselect").val();
+    if(chkid!="fake"){
+        //占位
+    }else{
+        chkid="clean";
+    }
+    $.ajax({
+    type:"GET",
+    url:"query/chkselect.php",
+    data:"chkid="+chkid,
+    async:false,
+    success:function(data){
+       if(data=="ok"){
+        reftable();
+       }else{
+           alert("数据传输失败");
+       }
+    }
+  });
+}
+function reftable(){
+    dt.fnReloadAjax();
+}
        </script>
 </body>
 <?php include dirname(__FILE__).'/interface/footer.php';?>
