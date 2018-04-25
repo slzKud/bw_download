@@ -27,7 +27,7 @@ include dirname(__FILE__).'/interface/header.php';
    <b>类型筛选：</b><select class="form-control" id="chkselect" onchange="chksend();">
    <option value="fake">请选择类别</option>
    <?php
-    $sql="select chkid,chkname from bw_chkid where motherid=''";
+    $sql="select chkid,chkname from bw_chkid where motherid='' order by chkname asc";
     //echo $sql;
     $rs=loaddb($sql);
     if (mysqli_num_rows($rs)> 0){

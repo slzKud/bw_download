@@ -33,7 +33,11 @@ if ($limitFlag ) {
 }
  
 //定义查询数据总记录数sql
-$sumSql = "SELECT count(id) as sum FROM bw_downtable" ." where Permisson <= ".$_SESSION['permission']."";
+if($_SESSION['chkid']!=""){
+$sumSql = "SELECT count(id) as sum FROM bw_downtable" ." where Permisson <= ".$_SESSION['permission']." and chkid='".$_SESSION['chkid']."'";
+}else{
+    $sumSql = "SELECT count(id) as sum FROM bw_downtable" ." where Permisson <= ".$_SESSION['permission']." ";
+}
 //条件过滤后记录数 必要
 $recordsFiltered = 0;
 //表的总记录数 必要
