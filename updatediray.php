@@ -54,6 +54,7 @@ $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
 </form>
 
 <?php
+$flag=-1;
 if($showdate=="" or $showdate=="all"){
     $nr=loaddb(str_replace("%tj%","DISTINCT adddate as sumdate",$sql));
     while($rowg = mysqli_fetch_array($nr, MYSQLI_ASSOC))
@@ -69,6 +70,7 @@ if($showdate=="" or $showdate=="all"){
         $nd=loaddb("select filename from bw_downtable where adddate='$d'");
         while($rowx = mysqli_fetch_array($nd, MYSQLI_ASSOC))
         {
+            $flag=0;
             $x=$rowx['filename'];
             echo "$n.新增了文件: <a href='old-downlist.php?findstr=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";
             $n=$n+1;
@@ -88,6 +90,7 @@ if($showdate=="" or $showdate=="all"){
     $nd=loaddb("select filename from bw_downtable where adddate='$d'");
     while($rowx = mysqli_fetch_array($nd, MYSQLI_ASSOC))
     {
+        $flag=0;
         $x=$rowx['filename'];
         echo "$n.新增了文件: <a href='old-downlist.php?findstr=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";
         $n=$n+1;
@@ -95,7 +98,11 @@ if($showdate=="" or $showdate=="all"){
     echo ' </div></div></div>';
     echo ' </div>';
 }
-
+if($flag==-1){
+    echo "<center><p class='lead' >";
+    echo "哇乎， 近期没有更新噢。催一下管理吧～";
+    echo "</p></center>";
+}
 ?>
 
   <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->

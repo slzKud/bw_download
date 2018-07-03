@@ -158,9 +158,9 @@ $prev=$page-1;
 $next=$page+1;
 $last=$pages;
 if(empty($tiaojian)){
-	  $link="downlist.php?";  
+	  $link="old-downlist.php?";  
  }else{
-	 $link="downlist.php?findstr=$tiaojian&";  
+	 $link="old-downlist.php?findstr=$tiaojian&";  
  }
 if ($page >1) echo "<li><a href='".$link."pageid=".$first."'>&laquo;</a></li>";
 for ($x=1; $x<=$pages; $x++) {
