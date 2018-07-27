@@ -65,8 +65,13 @@
 		 var zylink=document.getElementById("bwlink").value; 
      var zyqxname=document.getElementById("bwqx").value; 
      var chkid=$("#chkselect").val();
+     var sf=scanfile(zyname);
      if(chkid=="fake"){
        alert("必须选择一个类型");
+       return 0;
+     }
+     if(sf=="yes"){
+       alert("文件已重复，请换个文件名吧～");
        return 0;
      }
 		 switch(zyqxname)
@@ -118,6 +123,19 @@
 		 function trim(str){ //删除左右两端的空格
 　　     return str.replace(/\s/g,'');
 　　 }
+    function scanfile(filename){
+      var f="";
+    $.ajax({
+        type:"POST",
+        url:"todo.php",
+        data:"type=scanfile&chkname="+filename,
+        async:false,
+        success:function(data){
+            f=trim(data);
+        }
+      });
+      return f;
+    }
 </script> 
          </div>
 

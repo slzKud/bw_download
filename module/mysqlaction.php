@@ -31,7 +31,7 @@ function loaddb($sql) {
 function closedb($con) {
   mysqli_close($con);
 }
-  function getthesettings($name) {
+  function getthesettings($name,$errorstr='error') {
   $sql="select setvalue from bw_settings where setname='$name'";
   $rs=loaddb($sql);
   //echo $sql.'<br>';
@@ -39,7 +39,7 @@ function closedb($con) {
 	  $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
 	  return $row['setvalue'];
   }else{
-	  return "error";
+	  return $errorstr;
   } 
 }
  function savethesettings($name,$setvalue) {

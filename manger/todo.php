@@ -1014,6 +1014,31 @@ loaddb("delete from bw_ftp");
 		exit;
 	}
 	break;
+	case "scanfile":
+	empty($_POST['chkname']) && $_POST['chkname']="";
+	$chkname=$_POST['chkname'];
+	$rschk=loaddb("SELECT id FROM bw_downtable where Filename='$chkname'");
+	if(mysqli_num_rows($rschk) >0){
+		echo "yes";
+	}else{
+		echo "no";
+	}
+	break;
+	case "deltwice":
+	//scan
+	$rschk=loaddb("select distinct filename as cfitem from bw_downtable where Filename in (select Filename from bw_downtable group by Filename having count(*) > 1) ");
+	while ($row = mysqli_fetch_array($rschk, MYSQLI_ASSOC)) {
+		$s=$row['cfitem'];
+		$rsid=loaddb("select min(id) as id_min from bw_downtable where filename='$s' order by id ");
+		$rowid=mysqli_fetch_array($rsid, MYSQLI_ASSOC);
+		$min_id=$rowid['id_min'];
+		loaddb("delete from bw_downtable where filename='$s' and not id=$min_id");
+		
+		//select min(id) as id_min from bw_downtable where filename='cs1' order by id 
+		//delete from bw_downtable where filename='cs1' and not id=3
+	}
+	echo "ok";
+	break;
 default:
   	  echo "no type";
 	  exit;

@@ -1,6 +1,6 @@
 <?php
 include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
-$code=getthesettings('tjcode');
+$code=getthesettings('tjcode','');
 ?>
          <div class="modal-header">
             <button type="button" class="close" 

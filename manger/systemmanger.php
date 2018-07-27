@@ -52,7 +52,7 @@ $nowpageid=4;
       </tr>
 	  <tr>
          <td>反馈到邮箱地址</td>
-        <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="fkemail" name="username" value="<?php echo getthesettings("fkemail"); ?>"
+        <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="fkemail" name="username" value="<?php echo getthesettings("fkemail",''); ?>"
             placeholder="请输入电子邮箱，输入即代表通过验证。" /><button type="button" class="btn btn-primary" onclick="Modthefkemail();" >保存</button></form></td>
       </tr>
 	  <tr>
@@ -62,9 +62,9 @@ $nowpageid=4;
        <tr>
          <td>FTP对接模式</td>
          <td><select class="form-control" name="new" onchange="s(this)">
-         
-        <option <?php if(getthesettings("ftpmode")==="1"){echo 'selected="selected"';} ?>> Gene6 Ftp DB 验证</option>
-         <option  <?php if(getthesettings("ftpmode")==="2"){echo 'selected="selected"';} ?>  >Betaworld FTPWatchdog 增强认证</option>
+         <option <?php if(getthesettings("ftpmode",'0')==="0"){echo 'selected="selected"';} ?>> 未选择</option>
+        <option <?php if(getthesettings("ftpmode",'0')==="1"){echo 'selected="selected"';} ?>> Gene6 Ftp DB 验证</option>
+         <option  <?php if(getthesettings("ftpmode",'0')==="2"){echo 'selected="selected"';} ?>  >Betaworld FTPWatchdog 增强认证</option>
       </select></td>
       </tr>
       
@@ -87,17 +87,21 @@ $nowpageid=4;
       </tr>
       <tr>
          <td>服务器状态回调密钥</td>
-        <td> <form class="form-inline" role="form" ><input type="password" class="form-control" id="serverkey" name="username" value="<?php echo getthesettings("serverkey"); ?>"
+        <td> <form class="form-inline" role="form" ><input type="password" class="form-control" id="serverkey" name="username" value="<?php echo getthesettings("serverkey",''); ?>"
             placeholder="请输入密钥，建议6个字符以上。" /><button type="button" class="btn btn-primary" onclick="Modtheserverkey();" >保存</button></form></td>
       </tr>
       <tr>
          <td>登录充值卡回调页面</td>
-        <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="gocard" name="username" value="<?php echo getthesettings("gocard"); ?>"
+        <td> <form class="form-inline" role="form" ><input type="text" class="form-control" id="gocard" name="username" value="<?php echo getthesettings("gocard",''); ?>"
             placeholder="请输入回调地址，用于跳转到充值界面（仅FTP模式2下可用）。" /><button type="button" class="btn btn-primary" onclick="Modthecard();" >保存</button></form></td>
       </tr>
       <tr>
          <td>开启充值卡页面</td>
          <td><input id="mySwitch" type="checkbox" name="opencard" <?php if(getthesettings("opencard")==="1"){echo 'checked';} ?> /></td>
+      </tr>
+      <tr>
+         <td>一键去重（慎点）</td>
+        <td><button type="button" class="btn btn-primary" onclick="ScanAndDelete();" >去重</button></td>
       </tr>
    </tbody>
 </table>
@@ -220,6 +224,15 @@ function Modtheserverkey(){
 			);
 			}
 		 }
+     function ScanAndDelete(){
+       if(confirm("确认开始吗？")){
+        $.post('todo.php', {type: "deltwice"}, function (text, status) {
+			 if(text=="ok"){
+         alert("去重成功");
+         }
+         });
+       }
+     }
 		function s(obj){
 		var t=obj.value; 
    	//alert(t);

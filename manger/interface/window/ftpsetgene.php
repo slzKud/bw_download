@@ -1,11 +1,11 @@
 <?php
 include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
-$lowftp=getthesettings('lowftpper');
-$ftpserveradress=getthesettings('ftpserveradress');
-$ftpuser1=getthesettings('ftpuser1');
-$ftpuser2=getthesettings('ftpuser2');
-$ftpuser3=getthesettings('ftpuser3');
-$ftpuser4=getthesettings('ftpuser4');
+$lowftp=getthesettings('lowftpper','0');
+$ftpserveradress=getthesettings('ftpserveradress','');
+$ftpuser1=getthesettings('ftpuser1','');
+$ftpuser2=getthesettings('ftpuser2','');
+$ftpuser3=getthesettings('ftpuser3','');
+$ftpuser4=getthesettings('ftpuser4','');
 ?>
          <div class="modal-header">
             <button type="button" class="close" 

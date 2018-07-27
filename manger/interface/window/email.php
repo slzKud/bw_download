@@ -1,10 +1,10 @@
 <?php
 include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
-$smtpserver=getthesettings('smtpserver');
-$smtpport=getthesettings('smtpport');
-$emailadress=getthesettings('emailadress');
-$emailuser=getthesettings('emailuser');
-$emailpass=getthesettings('emailpass');
+$smtpserver=getthesettings('smtpserver','');
+$smtpport=getthesettings('smtpport','');
+$emailadress=getthesettings('emailadress','');
+$emailuser=getthesettings('emailuser','');
+$emailpass=getthesettings('emailpass','');
 ?>
          <div class="modal-header">
             <button type="button" class="close" 

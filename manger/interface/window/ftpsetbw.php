@@ -1,12 +1,12 @@
 <?php
 include_once  dirname(dirname(dirname(dirname(__FILE__)))).'/module/mysqlaction.php';
-$lowftp=getthesettings('lowftpper');
-$ftpserveradress=getthesettings('ftpserveradress');
-$ftpuser1=getthesettings('ftpuser1');
-$ftpuser2=getthesettings('ftpuser2');
-$ftpuser3=getthesettings('ftpuser3');
-$ftpuser4=getthesettings('ftpuser4');
-$AUTHPATH=getthesettings('authpath');
+$lowftp=getthesettings('lowftpper','0');
+$ftpserveradress=getthesettings('ftpserveradress','');
+$ftpuser1=getthesettings('ftpuser1','');
+$ftpuser2=getthesettings('ftpuser2','');
+$ftpuser3=getthesettings('ftpuser3','');
+$ftpuser4=getthesettings('ftpuser4','');
+$AUTHPATH=getthesettings('authpath','');
 ?>
          <div class="modal-header">
             <button type="button" class="close" 
@@ -24,7 +24,7 @@ $AUTHPATH=getthesettings('authpath');
 	</div>
     <div class="form-group">
     <label for="name">服务器认证回调地址</label>
-    <input type="text" class="form-control" placeholder="请输入服务器认证回调地址，用来进行对应的服务器操作，包含HTTP，" name="zytitle" id='auth' value="<?php echo $AUTHPATH; ?>">
+    <input type="text" class="form-control" placeholder="请输入服务器认证回调地址，用来进行对应的服务器操作，包含HTTP协议头。" name="zytitle" id='auth' value="<?php echo $AUTHPATH; ?>">
 	</div>  
 	<div class="form-group">
 	 <label for="name">最低拥有FTP的用户组</label>
