@@ -2,6 +2,7 @@
 BetaWorld资源区是BetaWorld的资源共享站，采用PHP编写。
 正运作于[BetaWorld资源区]上
 挑错请反馈。
+
 #感谢者名单：
 
     * th1r5bvn23（萌姐姐）
