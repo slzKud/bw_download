@@ -74,7 +74,7 @@ if (strpos($temp,",") === false){
 			</div>';
 	exit;
   }
- 
+  echo "<input type='hidden' value='$filename' id='yuanwj' />";
  ?>
          <div class="modal-body">
             <form role="form">
@@ -143,7 +143,7 @@ if (strpos($temp,",") === false){
        return 0;
      }
      if(sf=="yes"){
-       alert("文件已重复，请换个文件名吧～");
+       alert("文件名已重复，请换个文件名吧～");
        return 0;
      }
 		 switch(zyqxname)
@@ -196,6 +196,10 @@ if (strpos($temp,",") === false){
 　　     return str.replace(/\s/g,'');
 　　 }
 function scanfile(filename){
+  var zyoldname=document.getElementById("yuanwj").value; 
+  if(zyoldname==filename){
+    return "no";
+  }
       var f="";
     $.ajax({
         type:"POST",
