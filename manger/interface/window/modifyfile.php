@@ -102,7 +102,7 @@ if (strpos($temp,",") === false){
     <select class="form-control" id="chkselect">
    <option value="fake">请选择分类类别</option>
    <?php
-    $sql="select chkid,chkname from bw_chkid where motherid=''";
+    $sql="select chkid,chkname from bw_chkid where motherid='' order by chkname asc";
     //echo $sql;
     $rs=loaddb($sql);
     if (mysqli_num_rows($rs)> 0){
