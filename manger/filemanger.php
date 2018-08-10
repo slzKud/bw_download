@@ -34,14 +34,31 @@ function test_input($data) {
     <div class="container">
       <h1>文件管理</small></h1>
 	  <hr>
-	   
+      
 		<div class="container">
 	 <a onclick="selectid('interface/window/addfile.php');"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
 				<a onclick="selectid('interface/window/modifyfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件基本信息</button></a>
-                <a onclick="selectid('interface/window/modifylinks.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件链接信息</button></a>
+                <a onclick="selectid('interface/window/modifylinks.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-link"></span> 修改文件链接信息</button></a>
+                <a onclick="selectid('interface/window/modifyChkA.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-retweet"></span> 批量修改文件类型</button></a>
                     <a onclick="selectid('interface/window/pinfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
 		<a onclick="selectid('interface/window/delfile.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
-</div>
+        <select class="form-inline" id="chkselect" onchange="chksend();">
+        <option value="fake">请选择筛选的类别</option>
+        <?php
+            $sql="select chkid,chkname from bw_chkid where motherid='' order by chkname asc";
+            //echo $sql;
+            $rs=loaddb($sql);
+            if (mysqli_num_rows($rs)> 0){
+                while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
+                    {
+			            echo "<option value = '".$row['chkid']."' >".$row['chkname']."</option>";
+                    }
+                }else{
+                    echo "<option>分类未找到</option>";
+                }
+    ?>
+    </select>
+    </div>
 <br>
  <table id="th"  class="table">
                         <thead>
@@ -52,6 +69,7 @@ function test_input($data) {
                             <td class="sortable-column">资源名称</td>
                             <td class="sortable-column">添加时间</td>
 							<td class="sortable-column">文件权限</td>
+                            <td class="sortable-column">文件类别</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,7 +83,9 @@ function test_input($data) {
                             <td>30元公共区100G</td>
                             <td>30y100g.php</td>
 							 <td>30y100g.php</td>
+                             <td>30y100g.php</td>
                         </tr>
+                        
                         <tr>
                             <td>
                                 <label class="input-control checkbox small-check no-margin">
@@ -75,6 +95,7 @@ function test_input($data) {
                             </td>
                             <td>999元B-side100G</td>
                             <td>999y1000gb.php</td>
+                         <td>30y100g.php</td>
                          <td>30y100g.php</td>
                         </tr>
                         </tbody>
@@ -100,10 +121,21 @@ function test_input($data) {
       <script src="/js/bootstrap.min.js"></script>
 	  <script src="/js/jquery.dataTables.min.js"></script>
       <script src="/js/dataTables.bootstrap.js"></script>
+      <script src="/js/fnReloadAjax.js"></script>
 	  <script>
 	  $nowid="aaa"
 	 var $tempstr="";
-
+     $(document).ready(function() {
+        //第一次加载清除筛选
+        $.ajax({
+    type:"GET",
+    url:"../query/chkselect.php",
+    data:"chkid=clean",
+    async:false,
+    success:function(data){
+    }
+  });
+  });
 	//传递信息
 	$("[data-toggle='modal']").click(function(){
  var _target = $(this).attr('data-target')
@@ -124,7 +156,7 @@ function test_input($data) {
       $(".checkchild").prop("checked", check);
 });
                     $(document).ready(function() {
-    $('#th').dataTable( {
+    dt=$('#th').dataTable( {
         'language': {    
             'emptyTable': '没有可以显示的数据',    
             'loadingRecords': '加载中...',    
@@ -154,7 +186,8 @@ function test_input($data) {
              },
              null,
              null,
-			 null
+			 null,
+             null
   ]
     } );
 } );
@@ -181,6 +214,30 @@ var id = arrs.join(",");
 function trim(str){ //删除左右两端的空格
 　　     return str.replace(/\s/g,'');
 　　 }
+function chksend(){
+    var chkid=$("#chkselect").val();
+    if(chkid!="fake"){
+        //占位
+    }else{
+        chkid="clean";
+    }
+    $.ajax({
+    type:"GET",
+    url:"../query/chkselect.php",
+    data:"chkid="+chkid,
+    async:false,
+    success:function(data){
+       if(data=="ok"){
+        reftable();
+       }else{
+           alert("数据传输失败");
+       }
+    }
+  });
+}
+function reftable(){
+    dt.fnReloadAjax();
+}
 </script>
 	  <Script>
 	  </script>

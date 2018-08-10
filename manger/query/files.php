@@ -1,10 +1,10 @@
 <?php
-
+session_start();
  include_once dirname(dirname(dirname(__FILE__))).'/module/mysqlaction.php';
-
+ empty($_SESSION['chkid']) && $_SESSION['chkid']="";
 //获取Datatables发送的参数 必要
 $draw = $_GET['draw'];//这个值作者会直接返回给前台
- 
+$chkid=$_SESSION['chkid'];
 //排序
 $order_column = $_GET['order']['0']['column'];//那一列排序，从0开始
 $order_dir = $_GET['order']['0']['dir'];//ase desc 升序或者降序
@@ -16,6 +16,7 @@ if(isset($order_column)){
     switch($i){
         case 1;$orderSql = " order by Filename ".$order_dir;break;
         case 2;$orderSql = " order by adddate ".$order_dir;break;
+        case 4;$orderSql = " order by chkid ".$order_dir;break;
         default;$orderSql = '';
     }
 }
@@ -33,7 +34,13 @@ if ($limitFlag ) {
 }
  
 //定义查询数据总记录数sql
-$sumSql = "SELECT count(id) as sum FROM bw_downtable";
+if($_SESSION['chkid']!=""){
+   
+    $sumSql = "SELECT count(id) as sum FROM bw_downtable where chkid='$chkid'";
+}else{
+    $sumSql = "SELECT count(id) as sum FROM bw_downtable";
+}
+
 //条件过滤后记录数 必要
 $recordsFiltered = 0;
 //表的总记录数 必要
@@ -43,7 +50,13 @@ while ($row =mysqli_fetch_array($recordsTotalResult)) {
     $recordsTotal =  $row['sum'];
 }
 //定义过滤条件查询过滤后的记录数sql
-$sumSqlWhere =" where Filename LIKE '%".$search."%' ";
+if($_SESSION['chkid']!=""){
+   
+    $sumSqlWhere =" and Filename LIKE '%".$search."%' ";
+}else{
+    $sumSqlWhere =" where Filename LIKE '%".$search."%' ";
+}
+
 if(strlen($search)>0){
     $recordsFilteredResult = loaddb($sumSql.$sumSqlWhere);
     while ($row =mysqli_fetch_array($recordsFilteredResult)) {
@@ -54,14 +67,18 @@ if(strlen($search)>0){
 }
  
 //query data
-$totalResultSql = "SELECT id,Filename,adddate,Permisson FROM bw_downtable";
+if($_SESSION['chkid']!=""){
+    $totalResultSql = "SELECT id,Filename,adddate,Permisson,chkid FROM bw_downtable where chkid='$chkid'";
+}else{
+    $totalResultSql = "SELECT id,Filename,adddate,Permisson,chkid FROM bw_downtable";
+}
 $infos = array();
 if(strlen($search)>0){
     //如果有搜索条件，按条件过滤找出记录
     $dataResult = loaddb($totalResultSql.$sumSqlWhere.$orderSql.$limitSql);
     //echo $totalResultSql.$sumSqlWhere.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult)) {
-        $obj = array($row['id'],$row['Filename'].showzd($row['id']),$row['adddate'],topername($row['Permisson']));
+        $obj = array($row['id'],$row['Filename'].showzd($row['id']),$row['adddate'],topername($row['Permisson']),findchkname($row['chkid']));
         array_push($infos,$obj);
     }
 }else{
@@ -69,7 +86,7 @@ if(strlen($search)>0){
     $dataResult = loaddb($totalResultSql.$orderSql.$limitSql);
     //echo $totalResultSql.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult, MYSQLI_ASSOC)) {
-               $obj = array($row['id'],$row['Filename'].showzd($row['id']),$row['adddate'],topername($row['Permisson']));
+               $obj = array($row['id'],$row['Filename'].showzd($row['id']),$row['adddate'],topername($row['Permisson']),findchkname($row['chkid']));
         array_push($infos,$obj);
     }
 }
@@ -113,6 +130,18 @@ return "<span class='label label-primary'>已置顶文件</span>";
   }else{
 return "";
   }
+ }
+ function findchkname($chkid){
+     if($chkid==""){return "未知类型";}
+     $sql="select chkname from bw_chkid where chkid='$chkid'";
+     $rschk=loaddb($sql);
+    if(mysqli_num_rows($rschk) >0){
+        while ($row = mysqli_fetch_array($rschk, MYSQLI_ASSOC)) {
+            return $row['chkname'];
+        }  
+    }else{
+        return "未知类型";
+    }
  }
 function fatal($msg)
 {

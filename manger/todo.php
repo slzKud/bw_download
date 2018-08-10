@@ -1039,6 +1039,18 @@ loaddb("delete from bw_ftp");
 	}
 	echo "ok";
 	break;
+	case "allmodifychk":
+		empty($_POST['ids']) && $_POST['ids']="";
+		empty($_POST['chkid']) && $_POST['chkid']="";
+		if($_POST['ids']=="" || $_POST['chkid']==""){
+			echo "error";
+			exit();
+		}
+		$chkid=$_POST['chkid'];
+		$ids=base64_decode($_POST['ids']);
+		loaddb("update bw_downtable set chkid='$chkid' where id in ($ids)");
+		echo "ok";
+		break;
 default:
   	  echo "no type";
 	  exit;
