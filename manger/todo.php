@@ -1051,6 +1051,18 @@ loaddb("delete from bw_ftp");
 		loaddb("update bw_downtable set chkid='$chkid' where id in ($ids)");
 		echo "ok";
 		break;
+		case "allmodifyPer":
+			empty($_POST['ids']) && $_POST['ids']="";
+			empty($_POST['perid']) && $_POST['perid']="";
+			if($_POST['ids']=="" || $_POST['perid']==""){
+				echo "error";
+				exit();
+			}
+			$perid=$_POST['perid'];
+			$ids=base64_decode($_POST['ids']);
+			loaddb("update bw_downtable set Permisson='$perid' where id in ($ids)");
+			echo "ok";
+			break;
 default:
   	  echo "no type";
 	  exit;

@@ -66,8 +66,8 @@ $flagx=0;
 		            <button type="button" class="btn btn-default" 
                data-dismiss="modal">关闭
             </button>
-             <?php if ($temp != "" and $flagx==0 ){echo "<button type='button' class='btn btn-danger' onclick='pinSomething();'>置顶</button>";} ?>
-			  <?php if ($temp != "" and $flagx==1 ){echo "<button type='button' class='btn btn-danger' onclick='unpinSomething();'>取消置顶</button>";} ?>
+             <?php if ($temp != "" and $flagx==0 ){echo "<button type='button' class='btn btn-primary' onclick='pinSomething();'>置顶</button>";} ?>
+			  <?php if ($temp != "" and $flagx==1 ){echo "<button type='button' class='btn btn-primary' onclick='unpinSomething();'>取消置顶</button>";} ?>
 			 <script>
 		 function pinSomething(){
 			 var delid=document.getElementById("loaddapp").value; 

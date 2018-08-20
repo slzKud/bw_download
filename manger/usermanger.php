@@ -39,11 +39,7 @@ function test_input($data) {
 <a onclick="selectid('interface/window/modifyuser.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 修改用户信息</button> </a>	 
 		<a onclick="selectid('interface/window/deluser.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> 删除用户</button></a>	 
 		<a onclick="selectid('interface/window/banuser.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Ban-circle"></span> 封禁/解封用户</button></a>	 
-		 <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" name="findstr" value='<?php echo $tiaojian;?>'>
-         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> 搜索</button>
-</form>
-</div>
+		
 </div>
 <br>
 	<table id="th"  class="table">

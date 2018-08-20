@@ -101,7 +101,7 @@ $nowpageid=4;
       </tr>
       <tr>
          <td>一键去重（慎点）</td>
-        <td><button type="button" class="btn btn-primary" onclick="ScanAndDelete();" >去重</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="ScanAndDelete();" >去重</button></td>
       </tr>
    </tbody>
 </table>

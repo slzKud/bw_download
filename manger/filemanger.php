@@ -31,34 +31,61 @@ function test_input($data) {
 <div class="col-md-10 text-left">
 
 	  <div class="panel-body">
-    <div class="container">
-      <h1>文件管理</small></h1>
+      <div class="container">
+      <div class="row">
+      		<div class='form-inline'> 
+      			<p><font size="8">文件管理</font>
+      			<select class="form-control form-inline" id="chkselectF" onchange="chksend();">
+        			<option value="fake">请选择筛选的类别</option>
+					<?php
+            		$sql="select chkid,chkname from bw_chkid where motherid='' order by chkname asc";
+            		//echo $sql;
+            		$rs=loaddb($sql);
+            		if (mysqli_num_rows($rs)> 0){
+                		while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
+                    	{
+			            echo "<option value = '".$row['chkid']."' >".$row['chkname']."</option>";
+                    	}
+                	}else{
+                    echo "<option>分类未找到</option>";
+                	}
+    				?>
+ 				</select>
+                </p>
+            </div>
+            </div>
 	  <hr>
       
 		<div class="container">
-	 <a onclick="selectid('interface/window/addfile.php');"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button></a>
-				<a onclick="selectid('interface/window/modifyfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改文件基本信息</button></a>
-                <a onclick="selectid('interface/window/modifylinks.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-link"></span> 修改文件链接信息</button></a>
-                <a onclick="selectid('interface/window/modifyChkA.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-retweet"></span> 批量修改文件类型</button></a>
-                    <a onclick="selectid('interface/window/pinfile.php');" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button></a>
-		<a onclick="selectid('interface/window/delfile.php');"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除文件</button></a>
-        <select class="form-inline" id="chkselect" onchange="chksend();">
-        <option value="fake">请选择筛选的类别</option>
-        <?php
-            $sql="select chkid,chkname from bw_chkid where motherid='' order by chkname asc";
-            //echo $sql;
-            $rs=loaddb($sql);
-            if (mysqli_num_rows($rs)> 0){
-                while($row = mysqli_fetch_array($rs, MYSQLI_ASSOC))
-                    {
-			            echo "<option value = '".$row['chkid']."' >".$row['chkname']."</option>";
-                    }
-                }else{
-                    echo "<option>分类未找到</option>";
-                }
-    ?>
-    </select>
+	
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="selectid('interface/window/addfile.php');"><span class="glyphicon glyphicon-Plus"></span> 添加文件</button>
+    <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-Pencil"></span> 修改文件信息
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a href="#" onclick="selectid('interface/window/modifyfile.php');" ><span class="glyphicon glyphicon-Pencil"></span> 修改文件基本信息</a></li>
+        <li><a href="#" onclick="selectid('interface/window/modifylinks.php');" ><span class="glyphicon glyphicon-link"></span> 修改文件链接信息</a></li>
+    </ul>
     </div>
+    <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-Pencil"></span> 批量修改文件信息
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a onclick="selectid('interface/window/modifyChkA.php');" href="#"><span class="glyphicon glyphicon-retweet"></span> 批量修改文件类型</a></li>
+        <li><a onclick="selectid('interface/window/modifyPerA.php');" href="#"><span class="glyphicon glyphicon-cog"></span> 批量修改文件权限</a></li>
+    </ul>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="selectid('interface/window/pinfile.php');" ><span class="glyphicon glyphicon-Pushpin"></span> 文件置顶</button>
+    <button type="button" class="btn btn-danger"onclick="selectid('interface/window/delfile.php');" ><span class="glyphicon glyphicon-Trash"></span> 删除文件</button>
+	
+</div>
+
+<br>
 <br>
  <table id="th"  class="table">
                         <thead>
@@ -215,7 +242,7 @@ function trim(str){ //删除左右两端的空格
 　　     return str.replace(/\s/g,'');
 　　 }
 function chksend(){
-    var chkid=$("#chkselect").val();
+    var chkid=$("#chkselectF").val();
     if(chkid!="fake"){
         //占位
     }else{
