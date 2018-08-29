@@ -67,12 +67,12 @@ if($showdate=="" or $showdate=="all"){
         echo ' <h3 class="panel-title" name="'.$d.'">'.$d.'</h3>';
         echo ' </div>';
         echo ' <div class="panel-body">  <div class="content"> <div class="text">';
-        $nd=loaddb("select filename from bw_downtable where adddate='$d'");
+        $nd=loaddb("select id,filename from bw_downtable where adddate='$d'");
         while($rowx = mysqli_fetch_array($nd, MYSQLI_ASSOC))
         {
             $flag=0;
-            $x=$rowx['filename'];
-            echo "$n.新增了文件: <a href='old-downlist.php?findstr=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";
+            $x=$rowx['id'];
+            echo "$n.新增了文件: <a href='links.php?mode=l&fileid=$x' target='_black'><b>".$rowx['filename']."</b></a><br>";
             $n=$n+1;
         }
         echo ' </div></div></div>';

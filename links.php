@@ -17,7 +17,7 @@ $rs=loaddb($sql);
 if (mysqli_num_rows($rs)> 0){
 	$row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
 }else{
-    GtE("没有相关资源可供下载。<br>这可能是因为：<br>1）你无权下载此资源<br>2）资源已经被删除 <br>3）其他不明原因<br>如想解决此问题，请与管理员反馈。");
+    GtE("没有相关资源可供你下载。<br>这可能是因为：<br>1）你无权下载此资源<br>2）资源已经被删除 <br>3）其他不明原因<br>如想解决此问题，请与管理员反馈。");
 }
 switch($_GET['mode']){
     case "r":

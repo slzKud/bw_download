@@ -38,7 +38,8 @@ function test_input($data) {
 	   
 		<div class="container">
 	 <a onclick="addchk();"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Plus"></span> 添加类型</button></a>
-				<a onclick="modchk();" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改类型名称</button></a>
+	<a onclick="modchk();" ><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-Pencil"></span> 修改类型名称</button></a>
+    <a onclick="alert('施工中...');" ><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-Trash"></span> 删除类型</button></a>
 </div>
 <br>
  <table id="th"  class="table">
