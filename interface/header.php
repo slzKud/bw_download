@@ -6,6 +6,7 @@ session_start();
  date_default_timezone_set("PRC");  
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/cookiesmaker.php'; 
 include_once $_SERVER['DOCUMENT_ROOT'].'/module/mysqlaction.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/module/ip.php';
 empty($_SESSION['permission'])&&$_SESSION['permission']=0;
 $SESSION=0;
 //echo $_SESSION['permission'];
@@ -128,9 +129,20 @@ right: 80px;
 			header("location:../mainteninfo.php");
 			exit;
 			}
-	   }
 			
+	   }
+		if(getthesettings("blocknotinchina")==="1"){
+			$ip_user=getIP();
+			$loc= getIPLocCode($ip_user);
+			//echo($loc);
+			if($loc!="CN" && $loc!="LOCAL"){
+				header("Maintenance: 2");
+				 header("location:../countryblock.php");
+				 exit;
+			}
+		}
 		
+		 
 		
 		
               

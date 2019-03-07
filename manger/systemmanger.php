@@ -38,6 +38,10 @@ $nowpageid=4;
          <td>维护模式（关闭网站）</td>
          <td><input id="switch-state" type="checkbox" name="testmode"  <?php if(getthesettings("optmode")==="1"){echo 'checked';} ?>></td>
       </tr>
+      <tr>
+         <td>关闭网站在非中国区的服务</td>
+         <td><input id="switch-state" type="checkbox" name="blocknotinchina"  <?php if(getthesettings("blocknotinchina")==="1"){echo 'checked';} ?>></td>
+      </tr>
 	  <tr>
          <td>关闭注册</td>
          <td><input id="switch-state" type="checkbox" name="closereg" <?php if(getthesettings("closereg")==="1"){echo 'checked';} ?>></td>
@@ -151,6 +155,15 @@ $nowpageid=4;
 	  var s=1
   }
    $.post('todo.php', {type: "opt",t:s});
+});
+$('input[name="blocknotinchina"]').on('switchChange.bootstrapSwitch', function(event, state) {
+  console.log(state); // true | false
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "blocknotinchina",t:s});
 });
 $('input[name="ftpon"]').on('switchChange.bootstrapSwitch', function(event, state) {
   console.log(state);

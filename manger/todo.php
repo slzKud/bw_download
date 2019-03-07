@@ -697,6 +697,14 @@ $content=str_replace("%date%",date('Y-m-d H:i:s'),$emailstr);
 	if($cx=="off"){$cx=0;}
 	savethesettings("optthetj",$cx);
 	 echo "ok";
+	 break;
+	 case "blocknotinchina":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("blocknotinchina",$cx);
+	 echo "ok";
+	 break;
 	 case "opt":
 	empty($_POST['t']) && $_POST['t']="";
 	$cx=test_input($_POST['t']);
