@@ -53,6 +53,7 @@ function test_input($data) {
 														<td class="sortable-column">权限</td>
 	
 														<td class="sortable-column">注册时间</td>
+                            <td class="sortable-column">上次登录时间及地域</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,6 +67,7 @@ function test_input($data) {
                             <td>30元公共区100G</td>
                             <td>30y100g.php</td>
 							 <td>30y100g.php</td>
+               <td>30y100g.php</td>
                         </tr>
                         <tr>
                             <td>
@@ -77,6 +79,7 @@ function test_input($data) {
                             <td>30元公共区100G</td>
                             <td>30y100g.php</td>
 							 <td>30y100g.php</td>
+               <td>30y100g.php</td>
                         </tr>
                         </tbody>
                     </table>
@@ -149,6 +152,7 @@ function test_input($data) {
                  },
                  "bSortable": false
              },
+             null,
              null,
              null,
 						 null

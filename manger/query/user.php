@@ -1,7 +1,7 @@
 <?php
 
  include_once dirname(dirname(dirname(__FILE__))).'/module/mysqlaction.php';
-
+ include_once dirname(dirname(dirname(__FILE__))).'/module/ip.php';
 //获取Datatables发送的参数 必要
 $draw = $_GET['draw'];//这个值作者会直接返回给前台
  
@@ -54,14 +54,14 @@ if(strlen($search)>0){
 }
  
 //query data
-$totalResultSql = "SELECT id,username,permission,regdate FROM bw_usertable ";
+$totalResultSql = "SELECT id,username,permission,regdate,lastlogindate,lastip FROM bw_usertable ";
 $infos = array();
 if(strlen($search)>0){
     //如果有搜索条件，按条件过滤找出记录
     $dataResult = loaddb($totalResultSql.$sumSqlWhere.$orderSql.$limitSql);
     //echo $totalResultSql.$sumSqlWhere.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult)) {
-           $obj = array($row['id'],$row['username'],showper($row['permission']),$row['regdate']);
+           $obj = array($row['id'],$row['username'],showper($row['permission']),$row['regdate'],$row['lastlogindate']." ".getIPLoc($row['lastip']));
         array_push($infos,$obj);
     }
 }else{
@@ -69,7 +69,7 @@ if(strlen($search)>0){
     $dataResult = loaddb($totalResultSql.$orderSql.$limitSql);
     //echo $totalResultSql.$orderSql.$limitSql;
     while ($row = mysqli_fetch_array($dataResult, MYSQLI_ASSOC)) {
-        $obj = array($row['id'],$row['username'],showper($row['permission']),$row['regdate']);
+        $obj = array($row['id'],$row['username'],showper($row['permission']),$row['regdate'],$row['lastlogindate']." ".getIPLoc($row['lastip']));
         array_push($infos,$obj);
     }
 }

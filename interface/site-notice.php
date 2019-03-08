@@ -12,7 +12,7 @@
 			</div>
 			<div class="modal-body">
 				因软件升级原因，新的用户名规范已经确认为：<br><br>
-				<p>1.用户名为3位以上，不能包括<b>特殊符号和空格</b>，如#等</p>
+				<p>1.用户名为3位以上并不超过8位，且不能包括<b>特殊符号和空格</b>，如#等</p>
 				对此，我们将启用临时修改用户名的通道：<a href='user/changeusername-temp.php'target="_blank">点我</a>.<br><br>请尽快更改用户名以符合规范,以免损失你的账户。
 				<br><br>BetaWorld 管理组 2019.3.10
 			</div>

@@ -117,6 +117,9 @@ if (empty($_GET["email"])) {
 		$LErr .= "密码和确认密码不等<br>";
 	}
    }
+   if(strlen($regpassword)<6){
+		$LErr .= "密码最小长度小于6位，不允许注册<br>";
+	  }
    if($LErr==""){
    //检测用户是否存在
     $rsuser=loaddb("SELECT id FROM bw_usertable where username='".$regusername."'");

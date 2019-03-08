@@ -75,7 +75,7 @@ function getIPLoc_ipslashapi($queryIP){
     //echo 'Curl error: ' . curl_error($ch);
     $location = json_decode($location); 
     curl_close($ch); 
-    $loc=$location->country.$location->regionName.$location->city." ".$location->isp;
+    $loc=$location->country.$location->regionName.$location->city;
     //echo($location->data->country_id);
     return $loc;
 

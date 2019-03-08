@@ -21,7 +21,7 @@ if (isset($_COOKIE["bwuser"])){
 <div class="container" >
 
 <br><br>
-<div class='alert alert-danger'>提示：有效期至2019.5.1，只允许用户名存在问题的人进行更改！<br><br>新用户名要求至少3位以上，不含有特殊字符和空格。</div>
+<div class='alert alert-danger'>提示：有效期至2019.5.1，只允许用户名存在问题的人进行更改！<br><br>新用户名要求至少用户名为3位以上并不超过8位，且不能包括特殊字符和空格。</div>
 <!--
 标题
 -->
@@ -77,6 +77,7 @@ if (isset($_COOKIE["bwuser"])){
         var user_length=user.length;
         var arr_length=arr.length;
         if (user.length<3){return false;}
+        if (user.length>8){return false;}
             for(var i=0;i<user_length;i++){
                 for(var j=0;j<arr_length;j++){
                 
