@@ -59,6 +59,8 @@ include dirname(__FILE__).'/interface/header.php';
       <script src="js/jquery.min.js"></script>
       <!-- 包括所有已编译的插件 -->
       <script src="js/bootstrap.min.js"></script>
+			
 </body>
 <?php include dirname(__FILE__).'/interface/footer.php';?>
+<?php include dirname(__FILE__).'/interface/site-notice.php';?>
 </html>

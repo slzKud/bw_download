@@ -104,6 +104,10 @@ $nowpageid=4;
          <td><input id="mySwitch" type="checkbox" name="opencard" <?php if(getthesettings("opencard")==="1"){echo 'checked';} ?> /></td>
       </tr>
       <tr>
+         <td>启用中文验证码</td>
+         <td><input id="switch-state" type="checkbox" name="opencncaptcha"  <?php if(getthesettings("opencncaptcha")==="1"){echo 'checked';} ?>></td>
+      </tr>
+      <tr>
          <td>一键去重（慎点）</td>
         <td><button type="button" class="btn btn-danger" onclick="ScanAndDelete();" >去重</button></td>
       </tr>
@@ -210,6 +214,15 @@ $('input[name="opentjcode"]').on('switchChange.bootstrapSwitch', function(event,
 	  var s=1
   }
    $.post('todo.php', {type: "optthetj",t:s});
+});
+$('input[name="opencncaptcha"]').on('switchChange.bootstrapSwitch', function(event, state) {
+	console.log(state);
+  if (state==false){
+	  var s="off"
+  }else{
+	  var s=1
+  }
+   $.post('todo.php', {type: "cncaptcha",t:s});
 });
 </script>
  <script>

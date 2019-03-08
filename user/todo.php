@@ -58,6 +58,46 @@ loaddb("UPDATE bw_usertable SET passmd5='$passmd5' where username='$username'");
                    exit;
         }
             break;
+            case "changeusername":
+            empty($_POST['useremail']) &&$_POST['useremail']="";
+            empty($_POST['newusername']) &&$_POST['newusername']="";
+            empty($_POST['yzm']) &&$_POST['yzm']="";   
+            if($_POST['useremail']==""){
+                echo "no useremail";
+                exit;
+            }
+            if($_POST['newusername']==""){
+                echo "no newusername";
+                exit;
+            }  
+            if($_POST['yzm']==""){
+                echo "no yzm";
+                exit;
+            } 
+            $pattern = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
+            if (!preg_match( $pattern, $_POST['useremail'])){
+                echo "invild email";
+                exit;
+            }
+            $yzm=base64_encode(iconv('utf-8','gbk',$_POST["yzm"]));
+            if($yzm==$_SESSION['authnum_session']){
+                echo "invild yzm";
+                exit;
+            }
+            $username=veifycookies($_COOKIE["bwuser"]);
+            $user_email=$_POST['useremail'];
+            $newusername=$_POST['newusername'];
+            $sql="select id from bw_usertable where username='$username' and email='$user_email'";
+            $rs=loaddb($sql);
+            if(mysqli_num_rows($rs) <=0){
+                echo "vac error";
+                exit;
+            }else{
+                loaddb("UPDATE bw_usertable SET username='$newusername' where email='$user_email'");
+                echo "ok";
+                exit;
+            }
+            break;
   default:
             echo "no type";
             exit;

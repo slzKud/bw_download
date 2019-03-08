@@ -712,6 +712,13 @@ $content=str_replace("%date%",date('Y-m-d H:i:s'),$emailstr);
 	savethesettings("optmode",$cx);
 	 echo "ok";
 	break;
+	case "cncaptcha":
+	empty($_POST['t']) && $_POST['t']="";
+	$cx=test_input($_POST['t']);
+	if($cx=="off"){$cx=0;}
+	savethesettings("cncaptcha",$cx);
+	 echo "ok";
+	break;
 	 case "modtjcode":
 	empty($_POST['code']) && $_POST['code']="";
 	$code=test_input($_POST['code']);

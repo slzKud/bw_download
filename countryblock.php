@@ -23,7 +23,8 @@ $time=unixtime_to_date($endtime);
 	  <hr>
 	  <br>
 
-<h3>BetaWorld资源区在此地区不提供任何服务。<br><br>The BetaWorld resource center is unavailable in this area.<br><br>Область ресурсов BetaWorld не предоставляет никаких услуг в этой области.</h3>
+<h3>BetaWorld资源区在此地区不提供任何服务。<br><br>The BetaWorld resource center is unavailable in this area.<br><br>Ресурсный центр BetaWorld недоступен в этой области.
+</h3>
 	  <br><br>
 	  
 <br>

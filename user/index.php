@@ -112,7 +112,7 @@ return ($r/$r1)*100;
                 </div>
                 <div class="panel-body">
                     <h4>
-                    	用户名：<?php echo $username; ?><br><br>
+                    	用户名：<?php echo $username; ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="changeusername-temp.php"><button type="button" class="btn btn-success btn-xs">更改用户名</button></a><br><br>
                         用户权限：<?php echo $userqx; ?>&nbsp;&nbsp;&nbsp;&nbsp;<a href="admituser.php"><button type="button" class="btn btn-success btn-xs">更改权限</button></a><br><br>
                         注册时间：<?php echo $regdate; ?><br><br>
                         登陆时间：<?php echo $lastlogindate; ?><br><br>

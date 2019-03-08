@@ -10,6 +10,7 @@ empty($orgusername) && $orgusername = '';
 
 if ($_GET["type"]=="logout") {
   setcookie("bwuser", "", time()-3600,"/");
+  setcookie("bwnotice", "", time()-3600,"/");
   if(empty($_GET["url"])) {
 		echo "<meta http-equiv='refresh' content='1;url=../index.php'> ";
 		exit;
@@ -51,7 +52,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
    if (empty($_POST["yzm"])) {
      $LErr .= "验证码是必填的<br>";
    } else {
-     $yzm = strtolower(test_input($_POST["yzm"]));
+      if(getthesettings("cncaptcha","0")=="1"){
+         $yzm=base64_encode(iconv('utf-8','gbk',$_POST["yzm"]));
+      }else{
+         $yzm = strtolower(test_input($_POST["yzm"]));
+      }
+     
    }
 	   if($_POST["autologin"]=="1"){
      $adday = 30;
@@ -65,6 +71,8 @@ $rs1=loaddb("SELECT username FROM bw_usertable where email='".$username."'");
 	if(mysqli_num_rows($rs1) >0){
     $row1=mysqli_fetch_array($rs1);
 		$username=$row1['username'];
+  }else{
+     $Lerr.="邮箱不存在<br>";
   }
   }
    $rs=loaddb("SELECT id FROM bw_usertable where username='".$username."' and passmd5='".md5($pass)."'");
@@ -179,7 +187,11 @@ if($LErr != ""){
 	 
 	  </div>
 	 <div class="col-sm-4">
-         <img  title="点击刷新" height="35px" src="../module/captcha.php" align="absbottom" onclick="this.src='../module/captcha.php?'+Math.random();"></img>
+         <?php 
+         if(getthesettings("cncaptcha","0")=="0"){$url="../module/captcha.php";}
+         if(getthesettings("cncaptcha","0")=="1"){$url="../module/captcha.cn.php";}
+         ?>
+         <img  title="点击刷新" height="35px" src="<?php echo($url);?>"align="absbottom" onclick="this.src='<?php echo($url);?>?'+Math.random();"></img>
       </div>
    </div>
   
