@@ -1010,6 +1010,50 @@ loaddb("delete from bw_ftp");
 	loaddb($sql1);
 	echo "ok";
 	break;
+	case "delchk":
+	empty($_POST['chkid']) && $_POST['chkid']="";
+	empty($_POST['flag']) && $_POST['flag']="";
+	empty($_POST['newchkid']) && $_POST['newchkid']="";
+	if($_POST['chkid']==""){
+		echo "chkid invild"; 
+		exit;
+	}
+	if($_POST['flag']==""){
+		echo "flag invild"; 
+		exit;
+	}
+	$chkid=test_input($_POST['chkid']);
+	$rschk=loaddb("SELECT chkid FROM bw_chkid where chkid='$chkid'");
+	if(mysqli_num_rows($rschk) ==0){
+		echo "empty old-chk";
+		exit();
+	}
+	switch($_POST['flag']){
+		case "1":
+		if($_POST['newchkid']==""){
+			echo "newchkid invild"; 
+			exit;
+		}
+		$newchkid=test_input($_POST['newchkid']);
+		$rschk=loaddb("SELECT chkid FROM bw_chkid where chkid='$chkid'");
+		if(mysqli_num_rows($rschk) ==0){
+			echo "empty new-chk";
+			exit();
+		}
+		loaddb("update bw_downtable set chkid='$newchkid' where chkid='$chkid'");
+		break;
+		case "2":
+		loaddb("delete from bw_downtable where chkid='$chkid'");
+		break;
+		default:
+		if($_POST['flag']==""){
+			echo "flag invild"; 
+			exit;
+		}
+	}
+	loaddb("delete from bw_chkid where chkid='$chkid'");
+	echo "ok";
+	break;
 	case "modchk":
 	empty($_POST['chkname']) && $_POST['chkname']="";
 	empty($_POST['chkid']) && $_POST['chkid']="";

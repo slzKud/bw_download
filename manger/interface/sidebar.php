@@ -17,7 +17,7 @@
 		 }
 	?>
 	 <li <?php if ($nowpageid==5){echo "class='active'";}?>><a href="report.php"><span class="glyphicon glyphicon-list-alt" ></span> 报表查询</a></li>
-     <li <?php if ($nowpageid==4){echo "class='active'";}?>><a href="systemmanger.php"><span class="glyphicon glyphicon-wrench" ></span>系统基本设置</a></li>
+     <li <?php if ($nowpageid==4){echo "class='active'";}?>><a href="systemmanger.php"><span class="glyphicon glyphicon-wrench" ></span> 系统基本设置</a></li>
 	 <li><a href="../"><span class="glyphicon glyphicon-chevron-left"></span> 返回资源区</a></li>
 </ul>
 </div>

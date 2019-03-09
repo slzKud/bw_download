@@ -122,6 +122,9 @@ if (empty($_GET["email"])) {
 	  }
    if($LErr==""){
    //检测用户是否存在
+    if(!checkusername($regusername)){
+      $LErr .= "用户名不符合规范<br>";
+    }
     $rsuser=loaddb("SELECT id FROM bw_usertable where username='".$regusername."'");
 	if(mysqli_num_rows($rsuser) >0){
 		$LErr .= "用户已存在<br>";
@@ -174,6 +177,11 @@ function test_input($data) {
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
+}
+function checkusername($username){
+  if (strlen($username)<3 || strlen($username)>10){return(false);}
+  if (preg_match('/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\（|\）|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\||\s+/',$username)){return(false);}
+  return(true);
 }
 ?>
 <html>
