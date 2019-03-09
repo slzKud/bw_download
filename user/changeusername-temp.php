@@ -62,7 +62,7 @@ if (isset($_COOKIE["bwuser"])){
    </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button onclick="checkandsend();" class="btn btn-default">登录</button>
+      <button onclick="checkandsend();" class="btn btn-default">更改</button>
     </div>
   </div>
   </div>
