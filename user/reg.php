@@ -128,6 +128,10 @@ if (empty($_GET["email"])) {
     $rsuser=loaddb("SELECT id FROM bw_usertable where username='".$regusername."'");
 	if(mysqli_num_rows($rsuser) >0){
 		$LErr .= "用户已存在<br>";
+  }
+  $rsuser=loaddb("SELECT id FROM bw_usertable where email='".$email."'");
+	if(mysqli_num_rows($rsuser) >0){
+		$LErr .= "注册所用邮箱已存在<br>";
 	}
 	if($LErr==""){
 		//开始注册
