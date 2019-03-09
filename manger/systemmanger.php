@@ -105,7 +105,7 @@ $nowpageid=4;
       </tr>
       <tr>
          <td>启用中文验证码</td>
-         <td><input id="switch-state" type="checkbox" name="opencncaptcha"  <?php if(getthesettings("opencncaptcha")==="1"){echo 'checked';} ?>></td>
+         <td><input id="switch-state" type="checkbox" name="opencncaptcha"  <?php if(getthesettings("cncaptcha")==="1"){echo 'checked';} ?>></td>
       </tr>
       <tr>
          <td>一键去重（慎点）</td>
