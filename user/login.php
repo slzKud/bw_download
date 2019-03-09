@@ -24,7 +24,7 @@ if ($_GET["type"]=="logout") {
      if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
        $LErr="你已经登录用户".veifycookies($_COOKIE["bwuser"]).".5秒后返回首页。";
        include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
-       echo " <div class='container'' ><br><h2>Opps</h2> 
+       echo " <div class='container'' ><br><h2>Oops</h2> 
 	  <hr><div class='alert alert-danger'>".$LErr."</div></div>";
     echo "<meta http-equiv='refresh' content='5;url=../index.php'> ";
       include dirname(dirname(__FILE__)).'/interface/footer.php';

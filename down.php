@@ -3,6 +3,7 @@
 session_start();
 include dirname(__FILE__).'/module/mysqlaction.php';
 include dirname(__FILE__).'/module/cookiesmaker.php';
+include dirname(__FILE__).'/module/downcount.php';
 include dirname(__FILE__).'/interface/header-nomenu.php';
 empty($id)&&$id="";
 empty($LErr)&&$LErr="";
@@ -46,8 +47,23 @@ if ($LErr==""){
 		   $downuser="dangeruser";
 	   }
 	   }else{
-		   	 $downuser="anymouns";
-	} 
+		   	 $downuser="Anonymous";
+  }
+  if( $downuser!="Anonymous" &&  $downuser!="dangeruser"){
+    $username=veifycookies($_COOKIE["bwuser"]);
+    $uc=getusercount($_SESSION['permission']);
+    $userdowncount=calcdowncountbyuser($username,getnowdate());
+    if($userdowncount>=$uc){
+      $LErr .= "你今日下载次数已超限（当前下载次数:$userdowncount  次,日配额：$uc 次/日），请第二天再试。<br>";
+    }
+  }else{
+    $ip=getIP();
+    $uc=getusercount(0);
+    $userdowncount=calcdowncountbyip($ip,getnowdate());
+    if($userdowncount>=$uc){
+      $LErr .= "你今日下载次数已超限（当前下载次数:$userdowncount  次,日配额：$uc 次/日），请第二天再试。<br>";
+    }
+  }
 	$ip=getIP();
 	$downdate=date('Y-m-d H:i:s');
 $sqlhistory="INSERT INTO bw_downloadhistory (fileid, downuser,ip,downtime) VALUES ($id,'$downuser','$ip','$downdate')";

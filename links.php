@@ -2,6 +2,8 @@
 session_start();
 include dirname(__FILE__).'/module/mysqlaction.php';
 include dirname(__FILE__).'/module/cookiesmaker.php';
+include dirname(__FILE__).'/module/downcount.php';
+include dirname(__FILE__).'/module/ip.php';
 include dirname(__FILE__).'/interface/header-nomenu.php';
 $Lerr="";
 empty($_GET['fileid'])&& $_GET['fileid']="";
@@ -10,6 +12,25 @@ empty($_GET['mode'])  && $_GET['mode']="l";
 //print_r($_GET);
 if($_GET['fileid']==""){
     GtE("参数不完全或非法");
+}
+if($_SESSION['permission']>0){
+$username=veifycookies($_COOKIE["bwuser"]);
+if($username=="incorrect!"){
+    GtE("用户鉴权失败");
+}else{
+    $uc=getusercount($_SESSION['permission']);
+    $userdowncount=calcdowncountbyuser($username,getnowdate());
+    if($userdowncount>=$uc){
+        GtE("你今日下载次数已超限（当前下载次数:$userdowncount 次,日配额：$uc 次/日），请第二天再试。");
+    }
+}
+}else{
+    $ip=get_IP();
+    $uc=getusercount($_SESSION['permission']);
+    $userdowncount=calcdowncountbyip($ip,getnowdate());
+    if($userdowncount>=$uc){
+        GtE("你今日下载次数已超限（当前下载次数:$userdowncount  次,日配额：$uc 次/日），请第二天再试。");
+    }
 }
 $sql="select FileName from bw_downtable where id=".$_GET['fileid']."  and permisson<=".$_SESSION['permission'];
 //echo $sql;
@@ -43,7 +64,7 @@ switch($_GET['mode']){
 }
 function GtE($Lerr){
     if($Lerr!=""){
-        echo "  <div class='container'><h2>Opps...</h2> 
+        echo "  <div class='container'><h2>Oops...</h2> 
         <hr>
         <h3>发生了一点小错误</h3>
         <br>";
