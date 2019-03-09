@@ -179,7 +179,8 @@ function test_input($data) {
   return $data;
 }
 function checkusername($username){
-  if (strlen($username)<3 || strlen($username)>10){return(false);}
+  if (strlen($username)<3 || strlen($username)>8){return(false);}
+  if(strpos($username,' ')!=FALSE){return(false);}
   if (preg_match('/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\（|\）|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\||\s+/',$username)){return(false);}
   return(true);
 }

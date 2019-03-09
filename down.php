@@ -61,7 +61,7 @@ if ($LErr==""){
     $uc=getusercount(0);
     $userdowncount=calcdowncountbyip($ip,getnowdate());
     if($userdowncount>=$uc){
-      $LErr .= "你今日下载次数已超限（当前下载次数:$userdowncount  次,日配额：$uc 次/日），请第二天再试。<br>";
+      $LErr .= "你今日下载次数已超限（当前下载次数:$userdowncount 次,日配额：$uc 次/日），请第二天再试。<br>";
     }
   }
 	$ip=getIP();

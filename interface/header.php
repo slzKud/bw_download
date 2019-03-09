@@ -71,7 +71,8 @@ right: 80px;
 	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
       echo "<a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-user'></span> ".veifycookies($_COOKIE["bwuser"])."<b class='caret'></b></a>.
 	   <ul class='dropdown-menu'>       
-	   <li><a href='/user/index.php' class='navbar-link'><span class='glyphicon glyphicon-tag'></span> 个人中心</a></li>
+		 <li><a href='/user/index.php' class='navbar-link'><span class='glyphicon glyphicon-tag'></span> 个人中心</a></li>
+		 <li><a href='/user/downloadhistory.php' class='navbar-link'><span class='glyphicon glyphicon-time'></span> 近七天的下载历史</a></li>
 		 <li><a href='/feedback.php' class='navbar-link'><span class='glyphicon glyphicon-Comment'></span> 反馈</a></li>";
 		 if($_SESSION['permission']==4){echo "<li><a href='/manger/index.php' class='navbar-link'><span class='glyphicon glyphicon-cog'></span> 管理站</a></li>";}
 		 echo "<li><a href='/user/login.php?type=logout' class='navbar-link'><span class='glyphicon glyphicon-log-out'></span> 退出</a></li>

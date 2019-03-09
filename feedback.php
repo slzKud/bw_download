@@ -1,3 +1,24 @@
+<?php
+//include dirname(__FILE__).'/interface/header-user.php';
+include_once dirname(__FILE__).'/module/mysqlaction.php';
+include_once dirname(__FILE__).'/module/cookiesmaker.php'; 
+session_start();
+if (isset($_COOKIE["bwuser"])){
+    //鉴别用户代码
+    if ($_SESSION['permission']==0){
+    $con=loaddb("select permission from bw_usertable where username='".veifycookies($_COOKIE["bwuser"])."'");
+    $row=mysqli_fetch_array($con);
+   $_SESSION['permission']=$row['permission'];
+    }
+    if(veifycookies($_COOKIE["bwuser"])=="incorrect！"){
+         echo "<meta http-equiv='refresh' content='1;url=../index.php'> ";
+         exit;
+     }
+    }else{
+        echo "<meta http-equiv='refresh' content='1;url=../index.php'> ";
+          exit; 
+    }
+?>
 <?php header("Pragma: no-cache"); ?>
 <?php 
 include_once dirname(__FILE__).'/module/mysqlaction.php';

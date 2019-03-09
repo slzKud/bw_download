@@ -6,6 +6,7 @@ if($_GET['chkid']==""){
 }
 if($_GET['chkid']=="clean"){
     $_SESSION['chkid']="";
+    $_SESSION['h_flag']="";
 }else{
     $_SESSION['chkid']=$_GET['chkid'];
 }
