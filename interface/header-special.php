@@ -1,38 +1,7 @@
 <?php
 header('P3P: CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"');
 include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
-include_once  dirname(dirname(__FILE__)).'/module/ip.php';
-if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否维护状态，如果是；页面跳转
-		   file_exists("maintenance") || file_exists("maintenance.txt") || getthesettings("optmode")==="1"
-		)
-	   {
-			if($_SESSION['permission']<4){
-				header("Maintenance: 1");
-			header("location:../mainteninfo.php");
-			exit;
-			}
-			
-	   }
-	   error_reporting(E_ALL & ~E_NOTICE);
-		if(getthesettings("blocknotinchina")==="1" && $loginflag==0){
-			$ip_user=get_IP();
-			$loc= getIPLocCode($ip_user);
-			if (isset($_COOKIE["bwuser"])){$usern=veifycookies($_COOKIE["bwuser"]);}else{$usern="incorrect!";}
-			//echo($loc);
-			if($loc!="CN" && $loc!="LOCAL"){
-				if(!Get_Userexpect($usern)){
-					header("Maintenance: 2");
-					header("location:../countryblock.php");
-					exit;
-				}
-			}else{
-				if(Get_IPBanList($ip_user)){
-					header("Maintenance: 2");
-					header("location:../countryblock.php");
-					exit;
-				}
-			}
-		}
+include_once  dirname(dirname(__FILE__)).'/module/cookiesmaker.php';
 ?>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -57,7 +26,7 @@ if(file_exists("Maintenance") || file_exists("Maintenance.txt") ||//判断是否
  #user-info {
 position: absolute;
 top:0px;
-right: 72px;
+right: 65px;
 } }
 
 </style>
@@ -74,8 +43,19 @@ right: 72px;
                 </button>
                 <a class="navbar-brand" href="/">BetaWorld资源区</a>
 				</div>
-				 <div id="user-info">
-   </div>  
+                 <?php
+                 if (isset($_COOKIE["bwuser"])){
+	  //鉴别用户代码
+	  if(veifycookies($_COOKIE["bwuser"])!="incorrect！"){
+	
+      echo "<div id='user-info'><p class='navbar-text navbar-right'>你好, <a href='/user/index.php' class='navbar-link'>".veifycookies($_COOKIE["bwuser"])."</a>.<a href='/user/login.php?type=logout' class='navbar-link'>点此退出</a>.</p></div>";
+       }
+	   }else{
+		    echo "<p class='navbar-text navbar-right' id='user-info'><a href='/user/login.php' class='navbar-link'>登入</a></p>";
+			} 
+         
+       ?>
+
 	 <div class="collapse navbar-collapse" id="example-navbar-collapse">
       <ul class="nav navbar-nav">
 	  <!--
@@ -90,3 +70,4 @@ right: 72px;
        </div>
     </div>
    </nav>
+   </div>

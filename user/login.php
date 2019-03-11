@@ -127,6 +127,7 @@ return $ip;
 <html>
 <?php 
 //引入网页内容
+$loginflag=1;
 include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
 ?>
 <body>

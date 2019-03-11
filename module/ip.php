@@ -1,11 +1,16 @@
 <?php
 include_once  dirname(dirname(__FILE__)).'/module/mysqlaction.php';
+include_once  dirname(dirname(__FILE__)).'/module/ipip.class.php';
 function getIPLoc($queryIP){ 
 $sql="select loc from bw_ip where ip='$queryIP'";
 $rs=loaddb($sql);
 if (mysqli_num_rows($rs)>0){
-	  $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
-	  return $row['loc'];
+      $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
+      if($row['loc']!=""){
+        return $row['loc'];
+      }else{
+        return getIPLoc_ipip($queryIP);
+      }
   }else{
 	  $loc=getIPLoc_ipslashapi($queryIP);
 	  $sql1="INSERT INTO bw_ip (ip,loc) VALUES( '$queryIP', '$loc')";
@@ -19,7 +24,11 @@ function getIPLocCode($queryIP){
     $rs=loaddb($sql);
     if (mysqli_num_rows($rs)>0){
           $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
-          return $row['loc'];
+          if($row['loc']!=""){
+            return $row['loc'];
+          }else{
+            return getIPLocCode_ipip($queryIP);
+          }
       }else{
           $loc= getIPLocCode_ipslashapi($queryIP);
           $sql1="INSERT INTO bw_ip (ip,loc) VALUES( '".$queryIP."_1', '$loc')";
@@ -112,4 +121,29 @@ function get_IP(){
     else $ip = "Unknown";
     return $ip;
     }
+function Get_UserLang(){
+    return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+}
+
+function Get_Userexpect($username){
+    $sql="select * from bw_ipexpect where username='".$username."'";
+    $rs=loaddb($sql);
+    if (mysqli_num_rows($rs)>0){return(true);}
+    return(false);
+}
+
+function Set_Userexpect($username){
+    //TODO
+}
+
+function Get_IPBanList($queryIP){
+    $sql="select * from bw_ipblacklist where ip='".$queryIP."'";
+    $rs=loaddb($sql);
+    if (mysqli_num_rows($rs)>0){return(true);}
+    return(false);
+}
+
+function Set_IPBanList($queryIP,$username){
+    //TODO
+}
 ?>

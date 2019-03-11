@@ -8,7 +8,7 @@ function unixtime_to_date($unixtime, $timezone = 'PRC') {
     $datetime->setTimezone(new DateTimeZone($timezone));
     return $datetime->format("Y-m-d H:i:s");
 }
-include dirname(__FILE__).'/interface/header-nomenu.php';
+include dirname(__FILE__).'/interface/header-special.php';
 $endtime=time()+100000;
 $time=unixtime_to_date($endtime);
 ?>

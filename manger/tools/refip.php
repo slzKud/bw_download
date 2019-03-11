@@ -6,7 +6,7 @@ function go_class($class)
 {
     if (strpos($class, 'ipip\db') !== FALSE)
     {
-        require_once __DIR__ . '/src/' . implode(DIRECTORY_SEPARATOR, explode('\\', $class)) . '.php';
+        require_once dirname(dirname(dirname(__FILE__))) . '/module/' . implode(DIRECTORY_SEPARATOR, explode('\\', $class)) . '.php';
     }
 }
 echo("IP所属地域快速生成\r\n感谢ipip.net的免费数据库\r\n删除记录中....\r\n");
@@ -32,14 +32,14 @@ function getIPLoc($queryIP){
     return "The A or B";
     } 
     if($queryIP==""){return "未知";}
-        $city = new ipip\db\City(dirname(dirname(dirname(__FILE__))).'/manger/tools/ipipfree.ipdb');
+        $city = new ipip\db\City(dirname(dirname(dirname(__FILE__))).'/module/ipip/db/ipipfree.ipdb');
         $sql="select loc from bw_ip where ip='$queryIP'";
         $rs=loaddb($sql);
         if (mysqli_num_rows($rs)>0){
               $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
               return $row['loc'];
           }else{
-              $loc=$city->find($queryIP, 'CN');
+              $loc=$city->find($queryIP,'CN');
               $loc1=$loc[1].$loc[2];
               $sql1="INSERT INTO bw_ip (ip,loc) VALUES( '$queryIP', '$loc1')";
               loaddb($sql1);

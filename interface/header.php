@@ -135,11 +135,20 @@ right: 80px;
 		if(getthesettings("blocknotinchina")==="1"){
 			$ip_user=getIP();
 			$loc= getIPLocCode($ip_user);
+			if (isset($_COOKIE["bwuser"])){$usern=veifycookies($_COOKIE["bwuser"]);}else{$usern="incorrect!";}
 			//echo($loc);
 			if($loc!="CN" && $loc!="LOCAL"){
-				header("Maintenance: 2");
-				 header("location:../countryblock.php");
-				 exit;
+				if(!Get_Userexpect($usern)){
+					header("Maintenance: 2");
+					header("location:../countryblock.php");
+					exit;
+				}
+			}else{
+				if(Get_IPBanList($ip_user)){
+					header("Maintenance: 2");
+					header("location:../countryblock.php");
+					exit;
+				}
 			}
 		}
 		

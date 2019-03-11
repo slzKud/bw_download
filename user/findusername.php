@@ -1,6 +1,7 @@
 <html>
 <?php 
 //引入网页内容
+$loginflag=1;
 include dirname(dirname(__FILE__)).'/interface/header-nomenu.php';
 include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 include_once dirname(dirname(__FILE__)).'/module/sendmail.api.php';

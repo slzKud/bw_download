@@ -1,6 +1,8 @@
 <?php
+$loginflag=1;
 include_once dirname(dirname(__FILE__)).'/module/mysqlaction.php';
 include_once dirname(dirname(__FILE__)).'/module/sendmail.api.php';
+include_once dirname(dirname(__FILE__)).'/module/ip.php';
 session_start();
 //session_destroy();
 empty($_GET['step']) && $_GET['step'] = '1';
@@ -12,6 +14,20 @@ $nowstep=$_GET['step'];
 if(getthesettings("closereg")==="1"){
 	$LErr="注册已经关闭。过几天再来吧。";
 	$nowstep=100;
+}
+if(getthesettings("blocknotinchina")==="1"){
+  $ip_user=get_IP();
+	$loc= getIPLocCode($ip_user);
+  if($loc!='CN' && $loc!='LOCAL'){
+    $LErr="注册已经关闭。过几天再来吧。";
+    $nowstep=100;
+  }else{
+    if(Get_UserLang()!='zh'){
+      $LErr="注册已经关闭。过几天再来吧。";
+      $nowstep=100;
+    }
+  }
+
 }
 	//表单处理
 	switch ($nowstep)
