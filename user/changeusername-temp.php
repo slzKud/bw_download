@@ -77,7 +77,7 @@ if (isset($_COOKIE["bwuser"])){
         var user_length=user.length;
         var arr_length=arr.length;
         if (user.length<3){return false;}
-        if (user.length>8){return false;}
+        if (user.length>12){return false;}
             for(var i=0;i<user_length;i++){
                 for(var j=0;j<arr_length;j++){
                 
